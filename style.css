@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
 html {
 box-sizing: border-box ;
---parent-height : 20em ;
+/*--parent-height : 20em ;*/
 --duration: 1s ;
 --duration-text-wrap: 12s 1.5s cubic-bezier(0.82, 0.82, 1, 1.01) ;
 --cubic-header: var(--duration) cubic-bezier(0.71, 0.21, 0.3, 0.95) ;
@@ -47,7 +47,7 @@ justify-content: space-between ;
 text-transform: uppercase ;
 }
 .player {
-width: 17.15em ;
+width: 45em ;
 display: flex ;
 overflow: hidden ;
 font-size: 1.22em ;

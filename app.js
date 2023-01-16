@@ -1,6 +1,6 @@
 "use strict";
 // add elemnts
-const bgBody = ["#192838", "#f9d300", "#f9d300", "#1b1e1e", "#1b1e1e", "#1b1e1e", "#1b1e1e"];
+const bgBody = ["#f9d300", "#f9d300", "#1b1e1e", "#1b1e1e", "#1b1e1e", "#1b1e1e"];
 const body = document.body;
 const player = document.querySelector(".player");
 const playerHeader = player.querySelector(".player__header");

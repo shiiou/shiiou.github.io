@@ -1,5 +1,3 @@
-// Designed by: Mauricio Bucardo
-// Original image: https://dribbble.com/shots/6957353-Music-Player-Widget
 "use strict";
 // add elemnts
 const bgBody = ["#192838", "#f9d300", "#f9d300", "#1b1e1e", "#1b1e1e", "#1b1e1e", "#1b1e1e"];

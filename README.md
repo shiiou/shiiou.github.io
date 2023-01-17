@@ -4,3 +4,5 @@
     <img src="img/Exemple site.png" alt="Zikshiiou" width="100%">
   </a>
 </div>
+
+  <footer align="center">Create by LittleShiiou - 2022</footer>

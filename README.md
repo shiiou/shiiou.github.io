@@ -5,4 +5,4 @@
   </a>
 </div>
 
-  <footer align="center">Create by LittleShiiou - 2023</footer>
+  <footer align="center">Create by <a href="https://github.com/littleshiiou">LittleShiiou</a> - 2023</footer>

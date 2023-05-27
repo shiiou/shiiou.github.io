@@ -5,4 +5,4 @@
   </a>
 </div>
 
-  <footer align="center">Create by <a href="https://github.com/shaynaru">Shaynaru</a> - 2023</footer>
+  <footer align="center">Create by <a href="https://github.com/shiiou">Shiiou</a> - 2023</footer>

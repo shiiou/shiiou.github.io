@@ -1,32 +1,3 @@
-/******************************************************************
-  Template Name: Dreams
-  Description: Dreams wedding template
-  Author: Colorib
-  Author URI: https://colorlib.com/
-  Version: 1.0
-  Created: Colorib
-******************************************************************/
-/*------------------------------------------------------------------
-[Table of contents]
-
-1.  Template default CSS
-	1.1	Variables
-	1.2	Mixins
-	1.3	Flexbox
-	1.4	Reset
-2.  Helper Css
-3.  Header Section
-4.  Hero Section
-5.  Services Section
-6.  Counter Section
-7.  Team Section
-8.  Latest Section
-9.  Contact
-10.  Footer Style
--------------------------------------------------------------------*/
-/*----------------------------------------*/
-/* Template default CSS
-/*----------------------------------------*/
 html,
 body {
   height: 100%;

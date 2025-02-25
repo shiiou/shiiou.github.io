@@ -15,6 +15,18 @@ $downloadUrl = "https://drive.google.com/uc?export=download&id=186sHyZiJyXW0Ox89
 $destinationZip = "$env:TEMP\$packZip"
 Invoke-WebRequest -Uri $downloadUrl -OutFile $destinationZip
 
+# Recherche du pack téléchargé dans tous les dossiers
+Write-Host "Recherche du fichier $packZip..." -ForegroundColor Cyan
+$foundZip = Get-ChildItem -Path C:\,D:\,E:\ -Recurse -Filter "$packZip" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
+
+if ($foundZip) {
+    Write-Host "Pack trouvé: $foundZip" -ForegroundColor Green
+    $destinationZip = $foundZip
+} else {
+    Write-Host "Impossible de localiser $packZip. Vérifiez son emplacement." -ForegroundColor Red
+    exit
+}
+
 # Vérification et création du dossier d'extraction
 $extractPath = "$PSScriptRoot"
 if (!(Test-Path -Path $extractPath)) {

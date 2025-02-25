@@ -1,7 +1,8 @@
 # Definition des chemins d'installation
 $downloadPath = "$env:USERPROFILE\Downloads"
 $packZip = "SHIIOU V2.zip"
-$extractPath = "$downloadPath\SHIIOU V2"
+$extractPath = "$downloadPath\SHIIOU_V2_Extracted"
+$fivemPath = "$env:LOCALAPPDATA\FiveM\FiveM.app"
 
 # Fonction pour afficher un message en couleur avec une bordure
 function Write-BoxedMessage {
@@ -51,11 +52,9 @@ if (!(Test-Path -Path $extractPath)) {
 Expand-Archive -Path $destinationZip -DestinationPath $extractPath -Force
 Write-ColorMessage "Fichier ZIP extrait dans : $extractPath" -Color Green
 
-# Recherche du dossier FiveM.app sur tous les disques
-Write-BoxedMessage "Recherche du dossier FiveM.app" -Color Cyan
-$fivemPath = Get-ChildItem -Path C:\,D:\,E:\ -Recurse -Directory -Filter "FiveM.app" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
-
-if ($fivemPath) {
+# Verification du dossier FiveM.app
+Write-BoxedMessage "Verification du dossier FiveM.app" -Color Cyan
+if (Test-Path -Path $fivemPath) {
     Write-ColorMessage "Dossier FiveM.app trouve : $fivemPath" -Color Green
 } else {
     Write-ColorMessage "Impossible de localiser le dossier 'FiveM.app'. Verifiez votre installation." -Color Red
@@ -66,7 +65,7 @@ if ($fivemPath) {
 Write-BoxedMessage "Installation des fichiers FiveM" -Color Cyan
 $foldersToCopy = @("citizen", "mods", "plugins")
 foreach ($folder in $foldersToCopy) {
-    $source = "$extractPath\$folder"
+    $source = "$extractPath\SHIIOU V2\SHIIOU V2\$folder"
     $destination = "$fivemPath\$folder"
     if (Test-Path -Path $source) {
         Remove-Item -Path $destination -Recurse -Force -ErrorAction SilentlyContinue
@@ -77,12 +76,23 @@ foreach ($folder in $foldersToCopy) {
     }
 }
 
+# Recherche du dossier "Grand Theft Auto V" dans le pack SHIIOU V2
+Write-BoxedMessage "Recherche du dossier Grand Theft Auto V dans le pack" -Color Cyan
+$gta5Source = "$extractPath\SHIIOU V2\SHIIOU V2\Grand Theft Auto V"
+
+if (Test-Path -Path $gta5Source) {
+    Write-ColorMessage "Dossier Grand Theft Auto V trouve dans le pack : $gta5Source" -Color Green
+} else {
+    Write-ColorMessage "Impossible de localiser le dossier 'Grand Theft Auto V' dans le pack SHIIOU V2." -Color Red
+    exit
+}
+
 # Recherche du dossier "Grand Theft Auto V" sur tous les disques
-Write-BoxedMessage "Recherche du dossier Grand Theft Auto V" -Color Cyan
+Write-BoxedMessage "Recherche du dossier Grand Theft Auto V sur l'ordinateur" -Color Cyan
 $gta5Path = Get-ChildItem -Path C:\,D:\,E:\ -Recurse -Directory -Filter "Grand Theft Auto V" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
 
 if ($gta5Path) {
-    Write-ColorMessage "Dossier Grand Theft Auto V trouve : $gta5Path" -Color Green
+    Write-ColorMessage "Dossier Grand Theft Auto V trouve sur l'ordinateur : $gta5Path" -Color Green
 } else {
     Write-ColorMessage "Impossible de localiser le dossier 'Grand Theft Auto V'. Verifiez son emplacement." -Color Red
     exit
@@ -90,14 +100,9 @@ if ($gta5Path) {
 
 # Copie des fichiers du pack graphique vers le dossier GTA V
 Write-BoxedMessage "Installation des fichiers graphiques dans GTA V" -Color Cyan
-if (Test-Path -Path "$extractPath\Grand Theft Auto V") {
-    $gta5Source = "$extractPath\Grand Theft Auto V"
-    Remove-Item -Path "$gta5Path\*" -Recurse -Force -ErrorAction SilentlyContinue
-    Copy-Item -Path "$gta5Source\*" -Destination "$gta5Path" -Recurse -Force
-    Write-ColorMessage "Fichiers graphiques installes et remplaces avec succes dans GTA V !" -Color Green
-} else {
-    Write-ColorMessage "Le dossier 'Grand Theft Auto V' est introuvable dans le pack SHIIOU V2." -Color Red
-}
+Remove-Item -Path "$gta5Path\*" -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item -Path "$gta5Source\*" -Destination "$gta5Path" -Recurse -Force
+Write-ColorMessage "Fichiers graphiques installes et remplaces avec succes dans GTA V !" -Color Green
 
 # Message de fin
 Write-BoxedMessage "Installation terminee" -Color Green

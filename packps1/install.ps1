@@ -15,6 +15,10 @@ $downloadUrl = "https://drive.google.com/uc?export=download&id=186sHyZiJyXW0Ox89
 $destinationZip = "$env:TEMP\$packZip"
 Invoke-WebRequest -Uri $downloadUrl -OutFile $destinationZip
 
+# Pause pour permettre à l'utilisateur de continuer
+Write-Host "Le téléchargement est terminé. Appuyez sur une touche pour continuer l'installation..." -ForegroundColor Yellow
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
 # Recherche du pack téléchargé dans tous les dossiers
 Write-Host "Recherche du fichier $packZip..." -ForegroundColor Cyan
 $foundZip = Get-ChildItem -Path C:\,D:\,E:\ -Recurse -Filter "$packZip" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName

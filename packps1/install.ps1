@@ -1,7 +1,7 @@
 # Définition des chemins d'installation
 $fivemPath = "$env:LOCALAPPDATA\FiveM\FiveM.app"
 $gtaFilesSource = "$PSScriptRoot\Grand Theft Auto V"
-$packZip = "shiiouv2.zip"
+$packZip = "SHIIOU V2.zip"
 
 # Vérification et création du répertoire FiveM si nécessaire
 if (!(Test-Path -Path $fivemPath)) {

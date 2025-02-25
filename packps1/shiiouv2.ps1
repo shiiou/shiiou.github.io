@@ -1,4 +1,4 @@
-# Definition des chemins d'installation
+# Définition des chemins d'installation
 $downloadPath = "$env:USERPROFILE\Downloads"
 $packZip = "SHIIOU V2.zip"
 $extractPath = "$downloadPath\SHIIOU_V2_Extracted"
@@ -14,6 +14,7 @@ function Write-BoxedMessage {
     Write-Host $border -ForegroundColor $Color
     Write-Host "| $Message |" -ForegroundColor $Color
     Write-Host $border -ForegroundColor $Color
+    Write-Host ""  # Ligne vide pour l'espacement
 }
 
 # Fonction pour afficher un message en couleur
@@ -23,26 +24,29 @@ function Write-ColorMessage {
         [string]$Color = "White"
     )
     Write-Host $Message -ForegroundColor $Color
+    Write-Host ""  # Ligne vide pour l'espacement
 }
 
 # Affichage des consignes pour l'utilisateur
 Write-BoxedMessage "Installation du pack SHIIOU V2" -Color Cyan
-Write-ColorMessage "1. Telechargez le pack graphique avant de faire cette manipulation en cliquant sur le lien ci-dessous :" -Color Cyan
-Write-Host "-> [Telecharger le pack $packZip](https://drive.google.com/uc?export=download&id=186sHyZiJyXW0Ox89v0CpqBkL366FRa33)" -ForegroundColor Blue
-Write-ColorMessage "2. Placez le fichier '$packZip' dans votre dossier Downloads : $downloadPath" -Color Yellow
-Write-ColorMessage "3. Appuyez sur une touche pour continuer une fois que le fichier est placer dans le dossier Telechargements..." -Color Yellow
+Write-ColorMessage "1. Téléchargez le pack graphique avant de faire cette manipulation en cliquant sur le lien ci-dessous :" -Color Cyan
+Write-Host "-> [Télécharger le pack $packZip](https://drive.google.com/uc?export=download&id=186sHyZiJyXW0Ox89v0CpqBkL366FRa33)" -ForegroundColor Blue
+Write-ColorMessage "2. Placez le fichier '$packZip' dans votre dossier Téléchargements : $downloadPath" -Color Yellow
+Write-ColorMessage "3. Appuyez sur une touche pour continuer une fois que le fichier est placé dans le dossier Téléchargements..." -Color Yellow
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+Write-Host ""  # Ligne vide pour l'espacement
 
-# Verification du fichier ZIP dans le dossier Downloads
-Write-BoxedMessage "Verification du fichier ZIP" -Color Cyan
+# Vérification du fichier ZIP dans le dossier Téléchargements
+Write-BoxedMessage "Vérification du fichier ZIP" -Color Cyan
 $destinationZip = "$downloadPath\$packZip"
 
 if (Test-Path -Path $destinationZip) {
     Write-ColorMessage "SHIIOU : $destinationZip" -Color Green
 } else {
-    Write-ColorMessage "Impossible de localiser $packZip dans $downloadPath. Verifiez son emplacement." -Color Red
+    Write-ColorMessage "Impossible de localiser $packZip dans $downloadPath. Vérifiez son emplacement." -Color Red
     exit
 }
+Write-Host ""  # Ligne vide pour l'espacement
 
 # Extraction du fichier ZIP
 Write-BoxedMessage "Extraction du fichier ZIP" -Color Cyan
@@ -51,15 +55,17 @@ if (!(Test-Path -Path $extractPath)) {
 }
 Expand-Archive -Path $destinationZip -DestinationPath $extractPath -Force
 Write-ColorMessage "SHIIOU : $extractPath" -Color Green
+Write-Host ""  # Ligne vide pour l'espacement
 
-# Verification du dossier FiveM.app
-Write-BoxedMessage "Verification du dossier FiveM.app" -Color Cyan
+# Vérification du dossier FiveM.app
+Write-BoxedMessage "Vérification du dossier FiveM.app" -Color Cyan
 if (Test-Path -Path $fivemPath) {
-    Write-ColorMessage "Dossier FiveM.app trouve : $fivemPath" -Color Green
+    Write-ColorMessage "Dossier FiveM.app trouvé : $fivemPath" -Color Green
 } else {
-    Write-ColorMessage "Impossible de localiser le dossier 'FiveM.app'. Verifiez votre installation." -Color Red
+    Write-ColorMessage "Impossible de localiser le dossier 'FiveM.app'. Vérifiez votre installation." -Color Red
     exit
 }
+Write-Host ""  # Ligne vide pour l'espacement
 
 # Copie des dossiers FiveM (citizen, mods, plugins) depuis le pack SHIIOU V2
 Write-BoxedMessage "Installation des fichiers FiveM" -Color Cyan
@@ -69,14 +75,15 @@ foreach ($folder in $foldersToCopy) {
     $destination = "$fivemPath\$folder"
     if (Test-Path -Path $source) {
         Copy-Item -Path "$source\*" -Destination $destination -Recurse -Force
-        Write-ColorMessage "Installer : $folder -> $destination" -Color Green
+        Write-ColorMessage "Installé : $folder -> $destination" -Color Green
     } else {
         Write-ColorMessage "Dossier introuvable : $source" -Color Yellow
     }
 }
+Write-Host ""  # Ligne vide pour l'espacement
 
 # Recherche du dossier "Grand Theft Auto V" dans le pack SHIIOU V2
-Write-BoxedMessage "Verification du dossier GTA5" -Color Cyan
+Write-BoxedMessage "Vérification du dossier GTA5" -Color Cyan
 $gta5Source = "$extractPath\SHIIOU V2\GTA5"
 
 if (Test-Path -Path $gta5Source) {
@@ -85,22 +92,25 @@ if (Test-Path -Path $gta5Source) {
     Write-ColorMessage "Impossible de localiser le dossier 'Grand Theft Auto V' dans le pack SHIIOU V2." -Color Red
     exit
 }
+Write-Host ""  # Ligne vide pour l'espacement
 
 # Recherche du dossier "Grand Theft Auto V" sur tous les disques
-Write-BoxedMessage "Recherche le dossier du jeu Grand Theft Auto V" -Color Cyan
+Write-BoxedMessage "Recherche du dossier du jeu Grand Theft Auto V" -Color Cyan
 $gta5Path = Get-ChildItem -Path C:\,D:\,E:\ -Recurse -Directory -Filter "Grand Theft Auto V" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
 
 if ($gta5Path) {
     Write-ColorMessage "SHIIOU : $gta5Path" -Color Green
 } else {
-    Write-ColorMessage "Impossible de localiser le dossier 'Grand Theft Auto V'. Verifiez son emplacement." -Color Red
+    Write-ColorMessage "Impossible de localiser le dossier 'Grand Theft Auto V'. Vérifiez son emplacement." -Color Red
     exit
 }
+Write-Host ""  # Ligne vide pour l'espacement
 
 # Copie des fichiers du pack graphique vers le dossier GTA V (sans suppression)
 Write-BoxedMessage "Installation des fichiers GTA5" -Color Cyan
 Copy-Item -Path "$gta5Source\*" -Destination "$gta5Path" -Recurse -Force
-Write-ColorMessage "Installer avec succes dans GTA V !" -Color Green
+Write-ColorMessage "Installé avec succès dans GTA V !" -Color Green
+Write-Host ""  # Ligne vide pour l'espacement
 
 # Message de fin
-Write-BoxedMessage "Mercii d'avoir installer le pack Shiiou V2" -Color Red
+Write-BoxedMessage "Merci d'avoir installé le pack Shiiou V2" -Color Red

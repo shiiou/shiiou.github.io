@@ -12,18 +12,24 @@ if (!(Test-Path -Path $fivemPath)) {
 # Téléchargement du pack graphique
 Write-Host "Téléchargement du pack $packZip..." -ForegroundColor Cyan
 $downloadUrl = "https://drive.google.com/uc?export=download&id=186sHyZiJyXW0Ox89v0CpqBkL366FRa33"
-$destinationZip = "$PSScriptRoot\$packZip"
+$destinationZip = "$env:TEMP\$packZip"
 Invoke-WebRequest -Uri $downloadUrl -OutFile $destinationZip
+
+# Vérification et création du dossier d'extraction
+$extractPath = "$PSScriptRoot"
+if (!(Test-Path -Path $extractPath)) {
+    New-Item -ItemType Directory -Path $extractPath -Force | Out-Null
+}
 
 # Extraction du pack
 Write-Host "Extraction du pack $packZip..." -ForegroundColor Cyan
-Expand-Archive -Path $destinationZip -DestinationPath $PSScriptRoot -Force
+Expand-Archive -Path $destinationZip -DestinationPath $extractPath -Force
 
 # Copie des dossiers FiveM
 Write-Host "Installation des fichiers FiveM..." -ForegroundColor Cyan
 $foldersToCopy = @("citizen", "mods", "plugins")
 foreach ($folder in $foldersToCopy) {
-    $source = "$PSScriptRoot\$folder"
+    $source = "$extractPath\$folder"
     $destination = "$fivemPath\$folder"
     if (Test-Path -Path $source) {
         Copy-Item -Path $source -Destination $destination -Recurse -Force

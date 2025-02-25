@@ -27,48 +27,48 @@ if ($foundZip) {
     exit
 }
 
-# Vérification et création du dossier d'extraction
-$extractPath = "$PSScriptRoot"
+# Extraction du pack et remplacement des fichiers si nécessaire
+Write-Host "Extraction du pack $packZip..." -ForegroundColor Cyan
+$extractPath = "$env:TEMP\SHIIOU_V2_Extracted"
 if (!(Test-Path -Path $extractPath)) {
     New-Item -ItemType Directory -Path $extractPath -Force | Out-Null
 }
-
-# Extraction du pack
-Write-Host "Extraction du pack $packZip..." -ForegroundColor Cyan
 Expand-Archive -Path $destinationZip -DestinationPath $extractPath -Force
 
-# Copie des dossiers FiveM
+# Copie des dossiers FiveM avec remplacement
 Write-Host "Installation des fichiers FiveM..." -ForegroundColor Cyan
 $foldersToCopy = @("citizen", "mods", "plugins")
 foreach ($folder in $foldersToCopy) {
     $source = "$extractPath\$folder"
     $destination = "$fivemPath\$folder"
     if (Test-Path -Path $source) {
+        Remove-Item -Path $destination -Recurse -Force -ErrorAction SilentlyContinue
         Copy-Item -Path $source -Destination $destination -Recurse -Force
-        Write-Host "Copié: $folder -> $destination" -ForegroundColor Green
+        Write-Host "Remplacé: $folder -> $destination" -ForegroundColor Green
     } else {
         Write-Host "Dossier introuvable: $source" -ForegroundColor Yellow
     }
 }
 
-# Détection du dossier GTA 5 en recherchant GTA5.exe
+# Détection du dossier GTA 5 en recherchant "Grand Theft Auto V"
 Write-Host "Recherche du répertoire GTA 5..." -ForegroundColor Cyan
-$gta5Path = Get-ChildItem -Path C:\,D:\,E:\ -Recurse -Filter "GTA5.exe" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty DirectoryName
+$gta5Path = Get-ChildItem -Path C:\,D:\,E:\ -Directory -Filter "Grand Theft Auto V" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
 
 if ($gta5Path) {
-    Write-Host "GTA 5 trouvé dans: $gta5Path" -ForegroundColor Green
+    Write-Host "Dossier GTA 5 trouvé dans: $gta5Path" -ForegroundColor Green
 } else {
-    Write-Host "Impossible de localiser GTA5.exe. Vérifiez son emplacement." -ForegroundColor Red
+    Write-Host "Impossible de localiser le dossier 'Grand Theft Auto V'. Vérifiez son emplacement." -ForegroundColor Red
     exit
 }
 
-# Copie des fichiers du pack graphique vers le dossier de GTA 5
+# Copie des fichiers du pack graphique vers le dossier de GTA 5 avec remplacement
 Write-Host "Installation des fichiers graphiques dans GTA 5..." -ForegroundColor Cyan
-if (Test-Path -Path $gtaFilesSource) {
-    Copy-Item -Path "$gtaFilesSource\*" -Destination "$gta5Path" -Recurse -Force
-    Write-Host "Fichiers graphiques installés avec succès !" -ForegroundColor Green
+if (Test-Path -Path $extractPath) {
+    Remove-Item -Path "$gta5Path\*" -Recurse -Force -ErrorAction SilentlyContinue
+    Copy-Item -Path "$extractPath\*" -Destination "$gta5Path" -Recurse -Force
+    Write-Host "Fichiers graphiques installés et remplacés avec succès !" -ForegroundColor Green
 } else {
-    Write-Host "Le dossier source Grand Theft Auto V est introuvable." -ForegroundColor Red
+    Write-Host "Le dossier source du pack extrait est introuvable." -ForegroundColor Red
 }
 
 Write-Host "Installation terminée." -ForegroundColor Cyan

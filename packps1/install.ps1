@@ -65,7 +65,7 @@ if (Test-Path -Path $fivemPath) {
 Write-BoxedMessage "Installation des fichiers FiveM" -Color Cyan
 $foldersToCopy = @("citizen", "mods", "plugins")
 foreach ($folder in $foldersToCopy) {
-    $source = "$extractPath\SHIIOU V2\SHIIOU V2\$folder"
+    $source = "$extractPath\SHIIOU V2\$folder"
     $destination = "$fivemPath\$folder"
     if (Test-Path -Path $source) {
         Remove-Item -Path $destination -Recurse -Force -ErrorAction SilentlyContinue
@@ -78,7 +78,7 @@ foreach ($folder in $foldersToCopy) {
 
 # Recherche du dossier "Grand Theft Auto V" dans le pack SHIIOU V2
 Write-BoxedMessage "Recherche du dossier Grand Theft Auto V dans le pack" -Color Cyan
-$gta5Source = "$extractPath\SHIIOU V2\SHIIOU V2\Grand Theft Auto V"
+$gta5Source = "$extractPath\SHIIOU V2\Grand Theft Auto V"
 
 if (Test-Path -Path $gta5Source) {
     Write-ColorMessage "Dossier Grand Theft Auto V trouve dans le pack : $gta5Source" -Color Green

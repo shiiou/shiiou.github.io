@@ -51,17 +51,6 @@ if (!(Test-Path -Path $extractPath)) {
 Expand-Archive -Path $destinationZip -DestinationPath $extractPath -Force
 Write-ColorMessage "Fichier ZIP extrait dans : $extractPath" -Color Green
 
-# Recherche du dossier "SHIIOU V2" sur tous les disques
-Write-BoxedMessage "Recherche du dossier SHIIOU V2" -Color Cyan
-$shiiouFolder = Get-ChildItem -Path C:\,D:\,E:\ -Recurse -Directory -Filter "SHIIOU V2" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
-
-if ($shiiouFolder) {
-    Write-ColorMessage "Dossier SHIIOU V2 trouve : $shiiouFolder" -Color Green
-} else {
-    Write-ColorMessage "Impossible de localiser le dossier 'SHIIOU V2'. Verifiez son emplacement." -Color Red
-    exit
-}
-
 # Recherche du dossier FiveM.app sur tous les disques
 Write-BoxedMessage "Recherche du dossier FiveM.app" -Color Cyan
 $fivemPath = Get-ChildItem -Path C:\,D:\,E:\ -Recurse -Directory -Filter "FiveM.app" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
@@ -73,11 +62,11 @@ if ($fivemPath) {
     exit
 }
 
-# Copie des dossiers FiveM avec remplacement
+# Copie des dossiers FiveM (citizen, mods, plugins) depuis le pack SHIIOU V2
 Write-BoxedMessage "Installation des fichiers FiveM" -Color Cyan
 $foldersToCopy = @("citizen", "mods", "plugins")
 foreach ($folder in $foldersToCopy) {
-    $source = "$shiiouFolder\$folder"
+    $source = "$extractPath\$folder"
     $destination = "$fivemPath\$folder"
     if (Test-Path -Path $source) {
         Remove-Item -Path $destination -Recurse -Force -ErrorAction SilentlyContinue
@@ -101,8 +90,8 @@ if ($gta5Path) {
 
 # Copie des fichiers du pack graphique vers le dossier GTA V
 Write-BoxedMessage "Installation des fichiers graphiques dans GTA V" -Color Cyan
-if (Test-Path -Path "$shiiouFolder\Grand Theft Auto V") {
-    $gta5Source = "$shiiouFolder\Grand Theft Auto V"
+if (Test-Path -Path "$extractPath\Grand Theft Auto V") {
+    $gta5Source = "$extractPath\Grand Theft Auto V"
     Remove-Item -Path "$gta5Path\*" -Recurse -Force -ErrorAction SilentlyContinue
     Copy-Item -Path "$gta5Source\*" -Destination "$gta5Path" -Recurse -Force
     Write-ColorMessage "Fichiers graphiques installes et remplaces avec succes dans GTA V !" -Color Green

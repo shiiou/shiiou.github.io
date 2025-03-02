@@ -22,6 +22,24 @@ $LabelTitle.Location = New-Object System.Drawing.Point(20, 20)
 $LabelTitle.AutoSize = $true
 $Form.Controls.Add($LabelTitle)
 
+# Fonction pour creer des coins arrondis
+function Create-RoundedRect {
+    param (
+        [int]$X,
+        [int]$Y,
+        [int]$Width,
+        [int]$Height,
+        [int]$CornerRadius
+    )
+    $Path = New-Object System.Drawing.Drawing2D.GraphicsPath
+    $Path.AddArc($X, $Y, $CornerRadius, $CornerRadius, 180, 90)
+    $Path.AddArc($X + $Width - $CornerRadius, $Y, $CornerRadius, $CornerRadius, 270, 90)
+    $Path.AddArc($X + $Width - $CornerRadius, $Y + $Height - $CornerRadius, $CornerRadius, $CornerRadius, 0, 90)
+    $Path.AddArc($X, $Y + $Height - $CornerRadius, $CornerRadius, $CornerRadius, 90, 90)
+    $Path.CloseFigure()
+    return $Path
+}
+
 # Fonction pour creer des boutons arrondis avec biseau
 function Create-RoundedButton {
     param (
@@ -53,31 +71,13 @@ function Create-RoundedButton {
 
     # Ajouter un effet de rebond (bounce) au survol
     $Button.Add_MouseEnter({
-        $Button.Location = New-Object System.Drawing.Point($Button.Location.X, $Button.Location.Y - 5)
+        $Button.Location = New-Object System.Drawing.Point($Button.Location.X, ($Button.Location.Y - 5))
     })
     $Button.Add_MouseLeave({
-        $Button.Location = New-Object System.Drawing.Point($Button.Location.X, $Button.Location.Y + 5)
+        $Button.Location = New-Object System.Drawing.Point($Button.Location.X, ($Button.Location.Y + 5))
     })
 
     return $Button
-}
-
-# Fonction pour creer des coins arrondis
-function Create-RoundedRect {
-    param (
-        [int]$X,
-        [int]$Y,
-        [int]$Width,
-        [int]$Height,
-        [int]$CornerRadius
-    )
-    $Path = New-Object System.Drawing.Drawing2D.GraphicsPath
-    $Path.AddArc($X, $Y, $CornerRadius, $CornerRadius, 180, 90)
-    $Path.AddArc($X + $Width - $CornerRadius, $Y, $CornerRadius, $CornerRadius, 270, 90)
-    $Path.AddArc($X + $Width - $CornerRadius, $Y + $Height - $CornerRadius, $CornerRadius, $CornerRadius, 0, 90)
-    $Path.AddArc($X, $Y + $Height - $CornerRadius, $CornerRadius, $CornerRadius, 90, 90)
-    $Path.CloseFigure()
-    return $Path
 }
 
 # Bouton pour selectionner GTA V

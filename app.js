@@ -35,10 +35,6 @@ function renderGrid(){
                width="${p.width}" height="${p.height}"
                loading="lazy" />
         </div>
-        <figcaption class="meta">
-          <span class="caption">${p.title}</span>
-          <span class="badge">${p.tags.map(t=>`#${t}`).join(' ')}</span>
-        </figcaption>
       </figure>`
   }).join('');
 

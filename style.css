@@ -105,8 +105,8 @@ header{position:sticky;top:0;z-index:30;background:linear-gradient(180deg, color
 .tile img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease;aspect-ratio:4/5}
 .tile:hover img{transform:scale(1.04)}
 .tile .meta{position:absolute;left:0;right:0;bottom:0;padding:1.1rem;display:flex;flex-direction:column;gap:.45rem}
-.badge{align-self:flex-start;background:rgba(125,211,252,.14);color:var(--accent);padding:.35rem .9rem;border-radius:999px;font-size:.75rem;font-weight:700;border:1px solid rgba(125,211,252,.28);backdrop-filter:blur(8px)}
-.caption{background:rgba(4,7,20,.75);color:#f8fafd;padding:.65rem .9rem;border-radius:var(--radius-sm);font-size:.9rem;backdrop-filter:blur(10px);font-weight:600}
+.badge{align-self:flex-start;background:rgb(255 255 255 / 0%);color:#ffffff00;padding:.35rem .9rem;border-radius:999px;font-size:.75rem;font-weight:700;border:1px solid rgb(255 255 255 / 0%)}
+.caption{background:rgb(255 255 255 / 0%);color:#f8fafd00;padding:.65rem .9rem;border-radius:var(--radius-sm);font-size:.9rem;font-weight:600}
 
 .focus{display:flex;flex-direction:column;gap:1.8rem}
 .feature-grid{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}

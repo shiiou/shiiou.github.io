@@ -1,6 +1,6 @@
 // ——— Manifest ———
 const IMAGES = [
-  // {src: "picture/17-sept25.webp", width:1600, height:1066, title:"Moonlit Club", tags:["moonlit","club"], caption:" September 17 , 2025"},
+  {src: "picture/Tokyo_by_shiiou.webp", width:1600, height:1066, title:"Tokyo Pearl", tags:["tokyopearl","lapdance"], caption:" vrchat , 2025"},
 ];
 
 const $ = sel => document.querySelector(sel);

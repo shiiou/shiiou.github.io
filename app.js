@@ -1,6 +1,6 @@
 // ——— Manifest ———
 const IMAGES = [
-  // {src: "picture/Tokyo_by_shiiou.webp", width:1600, height:1066, title:"Tokyo Pearl", tags:["lapdance"], caption:" vrchat , 2025"},
+  {src: "picture/Tokyo_by_shiiou.webp", width:1600, height:1066, title:"Tokyo Pearl", tags:["lapdance"], caption:" vrchat , 2025"},
 ];
 
 const $ = sel => document.querySelector(sel);

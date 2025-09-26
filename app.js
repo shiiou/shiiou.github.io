@@ -1,6 +1,6 @@
 // ——— Manifest ———
 const IMAGES = [
-  {src: "picture/Tokyo_by_shiiou.webp", width:1600, height:1066, title:"Tokyo Pearl", tags:["lapdance"], caption:" vrchat , 2025"},
+  {src: "https://media.discordapp.net/attachments/1379856264674410637/1379856884621774959/Tokyo_pearl_by_shiiou_modified.png?ex=68d7659d&is=68d6141d&hm=428e0d11828a1a122d298e054e6741362e87b1f4c8bcf39761fdc8afc7322c85", width:1600, height:1066, title:"Tokyo Pearl", tags:["lapdance"], caption:" vrchat , 2025"},
 ];
 
 const $ = sel => document.querySelector(sel);

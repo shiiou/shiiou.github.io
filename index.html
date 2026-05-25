@@ -324,6 +324,50 @@ body {
 .song-bars span:nth-child(5) { animation-delay: 0.25s; }
 @keyframes bar { from { height: 4px; } to { height: 18px; } }
 
+/* ---- DISCORD STATUS ---- */
+.discord-card {
+  width: 100%;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  background: rgba(10,10,22,0.8);
+  border: 1px solid rgba(160,160,220,0.18);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.discord-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--dc-color, #5a5a80);
+  transition: background 0.4s;
+}
+.discord-avatar-wrap {
+  position: relative; flex-shrink: 0;
+}
+.discord-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: #1a1a30;
+  border: 2px solid rgba(160,160,220,0.2);
+  object-fit: cover;
+  display: block;
+}
+.discord-dot {
+  position: absolute; bottom: 0; right: 0;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 2px solid #07070f;
+  background: var(--dc-color, #5a5a80);
+  transition: background 0.4s;
+}
+.discord-info { flex: 1; min-width: 0; }
+.discord-name { font-size: 12px; font-weight: 700; color: var(--gold2); }
+.discord-status-text { font-size: 10px; color: #5a5a80; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.discord-activity { font-size: 10px; color: var(--red); letter-spacing: 0.5px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.discord-logo svg { width: 18px; height: 18px; opacity: 0.4; }
+
 /* ---- TYPING EFFECT ---- */
 .typing::after {
   content: '|';
@@ -398,6 +442,22 @@ body {
       <span style="height:6px"></span>
       <span style="height:16px"></span>
       <span style="height:10px"></span>
+    </div>
+  </div>
+
+  <!-- DISCORD STATUS -->
+  <div class="discord-card fade-up d3" id="discord-card">
+    <div class="discord-avatar-wrap">
+      <img class="discord-avatar" id="dc-avatar" src="" alt="avatar"/>
+      <span class="discord-dot" id="dc-dot"></span>
+    </div>
+    <div class="discord-info">
+      <div class="discord-name" id="dc-name">shiiou</div>
+      <div class="discord-status-text" id="dc-status">Chargement…</div>
+      <div class="discord-activity" id="dc-activity"></div>
+    </div>
+    <div class="discord-logo">
+      <svg viewBox="0 0 24 24" fill="#9090b8"><path d="M20.32 4.37A19.8 19.8 0 0 0 15.33 3c-.22.38-.48.9-.65 1.3a18.3 18.3 0 0 0-5.36 0C9.15 3.9 8.88 3.38 8.66 3a19.7 19.7 0 0 0-4.99 1.38C1.28 8.35.58 12.22 1 16.05a19.9 19.9 0 0 0 5.99 2.96 14.7 14.7 0 0 0 1.3-2.07 12.9 12.9 0 0 1-2.04-.96l.5-.38a14.3 14.3 0 0 0 12.06 0l.5.38c-.65.37-1.33.69-2.04.96a14.5 14.5 0 0 0 1.3 2.07 19.8 19.8 0 0 0 5.99-2.96c.49-4.46-.76-8.3-3.24-11.68zM8.68 13.8c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32zm6.64 0c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32z"/></svg>
     </div>
   </div>
 
@@ -595,6 +655,74 @@ document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ---- DISCORD STATUS via Lanyard ----
+(function() {
+  const USER_ID = '357598028321914890';
+  const STATUS_COLORS = { online: '#43b581', idle: '#faa61a', dnd: '#f04747', offline: '#747f8d' };
+  const STATUS_LABELS = { online: 'En ligne', idle: 'Absent', dnd: 'Ne pas déranger', offline: 'Hors ligne' };
+
+  function applyStatus(data) {
+    const status = data.discord_status || 'offline';
+    const color = STATUS_COLORS[status] || STATUS_COLORS.offline;
+    const card = document.getElementById('discord-card');
+    const dot = document.getElementById('dc-dot');
+    const statusEl = document.getElementById('dc-status');
+    const activityEl = document.getElementById('dc-activity');
+    const nameEl = document.getElementById('dc-name');
+    const avatarEl = document.getElementById('dc-avatar');
+
+    card.style.setProperty('--dc-color', color);
+    dot.style.background = color;
+    statusEl.textContent = STATUS_LABELS[status] || 'Hors ligne';
+
+    if (data.discord_user) {
+      const u = data.discord_user;
+      nameEl.textContent = u.global_name || u.username || 'shiiou';
+      if (u.avatar) {
+        avatarEl.src = `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`;
+      } else {
+        avatarEl.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
+      }
+    }
+
+    activityEl.textContent = '';
+    if (data.spotify) {
+      activityEl.textContent = `♪ ${data.spotify.song} — ${data.spotify.artist}`;
+    } else if (data.activities && data.activities.length > 0) {
+      const act = data.activities.find(a => a.type !== 4) || data.activities[0];
+      if (act && act.name) {
+        activityEl.textContent = act.type === 4 && act.state ? act.state : act.name;
+      }
+    }
+  }
+
+  function connectWS() {
+    const ws = new WebSocket('wss://api.lanyard.rest/socket');
+    let heartbeat;
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: USER_ID } }));
+    };
+    ws.onmessage = (e) => {
+      const msg = JSON.parse(e.data);
+      if (msg.op === 1) {
+        heartbeat = setInterval(() => ws.send(JSON.stringify({ op: 3 })), msg.d.heartbeat_interval);
+      }
+      if (msg.op === 0 && (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE')) {
+        applyStatus(msg.d);
+      }
+    };
+    ws.onclose = () => { clearInterval(heartbeat); setTimeout(connectWS, 5000); };
+    ws.onerror = () => ws.close();
+  }
+
+  fetch(`https://api.lanyard.rest/v1/users/${USER_ID}`)
+    .then(r => r.json())
+    .then(j => { if (j.success) applyStatus(j.data); })
+    .catch(() => {});
+
+  connectWS();
+})();
 </script>
 </body>
 </html>

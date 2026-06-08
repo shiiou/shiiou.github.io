@@ -619,12 +619,11 @@ function animParticles() {
 }
 animParticles();
 
-// ---- VIEW COUNTER (counterapi.dev/v2 — vrai compteur global) ----
 (async function() {
   const el = document.getElementById('views');
   try {
-    const res  = await fetch('https://api.counterapi.dev/v2/shiiou/visits/up', {
-      headers: { 'Authorization': 'Bearer TA_CLE_API_ICI' }
+    const res  = await fetch('https://api.counterapi.dev/v2/shiious-team-4380/first-counter-4380/up', {
+      headers: { 'Authorization': 'Bearer ut_0HzXqA49kSyy9hX5BRjivjhOaYqdn7fl3XUbgfSG' }
     });
     const data = await res.json();
     const views = data.count || 0;

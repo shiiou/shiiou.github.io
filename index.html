@@ -475,7 +475,7 @@ body {
     </div>
     <div class="discord-info">
       <div class="discord-name" id="dc-name">shiiou</div>
-      <div class="discord-status-text" id="dc-status">loading…</div>
+      <div class="discord-status-text" id="dc-status">Chargement…</div>
       <div class="discord-activity" id="dc-activity"></div>
     </div>
     <div class="discord-logo">
@@ -491,13 +491,13 @@ body {
       <div class="chat-messages" id="chat-messages">
         <div class="chat-msg">
           <span class="msg-author">Discord · Shiiou's</span>
-          <span class="msg-text">✦ Welcome! Type your message below ✦</span>
+          <span class="msg-text">✦ Welcome! Leave a message on the Discord channel ✦</span>
           <span class="msg-time">Now</span>
         </div>
       </div>
       <div class="chat-input-row">
-        <input type="text" id="chat-name-input" placeholder="Name" maxlength="20"/>
-        <input type="text" id="chat-msg-input" placeholder="Message…" maxlength="200"/>
+        <input type="text" id="chat-name-input" placeholder="Pseudo" maxlength="20"/>
+        <input type="text" id="chat-msg-input" placeholder="Type your message…" maxlength="200"/>
         <button id="chat-send-btn">→</button>
       </div>
     </div>
@@ -619,13 +619,15 @@ function animParticles() {
 }
 animParticles();
 
-// ---- VIEW COUNTER (countapi.xyz — vrai compteur global) ----
+// ---- VIEW COUNTER (counterapi.dev/v2 — vrai compteur global) ----
 (async function() {
   const el = document.getElementById('views');
   try {
-    const res  = await fetch('https://api.countapi.xyz/hit/shiiou.site/visits');
+    const res  = await fetch('https://api.counterapi.dev/v2/:workspace/:name/up', {
+      headers: { 'Authorization': 'Bearer 'ut_0HzXqA49kSyy9hX5BRjivjhOaYqdn7fl3XUbgfSG' }
+    });
     const data = await res.json();
-    const views = data.value || 0;
+    const views = data.count || 0;
     let cur = 0;
     const step = Math.max(1, Math.ceil(views / 40));
     const timer = setInterval(() => {

@@ -475,7 +475,7 @@ body {
     </div>
     <div class="discord-info">
       <div class="discord-name" id="dc-name">shiiou</div>
-      <div class="discord-status-text" id="dc-status">Chargement…</div>
+      <div class="discord-status-text" id="dc-status">Loading…</div>
       <div class="discord-activity" id="dc-activity"></div>
     </div>
     <div class="discord-logo">
@@ -623,8 +623,8 @@ animParticles();
 (async function() {
   const el = document.getElementById('views');
   try {
-    const res  = await fetch('https://api.counterapi.dev/v2/:workspace/:name/up', {
-      headers: { 'Authorization': 'Bearer 'ut_0HzXqA49kSyy9hX5BRjivjhOaYqdn7fl3XUbgfSG' }
+    const res  = await fetch('https://api.counterapi.dev/v2/shiiou/visits/up', {
+      headers: { 'Authorization': 'Bearer TA_CLE_API_ICI' }
     });
     const data = await res.json();
     const views = data.count || 0;
@@ -802,64 +802,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
   msgInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
 })();
 
-(function() {
 
-  const STATS_WEBHOOK = 'https://discord.com/api/webhooks/1513383580758442034/8owSMU-7PMYdxBLVbuAPIWucWbfkj-ooosUz1_H7eR7KoU_dumFED_nM1tOVvVHZgGNY';
-
-  const TODAY = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-  const KEY_VISITS = 'shiiou_visits_' + TODAY;
-  const KEY_SENT   = 'shiiou_report_' + TODAY;
-
-  async function trackVisit() {
-    try {
-      const geoRes  = await fetch('https://ipapi.co/json/');
-      const geo     = await geoRes.json();
-      const country = geo.country_name || 'Inconnu';
-      const flag    = geo.country_code
-        ? geo.country_code.toUpperCase().replace(/[A-Z]/g, c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65))
-        : '🌐';
-      const city    = geo.city || '';
-
-      let visits = JSON.parse(localStorage.getItem(KEY_VISITS) || '[]');
-      visits.push({ country, flag, city, time: new Date().toLocaleTimeString('fr-FR') });
-      localStorage.setItem(KEY_VISITS, JSON.stringify(visits));
-
-      if (!localStorage.getItem(KEY_SENT)) {
-        await sendDailyReport(visits, flag, country, city);
-        localStorage.setItem(KEY_SENT, '1');
-      }
-    } catch(e) {
-    }
-  }
-
-  async function sendDailyReport(visits, flag, country, city) {
-    const counts = {};
-    visits.forEach(v => { counts[v.flag + ' ' + v.country] = (counts[v.flag + ' ' + v.country] || 0) + 1; });
-    const lines = Object.entries(counts).map(([k, n]) => `${k} — **${n}** visite${n>1?'s':''}`).join('\n');
-
-    const payload = {
-      username: '✦ Shiiou Analytics',
-      avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png',
-      embeds: [{
-        title: `📊 Visiteur du ${TODAY}`,
-        description: `**Nouveau visiteur détecté !**\n${flag} **${country}** ${city ? `· ${city}` : ''}\n\n**Récap du jour :**\n${lines || 'Aucune donnée'}`,
-        color: 0x9090b8,
-        footer: { text: `Shiiou.site Analytics • ${new Date().toLocaleString('en-US')}` },
-        thumbnail: { url: `https://flagcdn.com/w80/${geo.country_code.toLowerCase()}.png` }
-      }]
-    };
-
-    try {
-      await fetch(STATS_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-    } catch(e) {}
-  }
-
-  trackVisit();
-})();
 </script>
 </body>
 </html>

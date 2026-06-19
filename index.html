@@ -9,19 +9,19 @@
 <meta name="description" content="✦ 사진작가 ✦"/>
 <meta property="og:title" content="ꜱʜɪɪᴏᴜ 🍜"/>
 <meta property="og:description" content="✦ ʙᴀᴅ ᴘʜᴏᴛᴏɢʀᴀᴘʜᴇʀ ✦"/>
-<meta name="theme-color" content="#9090b8"/>
+<meta name="theme-color" content="#e6262b"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --red: #a0a0c0;
-  --red2: #d0d0f0;
-  --red3: #e8e8ff;
-  --gold: #9898b8;
-  --gold2: #e0e0f4;
-  --dark: #07070f;
-  --dark2: #0d0d1a;
-  --dark3: #12121f;
+  --red: #e6262b;
+  --red2: #ff4d4d;
+  --red3: #f5f5f5;
+  --gold: #cc2026;
+  --gold2: #f5f5f5;
+  --dark: #050505;
+  --dark2: #0c0c0c;
+  --dark3: #161616;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
 
@@ -35,14 +35,14 @@ body {
 
 #bg {
   position: fixed; inset: 0; z-index: 0;
-  background: radial-gradient(ellipse at 50% 0%, #1a1a3a 0%, #0d0d1a 40%, #07070f 100%);
+  background: radial-gradient(ellipse at 50% 0%, #1a0707 0%, #0c0c0c 40%, #050505 100%);
 }
 #bg::before {
   content: '';
   position: absolute; inset: 0;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(160,160,220,0.04) 60px, rgba(160,160,220,0.04) 61px),
-    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(160,160,220,0.04) 60px, rgba(160,160,220,0.04) 61px);
+    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(230,38,43,0.04) 60px, rgba(230,38,43,0.04) 61px),
+    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(230,38,43,0.04) 60px, rgba(230,38,43,0.04) 61px);
 }
 #particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
@@ -80,11 +80,11 @@ body {
 .avatar-inner {
   width: 110px; height: 110px;
   border-radius: 50%;
-  background: #141428;
+  background: #0c0c0c;
   border: 2px solid var(--red);
   overflow: hidden;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 20px #9090b844, 0 0 60px #9090b822;
+  box-shadow: 0 0 20px #e6262b44, 0 0 60px #e6262b22;
 }
 .avatar-inner svg { width: 70px; height: 70px; }
 
@@ -95,12 +95,12 @@ body {
   color: var(--gold2);
   letter-spacing: 6px;
   text-align: center;
-  text-shadow: 0 0 20px #9090b866;
+  text-shadow: 0 0 20px #e6262b66;
   margin-bottom: 6px;
 }
 .uid {
   font-size: 11px;
-  color: #5a5a80;
+  color: #888888;
   letter-spacing: 3px;
   margin-bottom: 8px;
 }
@@ -141,13 +141,13 @@ body {
 }
 .stat {
   text-align: center;
-  background: rgba(160,160,220,0.06);
-  border: 1px solid rgba(160,160,220,0.18);
+  background: rgba(230,38,43,0.06);
+  border: 1px solid rgba(230,38,43,0.18);
   border-radius: 6px;
   padding: 8px 18px;
 }
 .stat-n { font-size: 20px; font-weight: 700; color: var(--gold2); }
-.stat-l { font-size: 9px; color: #5a5a80; letter-spacing: 2px; text-transform: uppercase; }
+.stat-l { font-size: 9px; color: #888888; letter-spacing: 2px; text-transform: uppercase; }
 
 .links { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
 
@@ -155,7 +155,7 @@ body {
   display: flex; align-items: center; gap: 14px;
   padding: 13px 18px;
   background: rgba(10,10,22,0.8);
-  border: 1px solid rgba(160,160,220,0.2);
+  border: 1px solid rgba(230,38,43,0.2);
   border-radius: 8px;
   color: var(--gold2);
   text-decoration: none;
@@ -177,10 +177,10 @@ body {
   transition: opacity 0.25s;
 }
 .link-btn:hover {
-  background: rgba(160,160,220,0.12);
-  border-color: rgba(180,180,240,0.5);
+  background: rgba(230,38,43,0.12);
+  border-color: rgba(255,77,77,0.5);
   transform: translateX(4px);
-  box-shadow: 0 0 15px #9090b822;
+  box-shadow: 0 0 15px #e6262b22;
 }
 .link-btn:hover::before { opacity: 1; }
 .link-icon {
@@ -191,8 +191,8 @@ body {
 .link-icon svg { width: 20px; height: 20px; }
 .link-text { flex: 1; }
 .link-name { display: block; font-size: 13px; font-weight: 700; color: var(--gold2); }
-.link-sub { display: block; font-size: 10px; color: #5a5a80; letter-spacing: 1px; }
-.link-arrow { color: #2a2a50; font-size: 16px; transition: color 0.25s; }
+.link-sub { display: block; font-size: 10px; color: #888888; letter-spacing: 1px; }
+.link-arrow { color: #3a3a3a; font-size: 16px; transition: color 0.25s; }
 .link-btn:hover .link-arrow { color: var(--red); }
 
 .section-title {
@@ -220,7 +220,7 @@ body {
   aspect-ratio: 1/1;
   border-radius: 6px;
   overflow: hidden;
-  border: 1px solid rgba(160,160,220,0.2);
+  border: 1px solid rgba(230,38,43,0.2);
   position: relative;
   cursor: pointer;
   transition: border-color 0.2s, transform 0.2s;
@@ -261,14 +261,14 @@ body {
   border: 1px solid var(--red);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 0 40px #9090b833;
+  box-shadow: 0 0 40px #e6262b33;
 }
 #modal-inner img { width: 100%; display: block; }
 #modal-close {
   position: absolute; top: 10px; right: 14px;
   color: var(--gold2); font-size: 24px;
   cursor: pointer; background: none; border: none;
-  text-shadow: 0 0 10px #9090b8;
+  text-shadow: 0 0 10px #e6262b;
 }
 #modal-caption {
   position: absolute; bottom: 0; left: 0; right: 0;
@@ -281,7 +281,7 @@ body {
 
 /* ---- FOOTER ---- */
 .footer {
-  font-size: 9px; color: #1e1e3c;
+  font-size: 9px; color: #3a1010;
   letter-spacing: 3px;
   text-align: center;
   margin-top: 10px;
@@ -292,7 +292,7 @@ body {
 .chat-box {
   width: 100%;
   background: rgba(10,10,22,0.85);
-  border: 1px solid rgba(160,160,220,0.2);
+  border: 1px solid rgba(230,38,43,0.2);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -301,23 +301,23 @@ body {
   padding: 12px 14px;
   display: flex; flex-direction: column; gap: 8px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(160,160,220,0.2) transparent;
+  scrollbar-color: rgba(230,38,43,0.2) transparent;
 }
 .chat-messages::-webkit-scrollbar { width: 4px; }
-.chat-messages::-webkit-scrollbar-thumb { background: rgba(160,160,220,0.2); border-radius: 2px; }
+.chat-messages::-webkit-scrollbar-thumb { background: rgba(230,38,43,0.2); border-radius: 2px; }
 .chat-msg { display: flex; flex-direction: column; gap: 2px; }
 .chat-msg .msg-author { font-size: 10px; font-weight: 700; color: var(--red2); letter-spacing: 1px; }
 .chat-msg .msg-text { font-size: 12px; color: var(--gold2); line-height: 1.4; word-break: break-word; }
-.chat-msg .msg-time { font-size: 9px; color: #3a3a60; letter-spacing: 1px; }
+.chat-msg .msg-time { font-size: 9px; color: #555555; letter-spacing: 1px; }
 .chat-input-row {
   display: flex; align-items: center; gap: 8px;
   padding: 10px 12px;
-  border-top: 1px solid rgba(160,160,220,0.1);
+  border-top: 1px solid rgba(230,38,43,0.1);
   background: rgba(7,7,15,0.6);
 }
 #chat-name-input, #chat-msg-input {
-  background: rgba(160,160,220,0.06);
-  border: 1px solid rgba(160,160,220,0.15);
+  background: rgba(230,38,43,0.06);
+  border: 1px solid rgba(230,38,43,0.15);
   border-radius: 5px;
   color: var(--gold2);
   font-family: 'Rajdhani', sans-serif;
@@ -328,10 +328,10 @@ body {
 }
 #chat-name-input { width: 90px; flex-shrink: 0; }
 #chat-msg-input { flex: 1; }
-#chat-name-input:focus, #chat-msg-input:focus { border-color: rgba(160,160,220,0.4); }
+#chat-name-input:focus, #chat-msg-input:focus { border-color: rgba(230,38,43,0.4); }
 #chat-send-btn {
-  background: rgba(160,160,220,0.12);
-  border: 1px solid rgba(160,160,220,0.25);
+  background: rgba(230,38,43,0.12);
+  border: 1px solid rgba(230,38,43,0.25);
   border-radius: 5px;
   color: var(--red2);
   font-family: 'Rajdhani', sans-serif;
@@ -340,23 +340,23 @@ body {
   cursor: pointer; transition: all 0.2s;
   letter-spacing: 1px; flex-shrink: 0;
 }
-#chat-send-btn:hover { background: rgba(160,160,220,0.22); border-color: var(--red); }
+#chat-send-btn:hover { background: rgba(230,38,43,0.22); border-color: var(--red); }
 #chat-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.chat-status { font-size: 9px; color: #5a5a80; letter-spacing: 1px; text-align: center; padding: 4px 0 8px; }
+.chat-status { font-size: 9px; color: #888888; letter-spacing: 1px; text-align: center; padding: 4px 0 8px; }
 
 .song-bar {
   width: 100%;
   display: flex; align-items: center; gap: 12px;
   padding: 12px 16px;
   background: rgba(10,10,22,0.8);
-  border: 1px solid rgba(160,160,220,0.18);
+  border: 1px solid rgba(230,38,43,0.18);
   border-radius: 8px;
   margin-bottom: 20px;
 }
 .song-icon { color: var(--red); font-size: 20px; }
 .song-info { flex: 1; }
 .song-title { font-size: 12px; font-weight: 700; color: var(--gold2); }
-.song-artist { font-size: 10px; color: #5a5a80; }
+.song-artist { font-size: 10px; color: #888888; }
 .song-bars { display: flex; align-items: flex-end; gap: 2px; height: 20px; }
 .song-bars span {
   width: 3px; background: var(--red);
@@ -371,30 +371,47 @@ body {
 
 .discord-card {
   width: 100%;
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 16px;
+  display: flex; flex-direction: column;
   background: rgba(10,10,22,0.8);
-  border: 1px solid rgba(160,160,220,0.18);
+  border: 1px solid rgba(230,38,43,0.18);
   border-radius: 8px;
   margin-bottom: 20px;
   position: relative;
   overflow: hidden;
 }
-.discord-card::before {
+.discord-banner {
+  width: 100%;
+  height: 70px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(120deg, #1a0707 0%, #3a0a0a 50%, #0c0c0c 100%);
+}
+.discord-banner img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.discord-card-body {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  position: relative;
+}
+.discord-card-body::before {
   content: '';
   position: absolute; left: 0; top: 0; bottom: 0;
   width: 3px;
-  background: var(--dc-color, #5a5a80);
+  background: var(--dc-color, #888888);
   transition: background 0.4s;
 }
 .discord-avatar-wrap {
   position: relative; flex-shrink: 0;
+  margin-top: -22px;
 }
 .discord-avatar {
-  width: 38px; height: 38px;
+  width: 44px; height: 44px;
   border-radius: 50%;
-  background: #1a1a30;
-  border: 2px solid rgba(160,160,220,0.2);
+  background: #0c0c0c;
+  border: 3px solid #050505;
   object-fit: cover;
   display: block;
 }
@@ -402,14 +419,15 @@ body {
   position: absolute; bottom: 0; right: 0;
   width: 12px; height: 12px;
   border-radius: 50%;
-  border: 2px solid #07070f;
-  background: var(--dc-color, #5a5a80);
+  border: 2px solid #050505;
+  background: var(--dc-color, #888888);
   transition: background 0.4s;
 }
 .discord-info { flex: 1; min-width: 0; }
 .discord-name { font-size: 12px; font-weight: 700; color: var(--gold2); }
-.discord-status-text { font-size: 10px; color: #5a5a80; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.discord-activity { font-size: 10px; color: var(--red); letter-spacing: 0.5px; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.discord-status-text { font-size: 10px; color: #888888; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.discord-activity { font-size: 14px; font-weight: 600; color: var(--red); letter-spacing: 0.5px; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 8px; }
+.discord-activity img { width: 48px; height: 48px; border-radius: 6px; flex-shrink: 0; }
 .discord-logo svg { width: 18px; height: 18px; opacity: 0.4; }
 
 .typing::after {
@@ -452,10 +470,10 @@ body {
 
   <div class="avatar-ring fade-up d1">
     <svg class="ring" viewBox="0 0 126 126" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="63" cy="63" r="60" fill="none" stroke="#9090b8" stroke-width="1" stroke-dasharray="8 4" opacity="0.6"/>
-      <circle cx="63" cy="63" r="58" fill="none" stroke="#9090b833" stroke-width="0.5"/>
+      <circle cx="63" cy="63" r="60" fill="none" stroke="#e6262b" stroke-width="1" stroke-dasharray="8 4" opacity="0.6"/>
+      <circle cx="63" cy="63" r="58" fill="none" stroke="#e6262b33" stroke-width="0.5"/>
     </svg>
-    <div class="avatar-inner" style="background:#07070f; border-color:#9090b8;">
+    <div class="avatar-inner" style="background:#050505; border-color:#e6262b;">
       <img src="./shiiou.png" alt="Shiiou logo" style="width:90%; height:auto; object-fit:contain; padding:4px;"/>
     </div>
   </div>
@@ -469,17 +487,32 @@ body {
   <div class="divider fade-up d3"><span class="divider-icon">✦</span></div>
 
   <div class="discord-card fade-up d3" id="discord-card">
-    <div class="discord-avatar-wrap">
-      <img class="discord-avatar" id="dc-avatar" src="" alt="avatar"/>
-      <span class="discord-dot" id="dc-dot"></span>
+    <div class="discord-banner" id="dc-banner">
+      <img id="dc-banner-img" src="./discord-banner.gif" alt="" data-tries="0"
+           onerror="(function(img){
+             const exts = ['png','jpg','jpeg','webp'];
+             const i = parseInt(img.dataset.tries, 10);
+             if (i < exts.length) {
+               img.dataset.tries = i + 1;
+               img.src = './discord-banner.' + exts[i];
+             } else {
+               img.style.display = 'none';
+             }
+           })(this)"/>
     </div>
-    <div class="discord-info">
-      <div class="discord-name" id="dc-name">shiiou</div>
-      <div class="discord-status-text" id="dc-status">Loading…</div>
-      <div class="discord-activity" id="dc-activity"></div>
-    </div>
-    <div class="discord-logo">
-      <svg viewBox="0 0 24 24" fill="#9090b8"><path d="M20.32 4.37A19.8 19.8 0 0 0 15.33 3c-.22.38-.48.9-.65 1.3a18.3 18.3 0 0 0-5.36 0C9.15 3.9 8.88 3.38 8.66 3a19.7 19.7 0 0 0-4.99 1.38C1.28 8.35.58 12.22 1 16.05a19.9 19.9 0 0 0 5.99 2.96 14.7 14.7 0 0 0 1.3-2.07 12.9 12.9 0 0 1-2.04-.96l.5-.38a14.3 14.3 0 0 0 12.06 0l.5.38c-.65.37-1.33.69-2.04.96a14.5 14.5 0 0 0 1.3 2.07 19.8 19.8 0 0 0 5.99-2.96c.49-4.46-.76-8.3-3.24-11.68zM8.68 13.8c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32zm6.64 0c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32z"/></svg>
+    <div class="discord-card-body">
+      <div class="discord-avatar-wrap">
+        <img class="discord-avatar" id="dc-avatar" src="" alt="avatar"/>
+        <span class="discord-dot" id="dc-dot"></span>
+      </div>
+      <div class="discord-info">
+        <div class="discord-name" id="dc-name">shiiou</div>
+        <div class="discord-status-text" id="dc-status">Loading…</div>
+        <div class="discord-activity" id="dc-activity"></div>
+      </div>
+      <div class="discord-logo">
+        <svg viewBox="0 0 24 24" fill="#e6262b"><path d="M20.32 4.37A19.8 19.8 0 0 0 15.33 3c-.22.38-.48.9-.65 1.3a18.3 18.3 0 0 0-5.36 0C9.15 3.9 8.88 3.38 8.66 3a19.7 19.7 0 0 0-4.99 1.38C1.28 8.35.58 12.22 1 16.05a19.9 19.9 0 0 0 5.99 2.96 14.7 14.7 0 0 0 1.3-2.07 12.9 12.9 0 0 1-2.04-.96l.5-.38a14.3 14.3 0 0 0 12.06 0l.5.38c-.65.37-1.33.69-2.04.96a14.5 14.5 0 0 0 1.3 2.07 19.8 19.8 0 0 0 5.99-2.96c.49-4.46-.76-8.3-3.24-11.68zM8.68 13.8c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32zm6.64 0c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32z"/></svg>
+      </div>
     </div>
   </div>
 <!--
@@ -511,10 +544,10 @@ body {
 
     <a class="link-btn" href="https://www.instagram.com/shiiou.vrc/" target="_blank" alt="instagram.com/shiiou.vrc">
       <div class="link-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#9090b8" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#e6262b" stroke-width="2">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
           <circle cx="12" cy="12" r="4"/>
-          <circle cx="17.5" cy="6.5" r="0.5" fill="#9090b8"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="#e6262b"/>
         </svg>
       </div>
       <div class="link-text">
@@ -526,7 +559,7 @@ body {
 
     <a class="link-btn" href="https://discord.com/users/357598028321914890" target="_blank" alt="@shiiou">
       <div class="link-icon">
-        <svg viewBox="0 0 24 24" fill="#9090b8">
+        <svg viewBox="0 0 24 24" fill="#e6262b">
           <path d="M20.32 4.37A19.8 19.8 0 0 0 15.33 3c-.22.38-.48.9-.65 1.3a18.3 18.3 0 0 0-5.36 0C9.15 3.9 8.88 3.38 8.66 3a19.7 19.7 0 0 0-4.99 1.38C1.28 8.35.58 12.22 1 16.05a19.9 19.9 0 0 0 5.99 2.96 14.7 14.7 0 0 0 1.3-2.07 12.9 12.9 0 0 1-2.04-.96l.5-.38a14.3 14.3 0 0 0 12.06 0l.5.38c-.65.37-1.33.69-2.04.96a14.5 14.5 0 0 0 1.3 2.07 19.8 19.8 0 0 0 5.99-2.96c.49-4.46-.76-8.3-3.24-11.68zM8.68 13.8c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32zm6.64 0c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32z"/>
         </svg>
       </div>
@@ -539,11 +572,11 @@ body {
 
     <a class="link-btn" href="https://vrchat.com/home/user/usr_ddc6e27c-b713-44c8-a64d-9b7d1cb79720" target="_blank" alt="VRCHAT">
       <div class="link-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#9090b8" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#e6262b" stroke-width="1.8" xmlns="http://www.w3.org/2000/svg">
           <path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"/>
           <path d="M3 11h2M19 11h2" stroke-linecap="round"/>
-          <circle cx="9" cy="12" r="2.2" fill="#9090b8" stroke="none"/>
-          <circle cx="15" cy="12" r="2.2" fill="#9090b8" stroke="none"/>
+          <circle cx="9" cy="12" r="2.2" fill="#e6262b" stroke="none"/>
+          <circle cx="15" cy="12" r="2.2" fill="#e6262b" stroke="none"/>
           <path d="M11.2 12h1.6" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
       </div>
@@ -564,7 +597,7 @@ body {
     <div class="dw-header">
       <div class="dw-server-info">
         <div class="dw-server-icon" id="dw-icon">
-          <svg viewBox="0 0 24 24" fill="#9090b8" width="26" height="26">
+          <svg viewBox="0 0 24 24" fill="#e6262b" width="26" height="26">
             <path d="M20.32 4.37A19.8 19.8 0 0 0 15.33 3c-.22.38-.48.9-.65 1.3a18.3 18.3 0 0 0-5.36 0C9.15 3.9 8.88 3.38 8.66 3a19.7 19.7 0 0 0-4.99 1.38C1.28 8.35.58 12.22 1 16.05a19.9 19.9 0 0 0 5.99 2.96 14.7 14.7 0 0 0 1.3-2.07 12.9 12.9 0 0 1-2.04-.96l.5-.38a14.3 14.3 0 0 0 12.06 0l.5.38c-.65.37-1.33.69-2.04.96a14.5 14.5 0 0 0 1.3 2.07 19.8 19.8 0 0 0 5.99-2.96c.49-4.46-.76-8.3-3.24-11.68zM8.68 13.8c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32zm6.64 0c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32z"/>
           </svg>
         </div>
@@ -584,7 +617,7 @@ body {
   .discord-widget {
     width: 100%;
     background: rgba(10,10,22,0.85);
-    border: 1px solid rgba(160,160,220,0.2);
+    border: 1px solid rgba(230,38,43,0.2);
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 20px;
@@ -594,20 +627,20 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 12px 16px;
-    border-bottom: 1px solid rgba(160,160,220,0.1);
+    border-bottom: 1px solid rgba(230,38,43,0.1);
     background: rgba(7,7,15,0.5);
   }
   .dw-server-info { display: flex; align-items: center; gap: 10px; }
   .dw-server-icon {
     width: 42px; height: 42px;
     border-radius: 50%;
-    background: rgba(144,144,184,0.12);
-    border: 1px solid rgba(144,144,184,0.25);
+    background: rgba(230,38,43,0.12);
+    border: 1px solid rgba(230,38,43,0.25);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
   .dw-server-name { font-size: 13px; font-weight: 700; color: var(--gold2); }
-  .dw-online-count { font-size: 10px; color: #5a5a80; letter-spacing: 0.5px; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+  .dw-online-count { font-size: 10px; color: #888888; letter-spacing: 0.5px; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
   .dw-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
   .dw-dot.online { background: #43b581; }
   .dw-dot.idle { background: #faa61a; }
@@ -618,40 +651,40 @@ body {
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--gold2);
-    background: rgba(144,144,184,0.14);
-    border: 1px solid rgba(144,144,184,0.3);
+    background: rgba(230,38,43,0.14);
+    border: 1px solid rgba(230,38,43,0.3);
     border-radius: 5px;
     padding: 6px 12px;
     text-decoration: none;
     transition: all 0.2s;
     white-space: nowrap;
   }
-  .dw-join-btn:hover { background: rgba(144,144,184,0.26); border-color: var(--red); color: var(--red2); }
+  .dw-join-btn:hover { background: rgba(230,38,43,0.26); border-color: var(--red); color: var(--red2); }
   .dw-members {
     padding: 10px 14px 12px;
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
   }
-  .dw-loading { font-size: 11px; color: #3a3a60; letter-spacing: 1px; padding: 4px 0; }
+  .dw-loading { font-size: 11px; color: #555555; letter-spacing: 1px; padding: 4px 0; }
   .dw-member {
     display: flex;
     align-items: center;
     gap: 7px;
     padding: 5px 8px;
-    background: rgba(144,144,184,0.06);
-    border: 1px solid rgba(144,144,184,0.12);
+    background: rgba(230,38,43,0.06);
+    border: 1px solid rgba(230,38,43,0.12);
     border-radius: 5px;
     transition: border-color 0.2s, background 0.2s;
     cursor: default;
   }
-  .dw-member:hover { background: rgba(144,144,184,0.12); border-color: rgba(144,144,184,0.3); }
+  .dw-member:hover { background: rgba(230,38,43,0.12); border-color: rgba(230,38,43,0.3); }
   .dw-avatar-wrap { position: relative; flex-shrink: 0; }
   .dw-avatar {
     width: 26px; height: 26px;
     border-radius: 50%;
     object-fit: cover;
-    background: #1a1a30;
+    background: #0c0c0c;
     display: block;
   }
   .dw-status-dot {
@@ -659,7 +692,7 @@ body {
     bottom: -1px; right: -1px;
     width: 9px; height: 9px;
     border-radius: 50%;
-    border: 2px solid #07070f;
+    border: 2px solid #050505;
   }
   .dw-status-dot.online { background: #43b581; }
   .dw-status-dot.idle { background: #faa61a; }
@@ -679,6 +712,11 @@ body {
     color: var(--red);
     letter-spacing: 0.5px;
     max-width: 90px;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .dw-game span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -714,7 +752,7 @@ body {
             </div>
             <div>
               <div class="dw-member-name">${m.username}</div>
-              ${m.game ? `<div class="dw-game">${m.game.name}</div>` : ''}
+              ${m.game ? `<div class="dw-game"><svg viewBox="0 0 24 24" fill="#e6262b" width="10" height="10"><path d="M7 6h10a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4 3 3 0 0 1-2.4-1.2L13 15h-2l-1.6 1.8A3 3 0 0 1 7 18a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4zm1.5 3v2h-2v2h2v2h2v-2h2v-2h-2V9h-2zm9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2.5 2.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg><span>${m.game.name}</span></div>` : ''}
             </div>
           </div>
         `).join('');
@@ -783,7 +821,7 @@ function animParticles() {
 
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(160, 160, 200, ${p.opacity})`;
+    ctx.fillStyle = `rgba(230, 50, 50, ${p.opacity})`;
     ctx.fill();
   });
   requestAnimationFrame(animParticles);
@@ -835,15 +873,27 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
       } else {
         avatarEl.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
       }
+      // Note: Lanyard ne fournit pas la bannière de profil Discord.
+      // La bannière affichée vient de ton fichier local "discord-banner.{gif,png,jpg,jpeg,webp}"
+      // (cherché dans cet ordre, cf. balise <img id="dc-banner-img"> plus haut),
+      // avec un dégradé noir/rouge en secours si aucun fichier n'est trouvé.
     }
 
-    activityEl.textContent = '';
+    activityEl.innerHTML = '';
     if (data.spotify) {
-      activityEl.textContent = `♪ ${data.spotify.song} — ${data.spotify.artist}`;
+      activityEl.innerHTML = `<img src="${data.spotify.album_art_url}" onerror="this.remove()"/><span>♪ ${data.spotify.song} — ${data.spotify.artist}</span>`;
     } else if (data.activities && data.activities.length > 0) {
       const act = data.activities.find(a => a.type !== 4) || data.activities[0];
       if (act && act.name) {
-        activityEl.textContent = act.type === 4 && act.state ? act.state : act.name;
+        const label = act.type === 4 && act.state ? act.state : act.name;
+        let iconUrl = '';
+        if (act.assets && act.assets.large_image && act.application_id) {
+          const img = act.assets.large_image;
+          iconUrl = img.startsWith('mp:') ?
+            `https://media.discordapp.net/${img.replace('mp:', '')}` :
+            `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;
+        }
+        activityEl.innerHTML = (iconUrl ? `<img src="${iconUrl}" onerror="this.remove()"/>` : '') + `<span>${label}</span>`;
       }
     }
   }
@@ -913,7 +963,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
       avatar_url: 'https://i.goopics.net/e7pop3.png',
       embeds: [{
         description: text,
-        color: 0x9090b8,
+        color: 0xe6262b,
         footer: { text: `•  shiiou.github.io  •  ${new Date().toLocaleString('en-US')}` }
       }]
     };

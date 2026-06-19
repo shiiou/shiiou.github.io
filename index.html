@@ -381,7 +381,7 @@ body {
 }
 .discord-banner {
   width: 100%;
-  height: 70px;
+  height: 130px;
   position: relative;
   overflow: hidden;
   background: linear-gradient(120deg, #1a0707 0%, #3a0a0a 50%, #0c0c0c 100%);
@@ -392,8 +392,8 @@ body {
   display: block;
 }
 .discord-card-body {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 16px;
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 12px 16px 16px;
   position: relative;
 }
 .discord-card-body::before {
@@ -405,30 +405,34 @@ body {
 }
 .discord-avatar-wrap {
   position: relative; flex-shrink: 0;
-  margin-top: -22px;
+  margin-top: -32px;
+  margin-bottom: 6px;
 }
 .discord-avatar {
-  width: 44px; height: 44px;
+  width: 56px; height: 56px;
   border-radius: 50%;
   background: #0c0c0c;
   border: 3px solid #050505;
   object-fit: cover;
   display: block;
 }
-.discord-dot {
-  position: absolute; bottom: 0; right: 0;
-  width: 12px; height: 12px;
-  border-radius: 50%;
+.discord-info { width: 100%; min-width: 0; }
+.discord-name { font-size: 15px; font-weight: 700; color: var(--gold2); }
+.discord-status-text {
+  position: absolute; bottom: -4px; right: -8px;
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--gold2);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  background: #050505;
   border: 2px solid #050505;
-  background: var(--dc-color, #888888);
-  transition: background 0.4s;
+  border-radius: 8px;
+  padding: 1px 5px;
+  line-height: 1.4;
 }
-.discord-info { flex: 1; min-width: 0; }
-.discord-name { font-size: 12px; font-weight: 700; color: var(--gold2); }
-.discord-status-text { font-size: 10px; color: #888888; letter-spacing: 0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.discord-activity { font-size: 14px; font-weight: 600; color: var(--red); letter-spacing: 0.5px; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 8px; }
+.discord-activity { font-size: 14px; font-weight: 600; color: var(--red); letter-spacing: 0.5px; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 8px; }
 .discord-activity img { width: 48px; height: 48px; border-radius: 6px; flex-shrink: 0; }
-.discord-logo svg { width: 18px; height: 18px; opacity: 0.4; }
 
 .typing::after {
   content: '|';
@@ -503,15 +507,11 @@ body {
     <div class="discord-card-body">
       <div class="discord-avatar-wrap">
         <img class="discord-avatar" id="dc-avatar" src="" alt="avatar"/>
-        <span class="discord-dot" id="dc-dot"></span>
+        <div class="discord-status-text" id="dc-status">Loading…</div>
       </div>
       <div class="discord-info">
         <div class="discord-name" id="dc-name">shiiou</div>
-        <div class="discord-status-text" id="dc-status">Loading…</div>
         <div class="discord-activity" id="dc-activity"></div>
-      </div>
-      <div class="discord-logo">
-        <svg viewBox="0 0 24 24" fill="#e6262b"><path d="M20.32 4.37A19.8 19.8 0 0 0 15.33 3c-.22.38-.48.9-.65 1.3a18.3 18.3 0 0 0-5.36 0C9.15 3.9 8.88 3.38 8.66 3a19.7 19.7 0 0 0-4.99 1.38C1.28 8.35.58 12.22 1 16.05a19.9 19.9 0 0 0 5.99 2.96 14.7 14.7 0 0 0 1.3-2.07 12.9 12.9 0 0 1-2.04-.96l.5-.38a14.3 14.3 0 0 0 12.06 0l.5.38c-.65.37-1.33.69-2.04.96a14.5 14.5 0 0 0 1.3 2.07 19.8 19.8 0 0 0 5.99-2.96c.49-4.46-.76-8.3-3.24-11.68zM8.68 13.8c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32zm6.64 0c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32z"/></svg>
       </div>
     </div>
   </div>
@@ -849,21 +849,19 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 (function() {
   const USER_ID = '357598028321914890';
   const STATUS_COLORS = { online: '#43b581', idle: '#faa61a', dnd: '#f04747', offline: '#747f8d' };
-  const STATUS_LABELS = { online: 'Online', idle: 'Idle', dnd: 'DND', offline: 'Offline' };
+  const STATUS_LABELS = { online: '🟢 Online', idle: '🌙 Idle', dnd: '⛔ DND', offline: '⚫ Offline' };
 
   function applyStatus(data) {
     const status = data.discord_status || 'offline';
     const color = STATUS_COLORS[status] || STATUS_COLORS.offline;
     const card = document.getElementById('discord-card');
-    const dot = document.getElementById('dc-dot');
     const statusEl = document.getElementById('dc-status');
     const activityEl = document.getElementById('dc-activity');
     const nameEl = document.getElementById('dc-name');
     const avatarEl = document.getElementById('dc-avatar');
 
     card.style.setProperty('--dc-color', color);
-    dot.style.background = color;
-    statusEl.textContent = STATUS_LABELS[status] || 'Hors ligne';
+    statusEl.textContent = STATUS_LABELS[status] || '⚫ Hors ligne';
 
     if (data.discord_user) {
       const u = data.discord_user;

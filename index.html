@@ -420,7 +420,7 @@ body {
 .discord-name { font-size: 15px; font-weight: 700; color: var(--gold2); }
 .discord-status-text {
   position: absolute; bottom: -4px; right: -8px;
-  font-size: 8px;
+  font-size: large;
   font-weight: 700;
   color: var(--gold2);
   letter-spacing: 0.3px;
@@ -848,7 +848,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 (function() {
   const USER_ID = '357598028321914890';
   const STATUS_COLORS = { online: '#43b581', idle: '#faa61a', dnd: '#f04747', offline: '#747f8d' };
-  const STATUS_LABELS = { online: '🟢 Online', idle: '🌙 Idle', dnd: '⛔ DND', offline: '⚫ Offline' };
+  const STATUS_LABELS = { online: '🟢', idle: '🌙', dnd: '⛔', offline: '💤' };
 
   function applyStatus(data) {
     const status = data.discord_status || 'offline';

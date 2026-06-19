@@ -385,8 +385,29 @@ body {
   padding: 1px 5px;
   line-height: 1.4;
 }
-.discord-activity { font-size: 14px; font-weight: 600; color: var(--red); letter-spacing: 0.5px; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 8px; }
-.discord-activity img { width: 48px; height: 48px; border-radius: 6px; flex-shrink: 0; }
+.discord-activity { margin-top: 8px; }
+.dc-act-card {
+  display: flex; align-items: center; gap: 10px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(230,38,43,0.15);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.dc-act-icon-wrap { position: relative; flex-shrink: 0; width: 42px; height: 42px; }
+.dc-act-icon-wrap img.dc-act-large { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; display: block; background: #0c0c0c; }
+.dc-act-icon-wrap img.dc-act-small {
+  position: absolute; bottom: -4px; right: -4px;
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid #0a0a16;
+  background: #0a0a16;
+  object-fit: cover;
+}
+.dc-act-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.dc-act-name { font-size: 13px; font-weight: 700; color: var(--gold2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dc-act-details { font-size: 11px; font-weight: 500; color: #cfcfcf; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dc-act-state { font-size: 11px; font-weight: 500; color: #cfcfcf; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 4px; }
+.dc-act-timer { font-size: 11px; font-weight: 600; color: var(--red2); display: flex; align-items: center; gap: 4px; margin-top: 2px; }
+.dc-act-timer svg { width: 12px; height: 12px; flex-shrink: 0; }
 
 .typing::after {
   content: '|';
@@ -480,7 +501,7 @@ body {
     <div class="song-bars"><span></span><span></span><span></span><span></span><span></span></div>
     <input class="song-vol" id="song-vol" type="range" min="0" max="100" value="60" title="Volume"/>
   </div>
-  <!-- Lecteur YouTube caché (audio only) -->
+  
   <div id="yt-player" style="display:none;"></div>
 
   <div class="divider fade-up d4"><span class="divider-icon">✦</span></div>
@@ -792,24 +813,106 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
       } else {
         avatarEl.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
       }
-
     }
 
     activityEl.innerHTML = '';
+    if (window.__dcActTimerInterval) { clearInterval(window.__dcActTimerInterval); window.__dcActTimerInterval = null; }
+
     if (data.spotify) {
-      activityEl.innerHTML = `<img src="${data.spotify.album_art_url}" onerror="this.remove()"/><span>♪ ${data.spotify.song} — ${data.spotify.artist}</span>`;
+      const sp = data.spotify;
+      let html = '<div class="dc-act-card">';
+      html += '<div class="dc-act-icon-wrap">';
+      html += sp.album_art_url ? `<img class="dc-act-large" src="${sp.album_art_url}" onerror="this.style.display='none'"/>` : '<div class="dc-act-large" style="background:#0c0c0c;"></div>';
+      html += '</div>';
+      html += '<div class="dc-act-text">';
+      html += `<div class="dc-act-name">${sp.song}</div>`;
+      html += `<div class="dc-act-details">${sp.artist}</div>`;
+      if (sp.timestamps && sp.timestamps.start) {
+        html += `<div class="dc-act-timer" id="dc-act-timer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span id="dc-act-timer-text"></span></div>`;
+      }
+      html += '</div></div>';
+
+      activityEl.innerHTML = html;
+
+      if (sp.timestamps && sp.timestamps.start) {
+        const startTs = sp.timestamps.start;
+        const endTs = sp.timestamps.end || null;
+        const timerText = document.getElementById('dc-act-timer-text');
+        function fmt(ms) {
+          const total = Math.max(0, Math.floor(ms / 1000));
+          const m = Math.floor(total / 60);
+          const s = total % 60;
+          return `${m}:${String(s).padStart(2, '0')}`;
+        }
+        function tick() {
+          if (!timerText) return;
+          const elapsed = Date.now() - startTs;
+          if (endTs) {
+            const duration = endTs - startTs;
+            timerText.textContent = `${fmt(elapsed)} / ${fmt(duration)}`;
+          } else {
+            timerText.textContent = fmt(elapsed);
+          }
+        }
+        tick();
+        window.__dcActTimerInterval = setInterval(tick, 1000);
+      }
     } else if (data.activities && data.activities.length > 0) {
       const act = data.activities.find(a => a.type !== 4) || data.activities[0];
       if (act && act.name) {
-        const label = act.type === 4 && act.state ? act.state : act.name;
-        let iconUrl = '';
-        if (act.assets && act.assets.large_image && act.application_id) {
-          const img = act.assets.large_image;
-          iconUrl = img.startsWith('mp:') ?
-            `https://media.discordapp.net/${img.replace('mp:', '')}` :
-            `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;
+        let largeUrl = '', smallUrl = '';
+        if (act.assets) {
+          if (act.assets.large_image && act.application_id) {
+            const img = act.assets.large_image;
+            largeUrl = img.startsWith('mp:') ?
+              `https://media.discordapp.net/${img.replace('mp:', '')}` :
+              `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;
+          }
+          if (act.assets.small_image && act.application_id) {
+            const img = act.assets.small_image;
+            smallUrl = img.startsWith('mp:') ?
+              `https://media.discordapp.net/${img.replace('mp:', '')}` :
+              `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;
+          }
         }
-        activityEl.innerHTML = (iconUrl ? `<img src="${iconUrl}" onerror="this.remove()"/>` : '') + `<span>${label}</span>`;
+
+        const nameLine = act.type === 4 ? (act.state || act.name) : act.name;
+        const detailsLine = act.type !== 4 ? act.details : '';
+        const stateLine = act.type !== 4 ? act.state : (act.emoji ? '' : '');
+
+        let html = '<div class="dc-act-card">';
+        html += '<div class="dc-act-icon-wrap">';
+        html += largeUrl ? `<img class="dc-act-large" src="${largeUrl}" onerror="this.style.display='none'"/>` : '<div class="dc-act-large" style="background:#0c0c0c;"></div>';
+        if (smallUrl) html += `<img class="dc-act-small" src="${smallUrl}" onerror="this.remove()" title="${act.assets.small_text || ''}"/>`;
+        html += '</div>';
+        html += '<div class="dc-act-text">';
+        html += `<div class="dc-act-name">${nameLine}</div>`;
+        if (detailsLine) html += `<div class="dc-act-details">${detailsLine}</div>`;
+        if (stateLine) html += `<div class="dc-act-state">${stateLine}</div>`;
+        if (act.timestamps && act.timestamps.start) {
+          html += `<div class="dc-act-timer" id="dc-act-timer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span id="dc-act-timer-text"></span></div>`;
+        }
+        html += '</div></div>';
+
+        activityEl.innerHTML = html;
+
+        if (act.timestamps && act.timestamps.start) {
+          const startTs = act.timestamps.start;
+          const timerText = document.getElementById('dc-act-timer-text');
+          function fmt(ms) {
+            const total = Math.max(0, Math.floor(ms / 1000));
+            const h = Math.floor(total / 3600);
+            const m = Math.floor((total % 3600) / 60);
+            const s = total % 60;
+            const pad = n => String(n).padStart(2, '0');
+            return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;
+          }
+          function tick() {
+            if (timerText) timerText.textContent = fmt(Date.now() - startTs);
+          }
+          tick();
+          window.__dcActTimerInterval = setInterval(tick, 1000);
+        }
       }
     }
   }
@@ -857,7 +960,7 @@ const PLAYLIST = [
   let ytPlayer = null;
   let ytReady = false;
   let audioEl = null;
-  let startedOnce = false;
+  let unmuted = false;
 
   function track() { return PLAYLIST[current]; }
 
@@ -871,14 +974,18 @@ const PLAYLIST = [
   function setPlayingUI(playing) {
     isPlaying = playing;
     bar.classList.toggle('playing', playing);
-    iconEl.textContent = playing ? '❚❚' : '▶';
+    if (!unmuted && playing) {
+      iconEl.textContent = '🔇';
+    } else {
+      iconEl.textContent = playing ? '❚❚' : '▶';
+    }
   }
 
-  // --- Moteur Audio natif (MP3) ---
   function getAudioEl() {
     if (!audioEl) {
       audioEl = new Audio();
       audioEl.volume = volSlider.value / 100;
+      audioEl.muted = !unmuted;
       audioEl.addEventListener('ended', playNext);
     }
     return audioEl;
@@ -887,6 +994,7 @@ const PLAYLIST = [
   function playMp3(t) {
     if (ytPlayer && ytReady) { try { ytPlayer.stopVideo(); } catch(e){} }
     const a = getAudioEl();
+    a.muted = !unmuted;
     a.src = t.src;
     a.play().then(() => setPlayingUI(true)).catch(() => setPlayingUI(false));
   }
@@ -896,7 +1004,6 @@ const PLAYLIST = [
     setPlayingUI(false);
   }
 
-  // --- Moteur YouTube (IFrame API, audio uniquement) ---
   function loadYouTubeAPI(cb) {
     if (window.YT && window.YT.Player) { cb(); return; }
     const tag = document.createElement('script');
@@ -909,17 +1016,19 @@ const PLAYLIST = [
     if (ytPlayer && ytReady) {
       ytPlayer.loadVideoById(t.id);
       ytPlayer.setVolume(volSlider.value);
+      if (!unmuted) ytPlayer.mute(); else ytPlayer.unMute();
       if (onReadyPlay) setTimeout(() => ytPlayer.playVideo(), 200);
       return;
     }
     loadYouTubeAPI(() => {
       ytPlayer = new YT.Player('yt-player', {
         height: '0', width: '0', videoId: t.id,
-        playerVars: { autoplay: 1, controls: 0, disablekb: 1, fs: 0, modestbranding: 1 },
+        playerVars: { autoplay: 1, mute: 1, controls: 0, disablekb: 1, fs: 0, modestbranding: 1 },
         events: {
           onReady: (e) => {
             ytReady = true;
             e.target.setVolume(volSlider.value);
+            if (!unmuted) e.target.mute(); else e.target.unMute();
             if (onReadyPlay) e.target.playVideo();
           },
           onStateChange: (e) => {
@@ -942,7 +1051,6 @@ const PLAYLIST = [
     setPlayingUI(false);
   }
 
-  // --- Contrôle commun ---
   function playCurrent() {
     const t = track();
     if (!t) return;
@@ -970,6 +1078,14 @@ const PLAYLIST = [
     else playCurrent();
   }
 
+  function unmuteAll() {
+    if (unmuted) return;
+    unmuted = true;
+    if (audioEl) audioEl.muted = false;
+    if (ytPlayer && ytReady) ytPlayer.unMute();
+    setPlayingUI(isPlaying);
+  }
+
   // Volume
   volSlider.addEventListener('input', () => {
     const v = volSlider.value;
@@ -979,23 +1095,27 @@ const PLAYLIST = [
 
   bar.addEventListener('click', (e) => {
     if (e.target === volSlider) return;
-    startedOnce = true;
+    unmuteAll();
     togglePlay();
   });
 
   updateInfo();
 
-  function firstInteractionPlay() {
-    if (startedOnce) return;
-    startedOnce = true;
-    playCurrent();
-    document.removeEventListener('click', firstInteractionPlay);
-    document.removeEventListener('touchstart', firstInteractionPlay);
-    document.removeEventListener('keydown', firstInteractionPlay);
+  playCurrent();
+
+  function firstInteractionUnmute() {
+    unmuteAll();
+    document.removeEventListener('click', firstInteractionUnmute);
+    document.removeEventListener('touchstart', firstInteractionUnmute);
+    document.removeEventListener('keydown', firstInteractionUnmute);
+    document.removeEventListener('scroll', firstInteractionUnmute);
+    document.removeEventListener('mousemove', firstInteractionUnmute);
   }
-  document.addEventListener('click', firstInteractionPlay);
-  document.addEventListener('touchstart', firstInteractionPlay);
-  document.addEventListener('keydown', firstInteractionPlay);
+  document.addEventListener('click', firstInteractionUnmute);
+  document.addEventListener('touchstart', firstInteractionUnmute);
+  document.addEventListener('keydown', firstInteractionUnmute);
+  document.addEventListener('scroll', firstInteractionUnmute);
+  document.addEventListener('mousemove', firstInteractionUnmute);
 })();
 
 (function() {

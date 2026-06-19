@@ -296,22 +296,32 @@ body {
   border: 1px solid rgba(230,38,43,0.18);
   border-radius: 8px;
   margin-bottom: 20px;
+  cursor: pointer;
+  transition: border-color 0.2s;
 }
-.song-icon { color: var(--red); font-size: 20px; }
-.song-info { flex: 1; }
-.song-title { font-size: 12px; font-weight: 700; color: var(--gold2); }
-.song-artist { font-size: 10px; color: #888888; }
-.song-bars { display: flex; align-items: flex-end; gap: 2px; height: 20px; }
+.song-bar:hover { border-color: rgba(230,38,43,0.4); }
+.song-icon { color: var(--red); font-size: 20px; flex-shrink: 0; width: 22px; text-align: center; }
+.song-info { flex: 1; min-width: 0; }
+.song-title { font-size: 12px; font-weight: 700; color: var(--gold2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.song-artist { font-size: 10px; color: #888888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.song-bars { display: flex; align-items: flex-end; gap: 2px; height: 20px; flex-shrink: 0; }
 .song-bars span {
   width: 3px; background: var(--red);
   border-radius: 1px;
   animation: bar 0.8s ease-in-out infinite alternate;
+  animation-play-state: paused;
+  height: 4px;
 }
+.song-bar.playing .song-bars span { animation-play-state: running; }
 .song-bars span:nth-child(2) { animation-delay: 0.15s; }
 .song-bars span:nth-child(3) { animation-delay: 0.3s; }
 .song-bars span:nth-child(4) { animation-delay: 0.1s; }
 .song-bars span:nth-child(5) { animation-delay: 0.25s; }
 @keyframes bar { from { height: 4px; } to { height: 18px; } }
+.song-vol {
+  flex-shrink: 0; width: 50px; accent-color: var(--red);
+  cursor: pointer;
+}
 
 .discord-card {
   width: 100%;
@@ -459,6 +469,20 @@ body {
       </div>
     </div>
   </div>
+  <div class="divider fade-up d4"><span class="divider-icon">✦</span></div>
+
+  <div class="song-bar fade-up d3" id="song-bar">
+    <span class="song-icon" id="song-icon">▶</span>
+    <div class="song-info">
+      <div class="song-title" id="song-title">—</div>
+      <div class="song-artist" id="song-artist">Click to play</div>
+    </div>
+    <div class="song-bars"><span></span><span></span><span></span><span></span><span></span></div>
+    <input class="song-vol" id="song-vol" type="range" min="0" max="100" value="60" title="Volume"/>
+  </div>
+  <!-- Lecteur YouTube caché (audio only) -->
+  <div id="yt-player" style="display:none;"></div>
+
   <div class="divider fade-up d4"><span class="divider-icon">✦</span></div>
 
   <div class="section-title fade-up d4">— Links —</div>
@@ -768,10 +792,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
       } else {
         avatarEl.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
       }
-      // Note: Lanyard ne fournit pas la bannière de profil Discord.
-      // La bannière affichée vient de ton fichier local "discord-banner.{gif,png,jpg,jpeg,webp}"
-      // (cherché dans cet ordre, cf. balise <img id="dc-banner-img"> plus haut),
-      // avec un dégradé noir/rouge en secours si aucun fichier n'est trouvé.
+
     }
 
     activityEl.innerHTML = '';
@@ -820,8 +841,163 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
   connectWS();
 })();
 
-// --- Blocage clic droit / inspection (dissuasion visuelle uniquement, ---
-// --- contournable facilement : DevTools via menu navigateur, mode dev, etc.) ---
+const PLAYLIST = [
+  { type: 'mp3', src: './musique.mp3', title: 'Silence', artist: 'Weston Estate' },
+];
+
+(function() {
+  const bar       = document.getElementById('song-bar');
+  const iconEl    = document.getElementById('song-icon');
+  const titleEl   = document.getElementById('song-title');
+  const artistEl  = document.getElementById('song-artist');
+  const volSlider = document.getElementById('song-vol');
+
+  let current = 0;
+  let isPlaying = false;
+  let ytPlayer = null;
+  let ytReady = false;
+  let audioEl = null;
+  let startedOnce = false;
+
+  function track() { return PLAYLIST[current]; }
+
+  function updateInfo() {
+    const t = track();
+    if (!t) { titleEl.textContent = '—'; artistEl.textContent = 'No track configured'; return; }
+    titleEl.textContent = t.title || 'Unknown title';
+    artistEl.textContent = t.artist || '';
+  }
+
+  function setPlayingUI(playing) {
+    isPlaying = playing;
+    bar.classList.toggle('playing', playing);
+    iconEl.textContent = playing ? '❚❚' : '▶';
+  }
+
+  // --- Moteur Audio natif (MP3) ---
+  function getAudioEl() {
+    if (!audioEl) {
+      audioEl = new Audio();
+      audioEl.volume = volSlider.value / 100;
+      audioEl.addEventListener('ended', playNext);
+    }
+    return audioEl;
+  }
+
+  function playMp3(t) {
+    if (ytPlayer && ytReady) { try { ytPlayer.stopVideo(); } catch(e){} }
+    const a = getAudioEl();
+    a.src = t.src;
+    a.play().then(() => setPlayingUI(true)).catch(() => setPlayingUI(false));
+  }
+
+  function pauseMp3() {
+    if (audioEl) audioEl.pause();
+    setPlayingUI(false);
+  }
+
+  // --- Moteur YouTube (IFrame API, audio uniquement) ---
+  function loadYouTubeAPI(cb) {
+    if (window.YT && window.YT.Player) { cb(); return; }
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(tag);
+    window.onYouTubeIframeAPIReady = cb;
+  }
+
+  function ensureYtPlayer(t, onReadyPlay) {
+    if (ytPlayer && ytReady) {
+      ytPlayer.loadVideoById(t.id);
+      ytPlayer.setVolume(volSlider.value);
+      if (onReadyPlay) setTimeout(() => ytPlayer.playVideo(), 200);
+      return;
+    }
+    loadYouTubeAPI(() => {
+      ytPlayer = new YT.Player('yt-player', {
+        height: '0', width: '0', videoId: t.id,
+        playerVars: { autoplay: 1, controls: 0, disablekb: 1, fs: 0, modestbranding: 1 },
+        events: {
+          onReady: (e) => {
+            ytReady = true;
+            e.target.setVolume(volSlider.value);
+            if (onReadyPlay) e.target.playVideo();
+          },
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.PLAYING) setPlayingUI(true);
+            if (e.data === YT.PlayerState.PAUSED) setPlayingUI(false);
+            if (e.data === YT.PlayerState.ENDED) playNext();
+          }
+        }
+      });
+    });
+  }
+
+  function playYoutube(t) {
+    if (audioEl) audioEl.pause();
+    ensureYtPlayer(t, true);
+  }
+
+  function pauseYoutube() {
+    if (ytPlayer && ytReady) ytPlayer.pauseVideo();
+    setPlayingUI(false);
+  }
+
+  // --- Contrôle commun ---
+  function playCurrent() {
+    const t = track();
+    if (!t) return;
+    updateInfo();
+    if (t.type === 'youtube') playYoutube(t);
+    else playMp3(t);
+  }
+
+  function pauseCurrent() {
+    const t = track();
+    if (!t) return;
+    if (t.type === 'youtube') pauseYoutube();
+    else pauseMp3();
+  }
+
+  function playNext() {
+    if (PLAYLIST.length === 0) return;
+    current = (current + 1) % PLAYLIST.length;
+    playCurrent();
+  }
+
+  function togglePlay() {
+    if (PLAYLIST.length === 0) return;
+    if (isPlaying) pauseCurrent();
+    else playCurrent();
+  }
+
+  // Volume
+  volSlider.addEventListener('input', () => {
+    const v = volSlider.value;
+    if (audioEl) audioEl.volume = v / 100;
+    if (ytPlayer && ytReady) ytPlayer.setVolume(v);
+  });
+
+  bar.addEventListener('click', (e) => {
+    if (e.target === volSlider) return;
+    startedOnce = true;
+    togglePlay();
+  });
+
+  updateInfo();
+
+  function firstInteractionPlay() {
+    if (startedOnce) return;
+    startedOnce = true;
+    playCurrent();
+    document.removeEventListener('click', firstInteractionPlay);
+    document.removeEventListener('touchstart', firstInteractionPlay);
+    document.removeEventListener('keydown', firstInteractionPlay);
+  }
+  document.addEventListener('click', firstInteractionPlay);
+  document.addEventListener('touchstart', firstInteractionPlay);
+  document.addEventListener('keydown', firstInteractionPlay);
+})();
+
 (function() {
   document.addEventListener('contextmenu', e => e.preventDefault());
 

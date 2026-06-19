@@ -842,7 +842,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 })();
 
 const PLAYLIST = [
-  { type: 'mp3', src: './musique.mp3', title: 'Silence', artist: 'Weston Estate' },
+  { type: 'mp3', src: 'musique.mp3', title: 'Prettiest Girl', artist: 'Tyler Watts' },
 ];
 
 (function() {
@@ -874,7 +874,6 @@ const PLAYLIST = [
     iconEl.textContent = playing ? '❚❚' : '▶';
   }
 
-  // --- Moteur Audio natif (MP3) ---
   function getAudioEl() {
     if (!audioEl) {
       audioEl = new Audio();
@@ -896,7 +895,6 @@ const PLAYLIST = [
     setPlayingUI(false);
   }
 
-  // --- Moteur YouTube (IFrame API, audio uniquement) ---
   function loadYouTubeAPI(cb) {
     if (window.YT && window.YT.Player) { cb(); return; }
     const tag = document.createElement('script');
@@ -942,7 +940,6 @@ const PLAYLIST = [
     setPlayingUI(false);
   }
 
-  // --- Contrôle commun ---
   function playCurrent() {
     const t = track();
     if (!t) return;
@@ -970,7 +967,6 @@ const PLAYLIST = [
     else playCurrent();
   }
 
-  // Volume
   volSlider.addEventListener('input', () => {
     const v = volSlider.value;
     if (audioEl) audioEl.volume = v / 100;

@@ -589,7 +589,7 @@ body {
 
   </div>
 
-  
+<!--  
   <div class="divider fade-up d3"><span class="divider-icon">✦</span></div>
 
   <div class="section-title fade-up d4" style="margin-bottom:12px;">— Server —</div>
@@ -612,7 +612,7 @@ body {
       <div class="dw-loading">Loading…</div>
     </div>
   </div>
-
+-->
   <style>
   .discord-widget {
     width: 100%;
@@ -741,7 +741,6 @@ body {
           membersEl.innerHTML = '<div class="dw-loading">Aucun membre en ligne</div>';
           return;
         }
-        // Sort: online first, then idle, then dnd
         const order = { online: 0, idle: 1, dnd: 2 };
         members.sort((a, b) => (order[a.status] ?? 3) - (order[b.status] ?? 3));
         membersEl.innerHTML = members.map(m => `

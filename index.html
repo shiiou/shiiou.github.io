@@ -515,7 +515,7 @@ body {
       </div>
     </div>
   </div>
-<!--
+
     <div class="divider fade-up d6"><span class="divider-icon">✦</span></div>
 
     <div class="section-title fade-up d6">— Chat —</div>
@@ -536,7 +536,7 @@ body {
     </div>
     <div class="chat-status" id="chat-status"></div>
   </div>
--->
+  
   <div class="divider fade-up d4"><span class="divider-icon">✦</span></div>
 
   <div class="section-title fade-up d4">— Links —</div>
@@ -870,10 +870,6 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
       } else {
         avatarEl.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
       }
-      // Note: Lanyard ne fournit pas la bannière de profil Discord.
-      // La bannière affichée vient de ton fichier local "discord-banner.{gif,png,jpg,jpeg,webp}"
-      // (cherché dans cet ordre, cf. balise <img id="dc-banner-img"> plus haut),
-      // avec un dégradé noir/rouge en secours si aucun fichier n'est trouvé.
     }
 
     activityEl.innerHTML = '';
@@ -923,7 +919,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 })();
 
 (function() {
-  const CHAT_WEBHOOK = 'https://discord.com/api/webhooks/1513383043430350918/c0kCN5KBP_39_kwcu7pOWFdcVAHPCvBFnNWsSoEOznmQOYzvlSro8J_fG2EmWNkhnlmI';
+  const CHAT_WEBHOOK = 'https://bf87a66c.shiiou-chat-relay.pages.dev'
 
   const messagesEl = document.getElementById('chat-messages');
   const nameInput  = document.getElementById('chat-name-input');
@@ -950,6 +946,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
     return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
+  function sanitizeMentions(s) {
+    return s
+      .replace(/@everyone/gi, '@\u200beveryone')
+      .replace(/@here/gi, '@\u200bhere')
+      .replace(/<@&?\d+>/g, m => '@\u200brole')
+      .replace(/@(&|!)?\d{15,}/g, '@\u200buser');
+  }
+
   function now() {
     return new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' });
   }
@@ -962,7 +966,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
         description: text,
         color: 0xe6262b,
         footer: { text: `•  shiiou.github.io  •  ${new Date().toLocaleString('en-US')}` }
-      }]
+      }],
+      allowed_mentions: { parse: [] }
     };
     const res = await fetch(CHAT_WEBHOOK, {
       method: 'POST',
@@ -973,8 +978,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
   }
 
   async function handleSend() {
-    const author = nameInput.value.trim() || 'Anonyme';
-    const text   = msgInput.value.trim();
+    const author = sanitizeMentions(nameInput.value.trim() || 'Anonyme');
+    const text   = sanitizeMentions(msgInput.value.trim());
     if (!text) return;
 
     sendBtn.disabled = true;
@@ -1001,6 +1006,19 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
   msgInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
 })();
 
+(function() {
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  document.addEventListener('keydown', e => {
+    const k = e.key;
+    const blocked =
+      k === 'F12' ||
+      (e.ctrlKey && e.shiftKey && (k === 'I' || k === 'i' || k === 'J' || k === 'j' || k === 'C' || k === 'c')) ||
+      (e.ctrlKey && (k === 'U' || k === 'u')) ||
+      (e.metaKey && e.altKey && (k === 'I' || k === 'i' || k === 'J' || k === 'j' || k === 'C' || k === 'c'));
+    if (blocked) e.preventDefault();
+  });
+})();
 
 </script>
 </body>

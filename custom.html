@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Générateur de profil — créateur de page</title>
+<link rel="icon" type="image/x-icon" href="./favicon.png"/>
+<meta name="description" content="✦ Build your page ✦"/>
+<meta property="og:title" content="Build your page 🎨"/>
+<meta property="og:description" content="✦ Build your page and Host your page for free ✦ // Once you've downloaded index.html, here are the easiest free ways to put it online. No coding skills needed."/>
+<meta name="theme-color" content="#e6262b"/>
+<title>Build your page 🎨</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Rajdhani:wght@300;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -217,36 +222,36 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
 #preview-col{
   position:relative;
   background:#020202;
-  display:flex; align-items:flex-start; justify-content:center;
-  padding:36px 20px;
-  overflow-y:auto;
+  display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start;
+  padding:20px 24px;
+  overflow:hidden;
   max-height:100vh;
+  height:100vh;
 }
 .preview-label{
-  position:sticky; top:0;
   display:flex; align-items:center; gap:8px;
   font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:2px;
   color:var(--muted); text-transform:uppercase;
-  margin-bottom:16px; width:100%; max-width:380px;
+  margin-bottom:14px; width:100%; flex-shrink:0;
 }
 .preview-label .dot{ width:7px; height:7px; border-radius:50%; background:#4caf6e; box-shadow:0 0 8px #4caf6e; }
 .preview-frame-wrap{
-  width:100%; max-width:380px;
+  width:100%; flex:1; min-height:0;
   border:1px solid var(--line);
-  border-radius:18px;
+  border-radius:14px;
   overflow:hidden;
   box-shadow:0 30px 80px rgba(0,0,0,0.6);
   background:#000;
-  flex-shrink:0;
 }
 #preview-frame{
-  width:100%; height:780px; border:none; display:block; background:#050505;
+  width:100%; height:100%; border:none; display:block; background:#050505;
 }
-.preview-stack{ display:flex; flex-direction:column; align-items:center; width:100%; }
+.preview-stack{ display:flex; flex-direction:column; align-items:stretch; width:100%; height:100%; }
 
 @media (max-width: 980px){
-  #preview-col{ max-height:none; padding:24px 16px 60px; }
+  #preview-col{ max-height:none; height:auto; padding:24px 16px 60px; }
   #form-col{ max-height:none; }
+  .preview-frame-wrap{ flex:none; height:80vh; }
 }
 </style>
 </head>
@@ -257,9 +262,9 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
   <!-- ============== FORM COLUMN ============== -->
   <div id="form-col">
     <div class="head">
-      <div class="eyebrow">✦ Générateur de page profil ✦</div>
-      <h1>Crée ta page</h1>
-      <p>Remplis les champs ci-dessous. L'aperçu à droite se met à jour en direct. Quand c'est prêt, télécharge ton fichier <code>index.html</code> et héberge-le où tu veux.</p>
+      <div class="eyebrow">✦ Profile Page Generator ✦</div>
+      <h1>Build your page</h1>
+      <p>Fill in the fields below — no coding needed. The preview on the right updates live as you type. When you're happy with it, click the button at the bottom to download your <code>index.html</code> file, then check the free hosting guide further down to put it online.</p>
     </div>
 
     <!-- 01 — IDENTITÉ -->
@@ -267,28 +272,28 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
       <div class="section-toggle" data-toggle>
         <div>
           <div class="section-num">01</div>
-          <div class="section-title">Identité & SEO</div>
+          <div class="section-title">Identity & SEO</div>
         </div>
         <span class="chevron">▾</span>
       </div>
       <div class="section-body">
         <div class="field">
-          <label>Titre de l'onglet</label>
-          <input type="text" id="f-title" placeholder="ᴛᴀ ᴜsᴇʀ 🍜" value="ᴛᴀ ᴜsᴇʀ 🍜"/>
+          <label>Browser tab title</label>
+          <input type="text" id="f-title" placeholder="ʏᴏᴜʀ ɴᴀᴍᴇ 🍜" value="ʏᴏᴜʀ ɴᴀᴍᴇ 🍜"/>
         </div>
         <div class="field">
           <label>Description (SEO)</label>
-          <input type="text" id="f-description" placeholder="✦ ᴛᴀ ᴅᴇsᴄʀɪᴘᴛɪᴏɴ ✦" value="✦ ᴛᴀ ᴅᴇsᴄʀɪᴘᴛɪᴏɴ ✦"/>
+          <input type="text" id="f-description" placeholder="✦ ʏᴏᴜʀ ᴅᴇsᴄʀɪᴘᴛɪᴏɴ ✦" value="✦ ʏᴏᴜʀ ᴅᴇsᴄʀɪᴘᴛɪᴏɴ ✦"/>
         </div>
         <div class="field">
-          <label>Couleur de la barre mobile <span class="hint">theme-color</span></label>
+          <label>Mobile browser bar color <span class="hint">theme-color</span></label>
           <div class="color-field">
             <input type="color" id="f-themeColor-picker" value="#e6262b"/>
             <input type="text" id="f-themeColor" value="#e6262b"/>
           </div>
         </div>
         <div class="field">
-          <label>Favicon (icône d'onglet)</label>
+          <label>Favicon (tab icon)</label>
           <div class="image-field" data-image-field="favicon">
             <div class="image-tabs">
               <button type="button" class="image-tab active" data-mode="upload">Upload</button>
@@ -296,15 +301,15 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
             </div>
             <div class="image-input-upload upload-zone">
               <div class="thumb" data-thumb></div>
-              <div class="upload-label" data-label>Aucun fichier choisi</div>
-              <button type="button" class="btn-mini" data-pick>Choisir</button>
+              <div class="upload-label" data-label>No file chosen</div>
+              <button type="button" class="btn-mini" data-pick>Choose</button>
               <input type="file" accept="image/*" data-file/>
             </div>
-            <input type="url" class="image-input-url" placeholder="https://exemple.com/favicon.png" data-url/>
+            <input type="url" class="image-input-url" placeholder="https://example.com/favicon.png" data-url/>
           </div>
         </div>
         <div class="field">
-          <label>Image filigrane de fond <span class="hint">watermark</span></label>
+          <label>Background watermark image <span class="hint">watermark</span></label>
           <div class="image-field" data-image-field="watermark">
             <div class="image-tabs">
               <button type="button" class="image-tab active" data-mode="upload">Upload</button>
@@ -312,11 +317,11 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
             </div>
             <div class="image-input-upload upload-zone">
               <div class="thumb" data-thumb></div>
-              <div class="upload-label" data-label>Aucun fichier choisi</div>
-              <button type="button" class="btn-mini" data-pick>Choisir</button>
+              <div class="upload-label" data-label>No file chosen</div>
+              <button type="button" class="btn-mini" data-pick>Choose</button>
               <input type="file" accept="image/*" data-file/>
             </div>
-            <input type="url" class="image-input-url" placeholder="https://exemple.com/watermark.png" data-url/>
+            <input type="url" class="image-input-url" placeholder="https://example.com/watermark.png" data-url/>
           </div>
         </div>
       </div>
@@ -327,42 +332,42 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
       <div class="section-toggle" data-toggle>
         <div>
           <div class="section-num">02</div>
-          <div class="section-title">Palette de couleurs</div>
+          <div class="section-title">Color palette</div>
         </div>
         <span class="chevron">▾</span>
       </div>
       <div class="section-body">
         <div class="row2">
           <div class="field">
-            <label>Rouge principal</label>
+            <label>Main red</label>
             <div class="color-field"><input type="color" id="c-red-picker" value="#e6262b"/><input type="text" id="c-red" value="#e6262b"/></div>
           </div>
           <div class="field">
-            <label>Rouge clair (accents)</label>
+            <label>Light red (accents)</label>
             <div class="color-field"><input type="color" id="c-red2-picker" value="#ff4d4d"/><input type="text" id="c-red2" value="#ff4d4d"/></div>
           </div>
         </div>
         <div class="row2">
           <div class="field">
-            <label>Or / accent secondaire</label>
+            <label>Gold / secondary accent</label>
             <div class="color-field"><input type="color" id="c-gold-picker" value="#cc2026"/><input type="text" id="c-gold" value="#cc2026"/></div>
           </div>
           <div class="field">
-            <label>Texte clair</label>
+            <label>Light text</label>
             <div class="color-field"><input type="color" id="c-gold2-picker" value="#f5f5f5"/><input type="text" id="c-gold2" value="#f5f5f5"/></div>
           </div>
         </div>
         <div class="row3">
           <div class="field">
-            <label>Fond 1</label>
+            <label>Background 1</label>
             <div class="color-field"><input type="color" id="c-dark-picker" value="#050505"/><input type="text" id="c-dark" value="#050505"/></div>
           </div>
           <div class="field">
-            <label>Fond 2</label>
+            <label>Background 2</label>
             <div class="color-field"><input type="color" id="c-dark2-picker" value="#0c0c0c"/><input type="text" id="c-dark2" value="#0c0c0c"/></div>
           </div>
           <div class="field">
-            <label>Fond 3</label>
+            <label>Background 3</label>
             <div class="color-field"><input type="color" id="c-dark3-picker" value="#161616"/><input type="text" id="c-dark3" value="#161616"/></div>
           </div>
         </div>
@@ -374,26 +379,26 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
       <div class="section-toggle" data-toggle>
         <div>
           <div class="section-num">03</div>
-          <div class="section-title">Profil</div>
+          <div class="section-title">Profile</div>
         </div>
         <span class="chevron">▾</span>
       </div>
       <div class="section-body">
         <div class="field">
-          <label>UID / sous-titre</label>
-          <input type="text" id="f-uid" value="ᴛᴀ ᴜsᴇʀ · UID 000"/>
+          <label>UID / subtitle</label>
+          <input type="text" id="f-uid" value="ʏᴏᴜʀ ɴᴀᴍᴇ · UID 000"/>
         </div>
         <div class="field">
           <label>Bio</label>
-          <input type="text" id="f-bio" value="✦ ᴛᴀ ʙɪᴏ ɪᴄɪ ✦"/>
+          <input type="text" id="f-bio" value="✦ ʏᴏᴜʀ ʙɪᴏ ʜᴇʀᴇ ✦"/>
         </div>
         <div class="field">
-          <label>4 caractères décoratifs <span class="hint">kanjis, vide = masqué</span></label>
+          <label>4 decorative characters <span class="hint">kanji-style, leave blank to hide</span></label>
           <div class="row3" style="grid-template-columns:repeat(4,1fr);">
-            <input type="text" id="f-kanji-0" value="漢" maxlength="3"/>
-            <input type="text" id="f-kanji-1" value="字" maxlength="3"/>
-            <input type="text" id="f-kanji-2" value="例" maxlength="3"/>
-            <input type="text" id="f-kanji-3" value="え" maxlength="3"/>
+            <input type="text" id="f-kanji-0" value="N" maxlength="3"/>
+            <input type="text" id="f-kanji-1" value="A" maxlength="3"/>
+            <input type="text" id="f-kanji-2" value="M" maxlength="3"/>
+            <input type="text" id="f-kanji-3" value="E" maxlength="3"/>
           </div>
         </div>
       </div>
@@ -404,17 +409,17 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
       <div class="section-toggle" data-toggle>
         <div>
           <div class="section-num">04</div>
-          <div class="section-title">Présence Discord</div>
+          <div class="section-title">Discord presence</div>
         </div>
         <span class="chevron">▾</span>
       </div>
       <div class="section-body">
         <div class="field">
-          <label>ID Discord <span class="hint">mode développeur requis</span></label>
+          <label>Discord ID <span class="hint">requires developer mode</span></label>
           <input type="text" id="f-discordId" placeholder="000000000000000000"/>
         </div>
         <div class="field">
-          <label>Bannière Discord (image au-dessus de l'avatar)</label>
+          <label>Discord banner (image above the avatar)</label>
           <div class="image-field" data-image-field="discordBanner">
             <div class="image-tabs">
               <button type="button" class="image-tab active" data-mode="upload">Upload</button>
@@ -422,15 +427,15 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
             </div>
             <div class="image-input-upload upload-zone">
               <div class="thumb" data-thumb></div>
-              <div class="upload-label" data-label>Aucun fichier choisi</div>
-              <button type="button" class="btn-mini" data-pick>Choisir</button>
+              <div class="upload-label" data-label>No file chosen</div>
+              <button type="button" class="btn-mini" data-pick>Choose</button>
               <input type="file" accept="image/*" data-file/>
             </div>
-            <input type="url" class="image-input-url" placeholder="https://exemple.com/banniere.gif" data-url/>
+            <input type="url" class="image-input-url" placeholder="https://example.com/banner.gif" data-url/>
           </div>
         </div>
         <p style="font-size:11px;color:#5e5e5e;letter-spacing:0.3px;line-height:1.5;">
-          Pour que le statut Discord en direct fonctionne, ton compte doit avoir rejoint le serveur Lanyard : discord.gg/lanyard
+          For the live Discord status to work, your account needs to have joined the Lanyard server: discord.gg/lanyard
         </p>
       </div>
     </div>
@@ -440,13 +445,13 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
       <div class="section-toggle" data-toggle>
         <div>
           <div class="section-num">05</div>
-          <div class="section-title">Lecteur de musique</div>
+          <div class="section-title">Music player</div>
         </div>
         <span class="chevron">▾</span>
       </div>
       <div class="section-body">
         <div class="list-block" id="playlist-list"></div>
-        <button type="button" class="add-btn" id="add-track">+ Ajouter un morceau</button>
+        <button type="button" class="add-btn" id="add-track">+ Add a track</button>
       </div>
     </div>
 
@@ -455,17 +460,17 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
       <div class="section-toggle" data-toggle>
         <div>
           <div class="section-num">06</div>
-          <div class="section-title">Liens</div>
+          <div class="section-title">Links</div>
         </div>
         <span class="chevron">▾</span>
       </div>
       <div class="section-body">
         <div class="field">
-          <label>Titre de la section</label>
+          <label>Section title</label>
           <input type="text" id="f-linksTitle" value="— Links —"/>
         </div>
         <div class="list-block" id="links-list"></div>
-        <button type="button" class="add-btn" id="add-link">+ Ajouter un lien</button>
+        <button type="button" class="add-btn" id="add-link">+ Add a link</button>
       </div>
     </div>
 
@@ -474,22 +479,71 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
       <div class="section-toggle" data-toggle>
         <div>
           <div class="section-num">07</div>
-          <div class="section-title">Galerie</div>
+          <div class="section-title">Gallery</div>
         </div>
         <span class="chevron">▾</span>
       </div>
       <div class="section-body">
         <div class="field">
-          <label>Titre de la section</label>
+          <label>Section title</label>
           <input type="text" id="f-galleryTitle" value="— Gallery —"/>
         </div>
         <div class="list-block" id="gallery-list"></div>
-        <button type="button" class="add-btn" id="add-gallery">+ Ajouter une image</button>
+        <button type="button" class="add-btn" id="add-gallery">+ Add an image</button>
       </div>
     </div>
 
-    <div class="generate-bar">
-      <button id="generate-btn">✦ Télécharger ma page ✦</button>
+    <!-- 08 — FREE HOSTING GUIDE -->
+    <div class="section collapsed" data-section>
+      <div class="section-toggle" data-toggle>
+        <div>
+          <div class="section-num">08</div>
+          <div class="section-title">Host your page for free</div>
+        </div>
+        <span class="chevron">▾</span>
+      </div>
+      <div class="section-body">
+        <p style="font-size:12px;color:#b5b5b5;line-height:1.6;letter-spacing:0.2px;">
+          Once you've downloaded <code>index.html</code>, here are the easiest free ways to put it online. No coding skills needed.
+        </p>
+
+        <div style="border:1px solid var(--line);border-radius:8px;padding:14px;background:rgba(255,255,255,0.012);">
+          <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--gold2);font-weight:700;margin-bottom:6px;">① Cloudflare Pages <span class="hint" style="text-transform:none;">easiest, no fuss</span></div>
+          <p style="font-size:12px;color:#b5b5b5;line-height:1.7;">
+            1. Go to <strong>pages.cloudflare.com</strong> and sign up (free).<br/>
+            2. Click "Create a project" → "Upload assets" / "Direct Upload".<br/>
+            3. Drag your <code>index.html</code> file into the upload box.<br/>
+            4. Click Deploy. You'll get a free link like <code>yourproject.pages.dev</code> instantly.
+          </p>
+        </div>
+
+        <div style="border:1px solid var(--line);border-radius:8px;padding:14px;background:rgba(255,255,255,0.012);">
+          <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--gold2);font-weight:700;margin-bottom:6px;">② Netlify Drop <span class="hint" style="text-transform:none;">fastest, zero setup</span></div>
+          <p style="font-size:12px;color:#b5b5b5;line-height:1.7;">
+            1. Go to <strong>app.netlify.com/drop</strong>.<br/>
+            2. Drag and drop your <code>index.html</code> file onto the page.<br/>
+            3. Netlify instantly gives you a live link you can share right away. Create a free account if you want to keep the site permanently.
+          </p>
+        </div>
+
+        <div style="border:1px solid var(--line);border-radius:8px;padding:14px;background:rgba(255,255,255,0.012);">
+          <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--gold2);font-weight:700;margin-bottom:6px;">③ GitHub Pages <span class="hint" style="text-transform:none;">best for a memorable URL</span></div>
+          <p style="font-size:12px;color:#b5b5b5;line-height:1.7;">
+            1. Create a free account at <strong>github.com</strong>.<br/>
+            2. Create a new repository named exactly <code>yourusername.github.io</code>.<br/>
+            3. Upload your file using "Add file → Upload files" in the browser (no command line needed), and make sure it's named <code>index.html</code>.<br/>
+            4. Go to Settings → Pages and confirm it deploys from the main branch. Your site appears within a minute at <code>yourusername.github.io</code>.
+          </p>
+        </div>
+
+        <p style="font-size:11px;color:#5e5e5e;letter-spacing:0.3px;line-height:1.6;">
+          Tip: all three are completely free for a page like this. Pick Cloudflare Pages or Netlify Drop for the fastest result; pick GitHub Pages if you plan to edit and re-upload the file often.
+        </p>
+      </div>
+    </div>
+
+        <div class="generate-bar">
+      <button id="generate-btn">✦ Download my page ✦</button>
       <div class="gen-status" id="gen-status"></div>
     </div>
   </div>
@@ -497,7 +551,7 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
   <!-- ============== PREVIEW COLUMN ============== -->
   <div id="preview-col">
     <div class="preview-stack">
-      <div class="preview-label"><span class="dot"></span> Aperçu en direct</div>
+      <div class="preview-label"><span class="dot"></span> Live preview</div>
       <div class="preview-frame-wrap">
         <iframe id="preview-frame"></iframe>
       </div>
@@ -508,10 +562,10 @@ select{ appearance:none; -webkit-appearance:none; cursor:pointer;
 
 <script>
 /* =========================================================================
-   TEMPLATE HTML (identique au design original) — utilisé pour l'aperçu et
-   pour générer le fichier final. {{CONFIG_JSON}} est remplacé dynamiquement.
+   HTML TEMPLATE (same design as the original) — used for the live preview
+   and to generate the final file. {{CONFIG_JSON}} is replaced dynamically.
    ========================================================================= */
-const PAGE_TEMPLATE = "<!DOCTYPE html>\n<html lang=\"fr\">\n<head>\n<meta charset=\"UTF-8\"/>\n<link rel=\"icon\" type=\"image/x-icon\" id=\"meta-favicon\" href=\"./favicon.png\"/>\n\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n<title id=\"meta-title\">Mon Profil</title>\n<meta name=\"description\" id=\"meta-description\" content=\"\u2726 Profil \u2726\"/>\n<meta property=\"og:title\" id=\"meta-og-title\" content=\"Mon Profil\"/>\n<meta property=\"og:description\" id=\"meta-og-description\" content=\"\u2726 Profil \u2726\"/>\n<meta name=\"theme-color\" id=\"meta-theme-color\" content=\"#e6262b\"/>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"/>\n<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Rajdhani:wght@300;500;700&display=swap\" rel=\"stylesheet\"/>\n<style>\n:root {\n  --red: #e6262b;\n  --red2: #ff4d4d;\n  --red3: #f5f5f5;\n  --gold: #cc2026;\n  --gold2: #f5f5f5;\n  --dark: #050505;\n  --dark2: #0c0c0c;\n  --dark3: #161616;\n}\n* { margin:0; padding:0; box-sizing:border-box; }\n\nbody {\n  background: var(--dark);\n  color: var(--gold2);\n  font-family: 'Rajdhani', sans-serif;\n  min-height: 100vh;\n  overflow-x: hidden;\n}\n\n#bg {\n  position: fixed; inset: 0; z-index: 0;\n  background: radial-gradient(ellipse at 50% 0%, #1a0707 0%, #0c0c0c 40%, #050505 100%);\n}\n#bg::before {\n  content: '';\n  position: absolute; inset: 0;\n  background-image:\n    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(230,38,43,0.04) 60px, rgba(230,38,43,0.04) 61px),\n    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(230,38,43,0.04) 60px, rgba(230,38,43,0.04) 61px);\n}\n#particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }\n\n#bg-watermark {\n  position: fixed;\n  width: 700px; height: 700px;\n  top: 50%; left: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 1;\n  opacity: 0.06;\n  filter: brightness(3) grayscale(0.3);\n  display: flex; align-items: center; justify-content: center;\n  animation: rotateSlow 60s linear infinite;\n}\n#bg-watermark img { width: 80%; max-width: 600px; height: auto; }\n@keyframes rotateSlow { to { transform: translate(-50%,-50%) rotate(360deg); } }\n\n#wrap {\n  position: relative; z-index: 10;\n  max-width: 480px;\n  margin: 0 auto;\n  padding: 40px 20px 60px;\n  display: flex; flex-direction: column; align-items: center;\n  gap: 0;\n}\n\n.username {\n  font-family: 'Noto Serif JP', serif;\n  font-size: 28px;\n  font-weight: 700;\n  color: var(--gold2);\n  letter-spacing: 6px;\n  text-align: center;\n  text-shadow: 0 0 20px #e6262b66;\n  margin-bottom: 6px;\n}\n.uid {\n  font-size: 11px;\n  color: #888888;\n  letter-spacing: 3px;\n  margin-bottom: 8px;\n}\n.bio {\n  font-size: 13px;\n  color: var(--gold);\n  letter-spacing: 2px;\n  text-align: center;\n  margin-bottom: 6px;\n  font-family: 'Noto Serif JP', serif;\n  font-weight: 300;\n}\n.kanji-row {\n  display: flex; gap: 14px;\n  font-family: 'Noto Serif JP', serif;\n  font-size: 18px;\n  color: var(--red);\n  margin-bottom: 22px;\n  opacity: 0.7;\n}\n\n.divider {\n  width: 100%;\n  display: flex; align-items: center; gap: 10px;\n  margin: 4px 0 20px;\n}\n.divider::before, .divider::after {\n  content: '';\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, transparent, var(--red), transparent);\n}\n.divider-icon { color: var(--red); font-size: 14px; }\n\n.links { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }\n\n.link-btn {\n  display: flex; align-items: center; gap: 14px;\n  padding: 13px 18px;\n  background: rgba(10,10,22,0.8);\n  border: 1px solid rgba(230,38,43,0.2);\n  border-radius: 8px;\n  color: var(--gold2);\n  text-decoration: none;\n  font-family: 'Rajdhani', sans-serif;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: 1px;\n  transition: all 0.25s;\n  position: relative;\n  overflow: hidden;\n  cursor: pointer;\n}\n.link-btn::before {\n  content: '';\n  position: absolute; left: 0; top: 0; bottom: 0;\n  width: 3px;\n  background: var(--red);\n  opacity: 0;\n  transition: opacity 0.25s;\n}\n.link-btn:hover {\n  background: rgba(230,38,43,0.12);\n  border-color: rgba(255,77,77,0.5);\n  transform: translateX(4px);\n  box-shadow: 0 0 15px #e6262b22;\n}\n.link-btn:hover::before { opacity: 1; }\n.link-icon {\n  width: 32px; height: 32px;\n  display: flex; align-items: center; justify-content: center;\n  flex-shrink: 0;\n}\n.link-icon svg { width: 20px; height: 20px; }\n.link-text { flex: 1; }\n.link-name { display: block; font-size: 13px; font-weight: 700; color: var(--gold2); }\n.link-sub { display: block; font-size: 10px; color: #888888; letter-spacing: 1px; }\n.link-arrow { color: #3a3a3a; font-size: 16px; transition: color 0.25s; }\n.link-btn:hover .link-arrow { color: var(--red); }\n\n.section-title {\n  width: 100%;\n  font-family: 'Noto Serif JP', serif;\n  font-size: 11px;\n  color: var(--red);\n  letter-spacing: 5px;\n  text-transform: uppercase;\n  margin-bottom: 12px;\n  text-align: center;\n}\n.gallery {\n  width: 100%;\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 8px;\n  margin-bottom: 24px;\n}\n.banner-card {\n  grid-column: span 2;\n  aspect-ratio: 3/1 !important;\n}\n.gallery-card {\n  aspect-ratio: 1/1;\n  border-radius: 6px;\n  overflow: hidden;\n  border: 1px solid rgba(230,38,43,0.2);\n  position: relative;\n  cursor: pointer;\n  transition: border-color 0.2s, transform 0.2s;\n}\n.gallery-card:hover {\n  border-color: var(--red);\n  transform: scale(1.02);\n}\n.gallery-card img {\n  width: 100%; height: 100%;\n  object-fit: cover;\n  display: block;\n  filter: brightness(0.85);\n  transition: filter 0.2s;\n}\n.gallery-card:hover img { filter: brightness(1); }\n.gallery-card .card-label {\n  position: absolute; bottom: 0; left: 0; right: 0;\n  background: linear-gradient(transparent, rgba(7,7,15,0.92));\n  padding: 20px 10px 8px;\n  font-size: 10px;\n  letter-spacing: 2px;\n  color: var(--gold);\n  text-align: center;\n}\n\n#modal {\n  display: none;\n  position: fixed; inset: 0; z-index: 100;\n  background: rgba(7,7,15,0.95);\n  align-items: center; justify-content: center;\n  padding: 20px;\n}\n#modal.open { display: flex; }\n#modal-inner {\n  position: relative;\n  max-width: 600px; width: 100%;\n  border: 1px solid var(--red);\n  border-radius: 8px;\n  overflow: hidden;\n  box-shadow: 0 0 40px #e6262b33;\n}\n#modal-inner img { width: 100%; display: block; }\n#modal-close {\n  position: absolute; top: 10px; right: 14px;\n  color: var(--gold2); font-size: 24px;\n  cursor: pointer; background: none; border: none;\n  text-shadow: 0 0 10px #e6262b;\n}\n#modal-caption {\n  position: absolute; bottom: 0; left: 0; right: 0;\n  background: linear-gradient(transparent, rgba(7,7,15,0.96));\n  padding: 30px 16px 14px;\n  font-family: 'Noto Serif JP', serif;\n  font-size: 12px; letter-spacing: 2px; color: var(--gold);\n  text-align: center;\n}\n\n/* ---- FOOTER ---- */\n.footer {\n  font-size: 9px; color: #3a1010;\n  letter-spacing: 3px;\n  text-align: center;\n  margin-top: 10px;\n  font-family: 'Noto Serif JP', serif;\n}\n\n.song-bar {\n  width: 100%;\n  display: flex; align-items: center; gap: 12px;\n  padding: 12px 16px;\n  background: rgba(10,10,22,0.8);\n  border: 1px solid rgba(230,38,43,0.18);\n  border-radius: 8px;\n  margin-bottom: 20px;\n  cursor: pointer;\n  transition: border-color 0.2s;\n}\n.song-bar:hover { border-color: rgba(230,38,43,0.4); }\n.song-icon { color: var(--red); font-size: 20px; flex-shrink: 0; width: 22px; text-align: center; }\n.song-info { flex: 1; min-width: 0; }\n.song-title { font-size: 12px; font-weight: 700; color: var(--gold2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n.song-artist { font-size: 10px; color: #888888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n.song-bars { display: flex; align-items: flex-end; gap: 2px; height: 20px; flex-shrink: 0; }\n.song-bars span {\n  width: 3px; background: var(--red);\n  border-radius: 1px;\n  animation: bar 0.8s ease-in-out infinite alternate;\n  animation-play-state: paused;\n  height: 4px;\n}\n.song-bar.playing .song-bars span { animation-play-state: running; }\n.song-bars span:nth-child(2) { animation-delay: 0.15s; }\n.song-bars span:nth-child(3) { animation-delay: 0.3s; }\n.song-bars span:nth-child(4) { animation-delay: 0.1s; }\n.song-bars span:nth-child(5) { animation-delay: 0.25s; }\n@keyframes bar { from { height: 4px; } to { height: 18px; } }\n.song-vol {\n  flex-shrink: 0; width: 50px; accent-color: var(--red);\n  cursor: pointer;\n}\n\n.discord-card {\n  width: 100%;\n  display: flex; flex-direction: column;\n  background: rgba(10,10,22,0.8);\n  border: 1px solid rgba(230,38,43,0.18);\n  border-radius: 8px;\n  margin-bottom: 20px;\n  position: relative;\n  overflow: hidden;\n}\n.discord-banner {\n  width: 100%;\n  height: 130px;\n  position: relative;\n  overflow: hidden;\n  background: linear-gradient(120deg, #1a0707 0%, #3a0a0a 50%, #0c0c0c 100%);\n}\n.discord-banner img {\n  width: 100%; height: 100%;\n  object-fit: cover;\n  display: block;\n}\n.discord-card-body {\n  display: flex; flex-direction: column; gap: 4px;\n  padding: 12px 16px 16px;\n  position: relative;\n}\n.discord-avatar-wrap {\n  position: relative; flex-shrink: 0;\n  margin-top: -32px;\n  margin-bottom: 6px;\n}\n.discord-avatar {\n  width: 56px; height: 56px;\n  border-radius: 50%;\n  background: #0c0c0c;\n  border: 3px solid #050505;\n  object-fit: cover;\n  display: block;\n}\n.discord-info { width: 100%; min-width: 0; }\n.discord-name { font-size: 15px; font-weight: 700; color: var(--gold2); }\n.discord-status-text {\n  position: absolute; bottom: -4px; right: -8px;\n  font-size: large;\n  font-weight: 700;\n  color: var(--gold2);\n  letter-spacing: 0.3px;\n  white-space: nowrap;\n  background: #050505;\n  border: 2px solid #050505;\n  border-radius: 8px;\n  padding: 1px 5px;\n  line-height: 1.4;\n}\n.discord-activity { margin-top: 8px; }\n.dc-act-card {\n  display: flex; align-items: center; gap: 10px;\n  background: rgb(0 0 0 / 0%);\n  border: 1px solid rgb(230 38 43 / 0%);\n  border-radius: 8px;\n  padding: 8px 10px;\n}\n.dc-act-icon-wrap { position: relative; flex-shrink: 0; width: 42px; height: 42px; }\n.dc-act-icon-wrap img.dc-act-large { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; display: block; background: #0c0c0c; }\n.dc-act-icon-wrap img.dc-act-small {\n  position: absolute; bottom: -4px; right: -4px;\n  width: 18px; height: 18px; border-radius: 50%;\n  border: 2px solid #0a0a16;\n  background: #0a0a16;\n  object-fit: cover;\n}\n.dc-act-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }\n.dc-act-name { font-size: 13px; font-weight: 700; color: var(--gold2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n.dc-act-details { font-size: 11px; font-weight: 500; color: #cfcfcf; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n.dc-act-state { font-size: 11px; font-weight: 500; color: #cfcfcf; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 4px; }\n.dc-act-timer { font-size: 11px; font-weight: 600; color: var(--red2); display: flex; align-items: center; gap: 4px; margin-top: 2px; }\n.dc-act-timer svg { width: 12px; height: 12px; flex-shrink: 0; }\n\n@keyframes fadeUp {\n  from { opacity: 0; transform: translateY(20px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n.fade-up { animation: fadeUp 0.6s ease forwards; opacity: 0; }\n.d1 { animation-delay: 0.1s; }\n.d2 { animation-delay: 0.25s; }\n.d3 { animation-delay: 0.4s; }\n.d4 { animation-delay: 0.55s; }\n.d5 { animation-delay: 0.7s; }\n\n@media (max-width: 400px) {\n  .username { font-size: 22px; }\n}\n</style>\n</head>\n<body>\n\n<div id=\"bg\"></div>\n<canvas id=\"particles\"></canvas>\n<div id=\"bg-watermark\"><img id=\"bg-watermark-img\" src=\"\" alt=\"\"/></div>\n\n<div id=\"wrap\">\n\n  <div class=\"uid fade-up d2\" id=\"profile-uid\"></div>\n  <div class=\"bio fade-up d2\" id=\"profile-bio\"></div>\n  <div class=\"kanji-row fade-up d2\" id=\"profile-kanji\"></div>\n\n  <div class=\"divider fade-up d3\"><span class=\"divider-icon\">\u2726</span></div>\n\n  <div class=\"discord-card fade-up d3\" id=\"discord-card\">\n    <div class=\"discord-banner\" id=\"dc-banner\">\n      <img id=\"dc-banner-img\" src=\"\" alt=\"\" data-tries=\"0\"\n           onerror=\"(function(img){\n             const exts = ['png','jpg','jpeg','webp'];\n             const i = parseInt(img.dataset.tries, 10);\n             if (i < exts.length) {\n               img.dataset.tries = i + 1;\n               img.src = './discord-banner.' + exts[i];\n             } else {\n               img.style.display = 'none';\n             }\n           })(this)\"/>\n    </div>\n    <div class=\"discord-card-body\">\n      <div class=\"discord-avatar-wrap\">\n        <img class=\"discord-avatar\" id=\"dc-avatar\" src=\"\" alt=\"avatar\"/>\n        <div class=\"discord-status-text\" id=\"dc-status\">Loading\u2026</div>\n      </div>\n      <div class=\"discord-info\">\n        <div class=\"discord-name\" id=\"dc-name\"></div>\n        <div class=\"discord-activity\" id=\"dc-activity\"></div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"song-bar fade-up d3\" id=\"song-bar\">\n    <span class=\"song-icon\" id=\"song-icon\">\u25b6</span>\n    <div class=\"song-info\">\n      <div class=\"song-title\" id=\"song-title\">\u2014</div>\n      <div class=\"song-artist\" id=\"song-artist\">Click to play</div>\n    </div>\n    <div class=\"song-bars\"><span></span><span></span><span></span><span></span><span></span></div>\n    <input class=\"song-vol\" id=\"song-vol\" type=\"range\" min=\"0\" max=\"100\" value=\"60\" title=\"Volume\"/>\n  </div>\n\n  <div id=\"yt-player\" style=\"display:none;\"></div>\n\n  <div class=\"divider fade-up d4\"><span class=\"divider-icon\">\u2726</span></div>\n\n  <div class=\"section-title fade-up d4\" id=\"links-title\">\u2014 Links \u2014</div>\n  <div class=\"links fade-up d4\" id=\"links-container\"></div>\n\n  <div class=\"divider fade-up d5\"><span class=\"divider-icon\">\u2726</span></div>\n\n  <div class=\"section-title fade-up d5\" id=\"gallery-title\">\u2014 Gallery \u2014</div>\n  <div class=\"gallery fade-up d5\" id=\"gallery-container\"></div>\n\n</div>\n\n<div id=\"modal\">\n  <div id=\"modal-inner\">\n    <button id=\"modal-close\" onclick=\"closeModal()\">\u2715</button>\n    <img id=\"modal-img\" src=\"\" alt=\"\"/>\n    <div id=\"modal-caption\"></div>\n  </div>\n</div>\n\n<!-- ============================================================\n     ZONE A PERSONNALISER\n     Modifie uniquement l'objet CONFIG ci-dessous.\n     Tu n'as besoin de toucher \u00e0 rien d'autre dans le fichier.\n     ============================================================ -->\n<script>\nconst CONFIG = __CONFIG_JSON__;\n<\/script>\n<!-- ============================================================\n     FIN DE LA ZONE A PERSONNALISER\n     Tout ce qui suit est la logique du template, pas besoin d'y toucher.\n     ============================================================ -->\n\n<script>\n(function applyConfig() {\n\n  // -- Couleurs --\n  const root = document.documentElement;\n  Object.entries(CONFIG.colors).forEach(([key, val]) => {\n    root.style.setProperty('--' + key, val);\n  });\n\n  // -- Meta / SEO --\n  document.getElementById('meta-title').textContent = CONFIG.site.title;\n  document.title = CONFIG.site.title;\n  document.getElementById('meta-description').setAttribute('content', CONFIG.site.description);\n  document.getElementById('meta-og-title').setAttribute('content', CONFIG.site.title);\n  document.getElementById('meta-og-description').setAttribute('content', CONFIG.site.description);\n  document.getElementById('meta-theme-color').setAttribute('content', CONFIG.site.themeColor);\n  document.getElementById('meta-favicon').setAttribute('href', CONFIG.site.favicon);\n  document.getElementById('bg-watermark-img').setAttribute('src', CONFIG.site.backgroundWatermark);\n\n  // -- Profil --\n  document.getElementById('profile-uid').textContent = CONFIG.profile.uid;\n  document.getElementById('profile-bio').textContent = CONFIG.profile.bio;\n  const kanjiEl = document.getElementById('profile-kanji');\n  kanjiEl.innerHTML = CONFIG.profile.kanji.map(k => `<span>${k}</span>`).join('');\n\n  // -- Titres de sections --\n  document.getElementById('links-title').textContent = CONFIG.linksTitle;\n  document.getElementById('gallery-title').textContent = CONFIG.galleryTitle;\n\n  // -- Banni\u00e8re Discord (fallback cod\u00e9 en dur) --\n  document.getElementById('dc-banner-img').setAttribute('src', CONFIG.discord.bannerImage);\n\n  // -- Ic\u00f4nes SVG disponibles pour les liens --\n  const ICONS = {\n    instagram: `<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#e6262b\" stroke-width=\"2\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\" ry=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"17.5\" cy=\"6.5\" r=\"0.5\" fill=\"#e6262b\"/></svg>`,\n    discord: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M20.32 4.37A19.8 19.8 0 0 0 15.33 3c-.22.38-.48.9-.65 1.3a18.3 18.3 0 0 0-5.36 0C9.15 3.9 8.88 3.38 8.66 3a19.7 19.7 0 0 0-4.99 1.38C1.28 8.35.58 12.22 1 16.05a19.9 19.9 0 0 0 5.99 2.96 14.7 14.7 0 0 0 1.3-2.07 12.9 12.9 0 0 1-2.04-.96l.5-.38a14.3 14.3 0 0 0 12.06 0l.5.38c-.65.37-1.33.69-2.04.96a14.5 14.5 0 0 0 1.3 2.07 19.8 19.8 0 0 0 5.99-2.96c.49-4.46-.76-8.3-3.24-11.68zM8.68 13.8c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32zm6.64 0c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32z\"/></svg>`,\n    vrchat: `<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#e6262b\" stroke-width=\"1.8\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z\"/><path d=\"M3 11h2M19 11h2\" stroke-linecap=\"round\"/><circle cx=\"9\" cy=\"12\" r=\"2.2\" fill=\"#e6262b\" stroke=\"none\"/><circle cx=\"15\" cy=\"12\" r=\"2.2\" fill=\"#e6262b\" stroke=\"none\"/><path d=\"M11.2 12h1.6\" stroke-width=\"1.4\" stroke-linecap=\"round\"/></svg>`,\n    tiktok: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-1.83-2.48V9.66a5.96 5.96 0 0 0-1.31-.15A6 6 0 1 0 15.05 15v-6.1a7.31 7.31 0 0 0 4.27 1.37V7.13a4.27 4.27 0 0 1-2.72-1.31z\"/></svg>`,\n    twitter: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05A4.3 4.3 0 0 0 16.1 4c-2.37 0-4.29 1.97-4.29 4.4 0 .35.04.68.1 1A12.13 12.13 0 0 1 3 4.79s-1.67 4.07 2.13 6.13a4.3 4.3 0 0 1-1.94-.55s-.34 3.4 3.4 4.2a4.7 4.7 0 0 1-2.07.08s.65 2.6 3.65 2.87A8.6 8.6 0 0 1 2 19.13 12.1 12.1 0 0 0 8.6 21c7.5 0 11.6-6.32 11.6-11.8l-.01-.54c.8-.58 1.5-1.3 2.27-2.66z\"/></svg>`,\n    youtube: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M23 12s0-3.6-.46-5.3A2.9 2.9 0 0 0 20.5 4.7C18.9 4.3 12 4.3 12 4.3s-6.9 0-8.5.4A2.9 2.9 0 0 0 1.46 6.7C1 8.4 1 12 1 12s0 3.6.46 5.3a2.9 2.9 0 0 0 2.04 2c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4a2.9 2.9 0 0 0 2.04-2C23 15.6 23 12 23 12zM9.8 15.5V8.5l6 3.5z\"/></svg>`,\n    twitch: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M4 2 2 6v14h6v2h3l2-2h4l4-4V2H4zm15 13-3 3h-4l-2 2v-2H6V4h13v11z\"/><rect x=\"14\" y=\"7\" width=\"2\" height=\"5\"/><rect x=\"9\" y=\"7\" width=\"2\" height=\"5\"/></svg>`,\n    link: `<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#e6262b\" stroke-width=\"2\"><path d=\"M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.5\"/><path d=\"M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07l1.36-1.36\"/></svg>`\n  };\n\n  // -- Rendu des liens --\n  const linksContainer = document.getElementById('links-container');\n  linksContainer.innerHTML = CONFIG.links.map(l => `\n    <a class=\"link-btn\" href=\"${l.url}\" target=\"_blank\" rel=\"noopener\">\n      <div class=\"link-icon\">${ICONS[l.icon] || ICONS.link}</div>\n      <div class=\"link-text\">\n        <span class=\"link-name\">${l.name}</span>\n        <span class=\"link-sub\">${l.sub || ''}</span>\n      </div>\n      <span class=\"link-arrow\">\u203a</span>\n    </a>\n  `).join('');\n\n  // -- Rendu de la galerie + pr\u00e9paration du modal --\n  const galleryContainer = document.getElementById('gallery-container');\n  window.modalImgs = CONFIG.gallery.map(g => ({ src: g.src, caption: g.caption }));\n  galleryContainer.innerHTML = CONFIG.gallery.map((g, i) => `\n    <div class=\"gallery-card${g.banner ? ' banner-card' : ''}\" onclick=\"openModal(${i})\">\n      <img src=\"${g.src}\" alt=\"${g.caption || ''}\"/>\n      ${g.caption ? `<div class=\"card-label\">${g.caption}</div>` : ''}\n    </div>\n  `).join('');\n\n})();\n<\/script>\n\n<script>\nfunction openModal(i) {\n  document.getElementById('modal-img').src = window.modalImgs[i].src;\n  document.getElementById('modal-caption').textContent = window.modalImgs[i].caption || '';\n  document.getElementById('modal').classList.add('open');\n}\nfunction closeModal() {\n  document.getElementById('modal').classList.remove('open');\n}\ndocument.getElementById('modal').addEventListener('click', function(e) {\n  if (e.target === this) closeModal();\n});\ndocument.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });\n<\/script>\n\n<script>\n// ---- Fond anim\u00e9 de particules ----\nconst canvas = document.getElementById('particles');\nconst ctx = canvas.getContext('2d');\nlet W, H, particles = [];\n\nfunction resize() {\n  W = canvas.width = window.innerWidth;\n  H = canvas.height = window.innerHeight;\n}\nresize();\nwindow.addEventListener('resize', resize);\n\nfunction createParticle() {\n  return {\n    x: Math.random() * W,\n    y: Math.random() * H + H,\n    size: Math.random() * 2 + 0.5,\n    speed: Math.random() * 0.6 + 0.2,\n    opacity: Math.random() * 0.5 + 0.1,\n    flicker: Math.random() * 0.02,\n  };\n}\n\nfor (let i = 0; i < 60; i++) {\n  const p = createParticle();\n  p.y = Math.random() * H;\n  particles.push(p);\n}\n\nfunction animParticles() {\n  ctx.clearRect(0, 0, W, H);\n  particles.forEach((p, i) => {\n    p.y -= p.speed;\n    p.opacity += p.flicker * (Math.random() > 0.5 ? 1 : -1);\n    p.opacity = Math.max(0.05, Math.min(0.6, p.opacity));\n    if (p.y < -10) particles[i] = createParticle();\n\n    ctx.beginPath();\n    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);\n    ctx.fillStyle = `rgba(230, 50, 50, ${p.opacity})`;\n    ctx.fill();\n  });\n  requestAnimationFrame(animParticles);\n}\nanimParticles();\n<\/script>\n\n<script>\n// ---- Pr\u00e9sence Discord en direct (Lanyard) ----\n(function() {\n  const USER_ID = CONFIG.discord.userId;\n  const STATUS_COLORS = { online: '#43b581', idle: '#faa61a', dnd: '#f04747', offline: '#747f8d' };\n  const STATUS_LABELS = { online: '\ud83d\udfe2', idle: '\ud83c\udf19', dnd: '\u26d4', offline: '\ud83d\udca4' };\n\n  function applyStatus(data) {\n    const status = data.discord_status || 'offline';\n    const color = STATUS_COLORS[status] || STATUS_COLORS.offline;\n    const card = document.getElementById('discord-card');\n    const statusEl = document.getElementById('dc-status');\n    const activityEl = document.getElementById('dc-activity');\n    const nameEl = document.getElementById('dc-name');\n    const avatarEl = document.getElementById('dc-avatar');\n\n    card.style.setProperty('--dc-color', color);\n    statusEl.textContent = STATUS_LABELS[status] || '\u26ab Hors ligne';\n\n    if (data.discord_user) {\n      const u = data.discord_user;\n      nameEl.textContent = u.global_name || u.username || 'Utilisateur';\n      avatarEl.src = u.avatar\n        ? `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`\n        : `https://cdn.discordapp.com/embed/avatars/0.png`;\n    }\n\n    activityEl.innerHTML = '';\n    if (window.__dcActTimerInterval) { clearInterval(window.__dcActTimerInterval); window.__dcActTimerInterval = null; }\n\n    if (data.spotify) {\n      const sp = data.spotify;\n      let html = '<div class=\"dc-act-card\"><div class=\"dc-act-icon-wrap\">';\n      html += sp.album_art_url ? `<img class=\"dc-act-large\" src=\"${sp.album_art_url}\" onerror=\"this.style.display='none'\"/>` : '<div class=\"dc-act-large\" style=\"background:#0c0c0c;\"></div>';\n      html += '</div><div class=\"dc-act-text\">';\n      html += `<div class=\"dc-act-name\">${sp.song}</div>`;\n      html += `<div class=\"dc-act-details\">${sp.artist}</div>`;\n      if (sp.timestamps && sp.timestamps.start) {\n        html += `<div class=\"dc-act-timer\" id=\"dc-act-timer\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 3\"/></svg><span id=\"dc-act-timer-text\"></span></div>`;\n      }\n      html += '</div></div>';\n      activityEl.innerHTML = html;\n\n      if (sp.timestamps && sp.timestamps.start) {\n        const startTs = sp.timestamps.start;\n        const endTs = sp.timestamps.end || null;\n        const timerText = document.getElementById('dc-act-timer-text');\n        function fmt(ms) {\n          const total = Math.max(0, Math.floor(ms / 1000));\n          const m = Math.floor(total / 60);\n          const s = total % 60;\n          return `${m}:${String(s).padStart(2, '0')}`;\n        }\n        function tick() {\n          if (!timerText) return;\n          const elapsed = Date.now() - startTs;\n          timerText.textContent = endTs ? `${fmt(elapsed)} / ${fmt(endTs - startTs)}` : fmt(elapsed);\n        }\n        tick();\n        window.__dcActTimerInterval = setInterval(tick, 1000);\n      }\n    } else if (data.activities && data.activities.length > 0) {\n      const act = data.activities.find(a => a.type !== 4) || data.activities[0];\n      if (act && act.name) {\n        let largeUrl = '', smallUrl = '';\n        if (act.assets) {\n          if (act.assets.large_image && act.application_id) {\n            const img = act.assets.large_image;\n            largeUrl = img.startsWith('mp:') ?\n              `https://media.discordapp.net/${img.replace('mp:', '')}` :\n              `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;\n          }\n          if (act.assets.small_image && act.application_id) {\n            const img = act.assets.small_image;\n            smallUrl = img.startsWith('mp:') ?\n              `https://media.discordapp.net/${img.replace('mp:', '')}` :\n              `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;\n          }\n        }\n\n        const nameLine = act.type === 4 ? (act.state || act.name) : act.name;\n        const detailsLine = act.type !== 4 ? act.details : '';\n        const stateLine = act.type !== 4 ? act.state : '';\n\n        let html = '<div class=\"dc-act-card\"><div class=\"dc-act-icon-wrap\">';\n        html += largeUrl ? `<img class=\"dc-act-large\" src=\"${largeUrl}\" onerror=\"this.style.display='none'\"/>` : '<div class=\"dc-act-large\" style=\"background:#0c0c0c;\"></div>';\n        if (smallUrl) html += `<img class=\"dc-act-small\" src=\"${smallUrl}\" onerror=\"this.remove()\" title=\"${act.assets.small_text || ''}\"/>`;\n        html += '</div><div class=\"dc-act-text\">';\n        html += `<div class=\"dc-act-name\">${nameLine}</div>`;\n        if (detailsLine) html += `<div class=\"dc-act-details\">${detailsLine}</div>`;\n        if (stateLine) html += `<div class=\"dc-act-state\">${stateLine}</div>`;\n        if (act.timestamps && act.timestamps.start) {\n          html += `<div class=\"dc-act-timer\" id=\"dc-act-timer\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 3\"/></svg><span id=\"dc-act-timer-text\"></span></div>`;\n        }\n        html += '</div></div>';\n        activityEl.innerHTML = html;\n\n        if (act.timestamps && act.timestamps.start) {\n          const startTs = act.timestamps.start;\n          const timerText = document.getElementById('dc-act-timer-text');\n          function fmt(ms) {\n            const total = Math.max(0, Math.floor(ms / 1000));\n            const h = Math.floor(total / 3600);\n            const m = Math.floor((total % 3600) / 60);\n            const s = total % 60;\n            const pad = n => String(n).padStart(2, '0');\n            return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;\n          }\n          function tick() {\n            if (timerText) timerText.textContent = fmt(Date.now() - startTs);\n          }\n          tick();\n          window.__dcActTimerInterval = setInterval(tick, 1000);\n        }\n      }\n    }\n  }\n\n  function connectWS() {\n    const ws = new WebSocket('wss://api.lanyard.rest/socket');\n    let heartbeat;\n    ws.onopen = () => {\n      ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: USER_ID } }));\n    };\n    ws.onmessage = (e) => {\n      const msg = JSON.parse(e.data);\n      if (msg.op === 1) {\n        heartbeat = setInterval(() => ws.send(JSON.stringify({ op: 3 })), msg.d.heartbeat_interval);\n      }\n      if (msg.op === 0 && (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE')) {\n        applyStatus(msg.d);\n      }\n    };\n    ws.onclose = () => { clearInterval(heartbeat); setTimeout(connectWS, 5000); };\n    ws.onerror = () => ws.close();\n  }\n\n  fetch(`https://api.lanyard.rest/v1/users/${USER_ID}`)\n    .then(r => r.json())\n    .then(j => { if (j.success) applyStatus(j.data); })\n    .catch(() => {});\n\n  connectWS();\n})();\n<\/script>\n\n<script>\n// ---- Lecteur audio (MP3 local ou YouTube) ----\n(function() {\n  const PLAYLIST = CONFIG.music.playlist;\n  const bar       = document.getElementById('song-bar');\n  const iconEl    = document.getElementById('song-icon');\n  const titleEl   = document.getElementById('song-title');\n  const artistEl  = document.getElementById('song-artist');\n  const volSlider = document.getElementById('song-vol');\n\n  let current = 0;\n  let isPlaying = false;\n  let ytPlayer = null;\n  let ytReady = false;\n  let audioEl = null;\n  let unmuted = false;\n\n  function track() { return PLAYLIST[current]; }\n\n  function updateInfo() {\n    const t = track();\n    if (!t) { titleEl.textContent = '\u2014'; artistEl.textContent = 'Aucun morceau configur\u00e9'; return; }\n    titleEl.textContent = t.title || 'Titre inconnu';\n    artistEl.textContent = t.artist || '';\n  }\n\n  function setPlayingUI(playing) {\n    isPlaying = playing;\n    bar.classList.toggle('playing', playing);\n    if (!unmuted && playing) {\n      iconEl.textContent = '\ud83d\udd07';\n    } else {\n      iconEl.textContent = playing ? '\u275a\u275a' : '\u25b6';\n    }\n  }\n\n  function getAudioEl() {\n    if (!audioEl) {\n      audioEl = new Audio();\n      audioEl.volume = volSlider.value / 100;\n      audioEl.muted = !unmuted;\n      audioEl.addEventListener('ended', playNext);\n    }\n    return audioEl;\n  }\n\n  function playMp3(t) {\n    if (ytPlayer && ytReady) { try { ytPlayer.stopVideo(); } catch(e){} }\n    const a = getAudioEl();\n    a.muted = !unmuted;\n    a.src = t.src;\n    a.play().then(() => setPlayingUI(true)).catch(() => setPlayingUI(false));\n  }\n\n  function pauseMp3() {\n    if (audioEl) audioEl.pause();\n    setPlayingUI(false);\n  }\n\n  function loadYouTubeAPI(cb) {\n    if (window.YT && window.YT.Player) { cb(); return; }\n    const tag = document.createElement('script');\n    tag.src = 'https://www.youtube.com/iframe_api';\n    document.head.appendChild(tag);\n    window.onYouTubeIframeAPIReady = cb;\n  }\n\n  function ensureYtPlayer(t, onReadyPlay) {\n    if (ytPlayer && ytReady) {\n      ytPlayer.loadVideoById(t.id);\n      ytPlayer.setVolume(volSlider.value);\n      if (!unmuted) ytPlayer.mute(); else ytPlayer.unMute();\n      if (onReadyPlay) setTimeout(() => ytPlayer.playVideo(), 200);\n      return;\n    }\n    loadYouTubeAPI(() => {\n      ytPlayer = new YT.Player('yt-player', {\n        height: '0', width: '0', videoId: t.id,\n        playerVars: { autoplay: 1, mute: 1, controls: 0, disablekb: 1, fs: 0, modestbranding: 1 },\n        events: {\n          onReady: (e) => {\n            ytReady = true;\n            e.target.setVolume(volSlider.value);\n            if (!unmuted) e.target.mute(); else e.target.unMute();\n            if (onReadyPlay) e.target.playVideo();\n          },\n          onStateChange: (e) => {\n            if (e.data === YT.PlayerState.PLAYING) setPlayingUI(true);\n            if (e.data === YT.PlayerState.PAUSED) setPlayingUI(false);\n            if (e.data === YT.PlayerState.ENDED) playNext();\n          }\n        }\n      });\n    });\n  }\n\n  function playYoutube(t) {\n    if (audioEl) audioEl.pause();\n    ensureYtPlayer(t, true);\n  }\n\n  function pauseYoutube() {\n    if (ytPlayer && ytReady) ytPlayer.pauseVideo();\n    setPlayingUI(false);\n  }\n\n  function playCurrent() {\n    const t = track();\n    if (!t) return;\n    updateInfo();\n    if (t.type === 'youtube') playYoutube(t);\n    else playMp3(t);\n  }\n\n  function pauseCurrent() {\n    const t = track();\n    if (!t) return;\n    if (t.type === 'youtube') pauseYoutube();\n    else pauseMp3();\n  }\n\n  function playNext() {\n    if (PLAYLIST.length === 0) return;\n    current = (current + 1) % PLAYLIST.length;\n    playCurrent();\n  }\n\n  function togglePlay() {\n    if (PLAYLIST.length === 0) return;\n    if (isPlaying) pauseCurrent();\n    else playCurrent();\n  }\n\n  function unmuteAll() {\n    if (unmuted) return;\n    unmuted = true;\n    if (audioEl) audioEl.muted = false;\n    if (ytPlayer && ytReady) ytPlayer.unMute();\n    setPlayingUI(isPlaying);\n  }\n\n  volSlider.addEventListener('input', () => {\n    const v = volSlider.value;\n    if (audioEl) audioEl.volume = v / 100;\n    if (ytPlayer && ytReady) ytPlayer.setVolume(v);\n  });\n\n  bar.addEventListener('click', (e) => {\n    if (e.target === volSlider) return;\n    unmuteAll();\n    togglePlay();\n  });\n\n  updateInfo();\n  playCurrent();\n\n  function firstInteractionUnmute() {\n    unmuteAll();\n    document.removeEventListener('click', firstInteractionUnmute);\n    document.removeEventListener('touchstart', firstInteractionUnmute);\n    document.removeEventListener('keydown', firstInteractionUnmute);\n    document.removeEventListener('scroll', firstInteractionUnmute);\n    document.removeEventListener('mousemove', firstInteractionUnmute);\n  }\n  document.addEventListener('click', firstInteractionUnmute);\n  document.addEventListener('touchstart', firstInteractionUnmute);\n  document.addEventListener('keydown', firstInteractionUnmute);\n  document.addEventListener('scroll', firstInteractionUnmute);\n  document.addEventListener('mousemove', firstInteractionUnmute);\n})();\n<\/script>\n\n<script>\n// ---- Protection basique anti-clic droit / devtools (optionnel) ----\ndocument.addEventListener('contextmenu', e => e.preventDefault());\ndocument.addEventListener('keydown', e => {\n  const k = e.key;\n  const blocked =\n    k === 'F12' ||\n    (e.ctrlKey && e.shiftKey && (k === 'I' || k === 'i' || k === 'J' || k === 'j' || k === 'C' || k === 'c')) ||\n    (e.ctrlKey && (k === 'U' || k === 'u')) ||\n    (e.metaKey && e.altKey && (k === 'I' || k === 'i' || k === 'J' || k === 'j' || k === 'C' || k === 'c'));\n  if (blocked) e.preventDefault();\n});\n<\/script>\n\n</body>\n</html>\n";
+const PAGE_TEMPLATE = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\"/>\n<link rel=\"icon\" type=\"image/x-icon\" id=\"meta-favicon\" href=\"./favicon.png\"/>\n\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n<title id=\"meta-title\">My Profile</title>\n<meta name=\"description\" id=\"meta-description\" content=\"\u2726 Profile \u2726\"/>\n<meta property=\"og:title\" id=\"meta-og-title\" content=\"My Profile\"/>\n<meta property=\"og:description\" id=\"meta-og-description\" content=\"\u2726 Profile \u2726\"/>\n<meta name=\"theme-color\" id=\"meta-theme-color\" content=\"#e6262b\"/>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"/>\n<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Rajdhani:wght@300;500;700&display=swap\" rel=\"stylesheet\"/>\n<style>\n:root {\n  --red: #e6262b;\n  --red2: #ff4d4d;\n  --red3: #f5f5f5;\n  --gold: #cc2026;\n  --gold2: #f5f5f5;\n  --dark: #050505;\n  --dark2: #0c0c0c;\n  --dark3: #161616;\n}\n* { margin:0; padding:0; box-sizing:border-box; }\n\nbody {\n  background: var(--dark);\n  color: var(--gold2);\n  font-family: 'Rajdhani', sans-serif;\n  min-height: 100vh;\n  overflow-x: hidden;\n}\n\n#bg {\n  position: fixed; inset: 0; z-index: 0;\n  background: radial-gradient(ellipse at 50% 0%, #1a0707 0%, #0c0c0c 40%, #050505 100%);\n}\n#bg::before {\n  content: '';\n  position: absolute; inset: 0;\n  background-image:\n    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(230,38,43,0.04) 60px, rgba(230,38,43,0.04) 61px),\n    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(230,38,43,0.04) 60px, rgba(230,38,43,0.04) 61px);\n}\n#particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }\n\n#bg-watermark {\n  position: fixed;\n  width: 700px; height: 700px;\n  top: 50%; left: 50%;\n  transform: translate(-50%, -50%);\n  z-index: 1;\n  opacity: 0.06;\n  filter: brightness(3) grayscale(0.3);\n  display: flex; align-items: center; justify-content: center;\n  animation: rotateSlow 60s linear infinite;\n}\n#bg-watermark img { width: 80%; max-width: 600px; height: auto; }\n@keyframes rotateSlow { to { transform: translate(-50%,-50%) rotate(360deg); } }\n\n#wrap {\n  position: relative; z-index: 10;\n  max-width: 480px;\n  margin: 0 auto;\n  padding: 40px 20px 60px;\n  display: flex; flex-direction: column; align-items: center;\n  gap: 0;\n}\n\n.username {\n  font-family: 'Noto Serif JP', serif;\n  font-size: 28px;\n  font-weight: 700;\n  color: var(--gold2);\n  letter-spacing: 6px;\n  text-align: center;\n  text-shadow: 0 0 20px #e6262b66;\n  margin-bottom: 6px;\n}\n.uid {\n  font-size: 11px;\n  color: #888888;\n  letter-spacing: 3px;\n  margin-bottom: 8px;\n}\n.bio {\n  font-size: 13px;\n  color: var(--gold);\n  letter-spacing: 2px;\n  text-align: center;\n  margin-bottom: 6px;\n  font-family: 'Noto Serif JP', serif;\n  font-weight: 300;\n}\n.kanji-row {\n  display: flex; gap: 14px;\n  font-family: 'Noto Serif JP', serif;\n  font-size: 18px;\n  color: var(--red);\n  margin-bottom: 22px;\n  opacity: 0.7;\n}\n\n.divider {\n  width: 100%;\n  display: flex; align-items: center; gap: 10px;\n  margin: 4px 0 20px;\n}\n.divider::before, .divider::after {\n  content: '';\n  flex: 1;\n  height: 1px;\n  background: linear-gradient(90deg, transparent, var(--red), transparent);\n}\n.divider-icon { color: var(--red); font-size: 14px; }\n\n.links { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }\n\n.link-btn {\n  display: flex; align-items: center; gap: 14px;\n  padding: 13px 18px;\n  background: rgba(10,10,22,0.8);\n  border: 1px solid rgba(230,38,43,0.2);\n  border-radius: 8px;\n  color: var(--gold2);\n  text-decoration: none;\n  font-family: 'Rajdhani', sans-serif;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: 1px;\n  transition: all 0.25s;\n  position: relative;\n  overflow: hidden;\n  cursor: pointer;\n}\n.link-btn::before {\n  content: '';\n  position: absolute; left: 0; top: 0; bottom: 0;\n  width: 3px;\n  background: var(--red);\n  opacity: 0;\n  transition: opacity 0.25s;\n}\n.link-btn:hover {\n  background: rgba(230,38,43,0.12);\n  border-color: rgba(255,77,77,0.5);\n  transform: translateX(4px);\n  box-shadow: 0 0 15px #e6262b22;\n}\n.link-btn:hover::before { opacity: 1; }\n.link-icon {\n  width: 32px; height: 32px;\n  display: flex; align-items: center; justify-content: center;\n  flex-shrink: 0;\n}\n.link-icon svg { width: 20px; height: 20px; }\n.link-text { flex: 1; }\n.link-name { display: block; font-size: 13px; font-weight: 700; color: var(--gold2); }\n.link-sub { display: block; font-size: 10px; color: #888888; letter-spacing: 1px; }\n.link-arrow { color: #3a3a3a; font-size: 16px; transition: color 0.25s; }\n.link-btn:hover .link-arrow { color: var(--red); }\n\n.section-title {\n  width: 100%;\n  font-family: 'Noto Serif JP', serif;\n  font-size: 11px;\n  color: var(--red);\n  letter-spacing: 5px;\n  text-transform: uppercase;\n  margin-bottom: 12px;\n  text-align: center;\n}\n.gallery {\n  width: 100%;\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 8px;\n  margin-bottom: 24px;\n}\n.banner-card {\n  grid-column: span 2;\n  aspect-ratio: 3/1 !important;\n}\n.gallery-card {\n  aspect-ratio: 1/1;\n  border-radius: 6px;\n  overflow: hidden;\n  border: 1px solid rgba(230,38,43,0.2);\n  position: relative;\n  cursor: pointer;\n  transition: border-color 0.2s, transform 0.2s;\n}\n.gallery-card:hover {\n  border-color: var(--red);\n  transform: scale(1.02);\n}\n.gallery-card img {\n  width: 100%; height: 100%;\n  object-fit: cover;\n  display: block;\n  filter: brightness(0.85);\n  transition: filter 0.2s;\n}\n.gallery-card:hover img { filter: brightness(1); }\n.gallery-card .card-label {\n  position: absolute; bottom: 0; left: 0; right: 0;\n  background: linear-gradient(transparent, rgba(7,7,15,0.92));\n  padding: 20px 10px 8px;\n  font-size: 10px;\n  letter-spacing: 2px;\n  color: var(--gold);\n  text-align: center;\n}\n\n#modal {\n  display: none;\n  position: fixed; inset: 0; z-index: 100;\n  background: rgba(7,7,15,0.95);\n  align-items: center; justify-content: center;\n  padding: 20px;\n}\n#modal.open { display: flex; }\n#modal-inner {\n  position: relative;\n  max-width: 600px; width: 100%;\n  border: 1px solid var(--red);\n  border-radius: 8px;\n  overflow: hidden;\n  box-shadow: 0 0 40px #e6262b33;\n}\n#modal-inner img { width: 100%; display: block; }\n#modal-close {\n  position: absolute; top: 10px; right: 14px;\n  color: var(--gold2); font-size: 24px;\n  cursor: pointer; background: none; border: none;\n  text-shadow: 0 0 10px #e6262b;\n}\n#modal-caption {\n  position: absolute; bottom: 0; left: 0; right: 0;\n  background: linear-gradient(transparent, rgba(7,7,15,0.96));\n  padding: 30px 16px 14px;\n  font-family: 'Noto Serif JP', serif;\n  font-size: 12px; letter-spacing: 2px; color: var(--gold);\n  text-align: center;\n}\n\n/* ---- FOOTER ---- */\n.footer {\n  font-size: 9px; color: #3a1010;\n  letter-spacing: 3px;\n  text-align: center;\n  margin-top: 10px;\n  font-family: 'Noto Serif JP', serif;\n}\n\n.song-bar {\n  width: 100%;\n  display: flex; align-items: center; gap: 12px;\n  padding: 12px 16px;\n  background: rgba(10,10,22,0.8);\n  border: 1px solid rgba(230,38,43,0.18);\n  border-radius: 8px;\n  margin-bottom: 20px;\n  cursor: pointer;\n  transition: border-color 0.2s;\n}\n.song-bar:hover { border-color: rgba(230,38,43,0.4); }\n.song-icon { color: var(--red); font-size: 20px; flex-shrink: 0; width: 22px; text-align: center; }\n.song-info { flex: 1; min-width: 0; }\n.song-title { font-size: 12px; font-weight: 700; color: var(--gold2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n.song-artist { font-size: 10px; color: #888888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n.song-bars { display: flex; align-items: flex-end; gap: 2px; height: 20px; flex-shrink: 0; }\n.song-bars span {\n  width: 3px; background: var(--red);\n  border-radius: 1px;\n  animation: bar 0.8s ease-in-out infinite alternate;\n  animation-play-state: paused;\n  height: 4px;\n}\n.song-bar.playing .song-bars span { animation-play-state: running; }\n.song-bars span:nth-child(2) { animation-delay: 0.15s; }\n.song-bars span:nth-child(3) { animation-delay: 0.3s; }\n.song-bars span:nth-child(4) { animation-delay: 0.1s; }\n.song-bars span:nth-child(5) { animation-delay: 0.25s; }\n@keyframes bar { from { height: 4px; } to { height: 18px; } }\n.song-vol {\n  flex-shrink: 0; width: 50px; accent-color: var(--red);\n  cursor: pointer;\n}\n\n.discord-card {\n  width: 100%;\n  display: flex; flex-direction: column;\n  background: rgba(10,10,22,0.8);\n  border: 1px solid rgba(230,38,43,0.18);\n  border-radius: 8px;\n  margin-bottom: 20px;\n  position: relative;\n  overflow: hidden;\n}\n.discord-banner {\n  width: 100%;\n  height: 130px;\n  position: relative;\n  overflow: hidden;\n  background: linear-gradient(120deg, #1a0707 0%, #3a0a0a 50%, #0c0c0c 100%);\n}\n.discord-banner img {\n  width: 100%; height: 100%;\n  object-fit: cover;\n  display: block;\n}\n.discord-card-body {\n  display: flex; flex-direction: column; gap: 4px;\n  padding: 12px 16px 16px;\n  position: relative;\n}\n.discord-avatar-wrap {\n  position: relative; flex-shrink: 0;\n  margin-top: -32px;\n  margin-bottom: 6px;\n}\n.discord-avatar {\n  width: 56px; height: 56px;\n  border-radius: 50%;\n  background: #0c0c0c;\n  border: 3px solid #050505;\n  object-fit: cover;\n  display: block;\n}\n.discord-info { width: 100%; min-width: 0; }\n.discord-name { font-size: 15px; font-weight: 700; color: var(--gold2); }\n.discord-status-text {\n  position: absolute; bottom: -4px; right: -8px;\n  font-size: large;\n  font-weight: 700;\n  color: var(--gold2);\n  letter-spacing: 0.3px;\n  white-space: nowrap;\n  background: #050505;\n  border: 2px solid #050505;\n  border-radius: 8px;\n  padding: 1px 5px;\n  line-height: 1.4;\n}\n.discord-activity { margin-top: 8px; }\n.dc-act-card {\n  display: flex; align-items: center; gap: 10px;\n  background: rgb(0 0 0 / 0%);\n  border: 1px solid rgb(230 38 43 / 0%);\n  border-radius: 8px;\n  padding: 8px 10px;\n}\n.dc-act-icon-wrap { position: relative; flex-shrink: 0; width: 42px; height: 42px; }\n.dc-act-icon-wrap img.dc-act-large { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; display: block; background: #0c0c0c; }\n.dc-act-icon-wrap img.dc-act-small {\n  position: absolute; bottom: -4px; right: -4px;\n  width: 18px; height: 18px; border-radius: 50%;\n  border: 2px solid #0a0a16;\n  background: #0a0a16;\n  object-fit: cover;\n}\n.dc-act-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }\n.dc-act-name { font-size: 13px; font-weight: 700; color: var(--gold2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n.dc-act-details { font-size: 11px; font-weight: 500; color: #cfcfcf; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n.dc-act-state { font-size: 11px; font-weight: 500; color: #cfcfcf; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 4px; }\n.dc-act-timer { font-size: 11px; font-weight: 600; color: var(--red2); display: flex; align-items: center; gap: 4px; margin-top: 2px; }\n.dc-act-timer svg { width: 12px; height: 12px; flex-shrink: 0; }\n\n@keyframes fadeUp {\n  from { opacity: 0; transform: translateY(20px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n.fade-up { animation: fadeUp 0.6s ease forwards; opacity: 0; }\n.d1 { animation-delay: 0.1s; }\n.d2 { animation-delay: 0.25s; }\n.d3 { animation-delay: 0.4s; }\n.d4 { animation-delay: 0.55s; }\n.d5 { animation-delay: 0.7s; }\n\n@media (max-width: 400px) {\n  .username { font-size: 22px; }\n}\n</style>\n</head>\n<body>\n\n<div id=\"bg\"></div>\n<canvas id=\"particles\"></canvas>\n<div id=\"bg-watermark\"><img id=\"bg-watermark-img\" src=\"\" alt=\"\"/></div>\n\n<div id=\"wrap\">\n\n  <div class=\"uid fade-up d2\" id=\"profile-uid\"></div>\n  <div class=\"bio fade-up d2\" id=\"profile-bio\"></div>\n  <div class=\"kanji-row fade-up d2\" id=\"profile-kanji\"></div>\n\n  <div class=\"divider fade-up d3\"><span class=\"divider-icon\">\u2726</span></div>\n\n  <div class=\"discord-card fade-up d3\" id=\"discord-card\">\n    <div class=\"discord-banner\" id=\"dc-banner\">\n      <img id=\"dc-banner-img\" src=\"\" alt=\"\" data-tries=\"0\"\n           onerror=\"(function(img){\n             const exts = ['png','jpg','jpeg','webp'];\n             const i = parseInt(img.dataset.tries, 10);\n             if (i < exts.length) {\n               img.dataset.tries = i + 1;\n               img.src = './discord-banner.' + exts[i];\n             } else {\n               img.style.display = 'none';\n             }\n           })(this)\"/>\n    </div>\n    <div class=\"discord-card-body\">\n      <div class=\"discord-avatar-wrap\">\n        <img class=\"discord-avatar\" id=\"dc-avatar\" src=\"\" alt=\"avatar\"/>\n        <div class=\"discord-status-text\" id=\"dc-status\">Loading\u2026</div>\n      </div>\n      <div class=\"discord-info\">\n        <div class=\"discord-name\" id=\"dc-name\"></div>\n        <div class=\"discord-activity\" id=\"dc-activity\"></div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"song-bar fade-up d3\" id=\"song-bar\">\n    <span class=\"song-icon\" id=\"song-icon\">\u25b6</span>\n    <div class=\"song-info\">\n      <div class=\"song-title\" id=\"song-title\">\u2014</div>\n      <div class=\"song-artist\" id=\"song-artist\">Click to play</div>\n    </div>\n    <div class=\"song-bars\"><span></span><span></span><span></span><span></span><span></span></div>\n    <input class=\"song-vol\" id=\"song-vol\" type=\"range\" min=\"0\" max=\"100\" value=\"60\" title=\"Volume\"/>\n  </div>\n\n  <div id=\"yt-player\" style=\"display:none;\"></div>\n\n  <div class=\"divider fade-up d4\"><span class=\"divider-icon\">\u2726</span></div>\n\n  <div class=\"section-title fade-up d4\" id=\"links-title\">\u2014 Links \u2014</div>\n  <div class=\"links fade-up d4\" id=\"links-container\"></div>\n\n  <div class=\"divider fade-up d5\"><span class=\"divider-icon\">\u2726</span></div>\n\n  <div class=\"section-title fade-up d5\" id=\"gallery-title\">\u2014 Gallery \u2014</div>\n  <div class=\"gallery fade-up d5\" id=\"gallery-container\"></div>\n\n</div>\n\n<div id=\"modal\">\n  <div id=\"modal-inner\">\n    <button id=\"modal-close\" onclick=\"closeModal()\">\u2715</button>\n    <img id=\"modal-img\" src=\"\" alt=\"\"/>\n    <div id=\"modal-caption\"></div>\n  </div>\n</div>\n\n<!-- ============================================================\n     AREA TO CUSTOMIZE\n     Only edit the CONFIG object below.\n     You do not need to touch anything else in this file.\n     ============================================================ -->\n<script>\nconst CONFIG = __CONFIG_JSON__;\n<\/script>\n<!-- ============================================================\n     END OF CUSTOMIZATION AREA\n     Everything below is template logic \u2014 no need to touch it.\n     ============================================================ -->\n\n<script>\n(function applyConfig() {\n\n  // -- Colors --\n  const root = document.documentElement;\n  Object.entries(CONFIG.colors).forEach(([key, val]) => {\n    root.style.setProperty('--' + key, val);\n  });\n\n  // -- Meta / SEO --\n  document.getElementById('meta-title').textContent = CONFIG.site.title;\n  document.title = CONFIG.site.title;\n  document.getElementById('meta-description').setAttribute('content', CONFIG.site.description);\n  document.getElementById('meta-og-title').setAttribute('content', CONFIG.site.title);\n  document.getElementById('meta-og-description').setAttribute('content', CONFIG.site.description);\n  document.getElementById('meta-theme-color').setAttribute('content', CONFIG.site.themeColor);\n  document.getElementById('meta-favicon').setAttribute('href', CONFIG.site.favicon);\n  document.getElementById('bg-watermark-img').setAttribute('src', CONFIG.site.backgroundWatermark);\n\n  // -- Profile --\n  document.getElementById('profile-uid').textContent = CONFIG.profile.uid;\n  document.getElementById('profile-bio').textContent = CONFIG.profile.bio;\n  const kanjiEl = document.getElementById('profile-kanji');\n  kanjiEl.innerHTML = CONFIG.profile.kanji.map(k => `<span>${k}</span>`).join('');\n\n  // -- Section titles --\n  document.getElementById('links-title').textContent = CONFIG.linksTitle;\n  document.getElementById('gallery-title').textContent = CONFIG.galleryTitle;\n\n  // -- Discord banner (hardcoded fallback) --\n  document.getElementById('dc-banner-img').setAttribute('src', CONFIG.discord.bannerImage);\n\n  // -- SVG icons available for links --\n  const ICONS = {\n    instagram: `<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#e6262b\" stroke-width=\"2\"><rect x=\"2\" y=\"2\" width=\"20\" height=\"20\" rx=\"5\" ry=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"17.5\" cy=\"6.5\" r=\"0.5\" fill=\"#e6262b\"/></svg>`,\n    discord: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M20.32 4.37A19.8 19.8 0 0 0 15.33 3c-.22.38-.48.9-.65 1.3a18.3 18.3 0 0 0-5.36 0C9.15 3.9 8.88 3.38 8.66 3a19.7 19.7 0 0 0-4.99 1.38C1.28 8.35.58 12.22 1 16.05a19.9 19.9 0 0 0 5.99 2.96 14.7 14.7 0 0 0 1.3-2.07 12.9 12.9 0 0 1-2.04-.96l.5-.38a14.3 14.3 0 0 0 12.06 0l.5.38c-.65.37-1.33.69-2.04.96a14.5 14.5 0 0 0 1.3 2.07 19.8 19.8 0 0 0 5.99-2.96c.49-4.46-.76-8.3-3.24-11.68zM8.68 13.8c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32zm6.64 0c-1.15 0-2.1-1.04-2.1-2.32s.93-2.32 2.1-2.32c1.16 0 2.12 1.04 2.1 2.32 0 1.28-.94 2.32-2.1 2.32z\"/></svg>`,\n    vrchat: `<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#e6262b\" stroke-width=\"1.8\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z\"/><path d=\"M3 11h2M19 11h2\" stroke-linecap=\"round\"/><circle cx=\"9\" cy=\"12\" r=\"2.2\" fill=\"#e6262b\" stroke=\"none\"/><circle cx=\"15\" cy=\"12\" r=\"2.2\" fill=\"#e6262b\" stroke=\"none\"/><path d=\"M11.2 12h1.6\" stroke-width=\"1.4\" stroke-linecap=\"round\"/></svg>`,\n    tiktok: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-1.83-2.48V9.66a5.96 5.96 0 0 0-1.31-.15A6 6 0 1 0 15.05 15v-6.1a7.31 7.31 0 0 0 4.27 1.37V7.13a4.27 4.27 0 0 1-2.72-1.31z\"/></svg>`,\n    twitter: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05A4.3 4.3 0 0 0 16.1 4c-2.37 0-4.29 1.97-4.29 4.4 0 .35.04.68.1 1A12.13 12.13 0 0 1 3 4.79s-1.67 4.07 2.13 6.13a4.3 4.3 0 0 1-1.94-.55s-.34 3.4 3.4 4.2a4.7 4.7 0 0 1-2.07.08s.65 2.6 3.65 2.87A8.6 8.6 0 0 1 2 19.13 12.1 12.1 0 0 0 8.6 21c7.5 0 11.6-6.32 11.6-11.8l-.01-.54c.8-.58 1.5-1.3 2.27-2.66z\"/></svg>`,\n    youtube: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M23 12s0-3.6-.46-5.3A2.9 2.9 0 0 0 20.5 4.7C18.9 4.3 12 4.3 12 4.3s-6.9 0-8.5.4A2.9 2.9 0 0 0 1.46 6.7C1 8.4 1 12 1 12s0 3.6.46 5.3a2.9 2.9 0 0 0 2.04 2c1.6.4 8.5.4 8.5.4s6.9 0 8.5-.4a2.9 2.9 0 0 0 2.04-2C23 15.6 23 12 23 12zM9.8 15.5V8.5l6 3.5z\"/></svg>`,\n    twitch: `<svg viewBox=\"0 0 24 24\" fill=\"#e6262b\"><path d=\"M4 2 2 6v14h6v2h3l2-2h4l4-4V2H4zm15 13-3 3h-4l-2 2v-2H6V4h13v11z\"/><rect x=\"14\" y=\"7\" width=\"2\" height=\"5\"/><rect x=\"9\" y=\"7\" width=\"2\" height=\"5\"/></svg>`,\n    link: `<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#e6262b\" stroke-width=\"2\"><path d=\"M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.5\"/><path d=\"M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07l1.36-1.36\"/></svg>`\n  };\n\n  // -- Render links --\n  const linksContainer = document.getElementById('links-container');\n  linksContainer.innerHTML = CONFIG.links.map(l => `\n    <a class=\"link-btn\" href=\"${l.url}\" target=\"_blank\" rel=\"noopener\">\n      <div class=\"link-icon\">${ICONS[l.icon] || ICONS.link}</div>\n      <div class=\"link-text\">\n        <span class=\"link-name\">${l.name}</span>\n        <span class=\"link-sub\">${l.sub || ''}</span>\n      </div>\n      <span class=\"link-arrow\">\u203a</span>\n    </a>\n  `).join('');\n\n  // -- Render gallery + prepare modal --\n  const galleryContainer = document.getElementById('gallery-container');\n  window.modalImgs = CONFIG.gallery.map(g => ({ src: g.src, caption: g.caption }));\n  galleryContainer.innerHTML = CONFIG.gallery.map((g, i) => `\n    <div class=\"gallery-card${g.banner ? ' banner-card' : ''}\" onclick=\"openModal(${i})\">\n      <img src=\"${g.src}\" alt=\"${g.caption || ''}\"/>\n      ${g.caption ? `<div class=\"card-label\">${g.caption}</div>` : ''}\n    </div>\n  `).join('');\n\n})();\n<\/script>\n\n<script>\nfunction openModal(i) {\n  document.getElementById('modal-img').src = window.modalImgs[i].src;\n  document.getElementById('modal-caption').textContent = window.modalImgs[i].caption || '';\n  document.getElementById('modal').classList.add('open');\n}\nfunction closeModal() {\n  document.getElementById('modal').classList.remove('open');\n}\ndocument.getElementById('modal').addEventListener('click', function(e) {\n  if (e.target === this) closeModal();\n});\ndocument.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });\n<\/script>\n\n<script>\n// ---- Animated particle background ----\nconst canvas = document.getElementById('particles');\nconst ctx = canvas.getContext('2d');\nlet W, H, particles = [];\n\nfunction resize() {\n  W = canvas.width = window.innerWidth;\n  H = canvas.height = window.innerHeight;\n}\nresize();\nwindow.addEventListener('resize', resize);\n\nfunction createParticle() {\n  return {\n    x: Math.random() * W,\n    y: Math.random() * H + H,\n    size: Math.random() * 2 + 0.5,\n    speed: Math.random() * 0.6 + 0.2,\n    opacity: Math.random() * 0.5 + 0.1,\n    flicker: Math.random() * 0.02,\n  };\n}\n\nfor (let i = 0; i < 60; i++) {\n  const p = createParticle();\n  p.y = Math.random() * H;\n  particles.push(p);\n}\n\nfunction animParticles() {\n  ctx.clearRect(0, 0, W, H);\n  particles.forEach((p, i) => {\n    p.y -= p.speed;\n    p.opacity += p.flicker * (Math.random() > 0.5 ? 1 : -1);\n    p.opacity = Math.max(0.05, Math.min(0.6, p.opacity));\n    if (p.y < -10) particles[i] = createParticle();\n\n    ctx.beginPath();\n    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);\n    ctx.fillStyle = `rgba(230, 50, 50, ${p.opacity})`;\n    ctx.fill();\n  });\n  requestAnimationFrame(animParticles);\n}\nanimParticles();\n<\/script>\n\n<script>\n// ---- Live Discord presence (Lanyard) ----\n(function() {\n  const USER_ID = CONFIG.discord.userId;\n  const STATUS_COLORS = { online: '#43b581', idle: '#faa61a', dnd: '#f04747', offline: '#747f8d' };\n  const STATUS_LABELS = { online: '\ud83d\udfe2', idle: '\ud83c\udf19', dnd: '\u26d4', offline: '\ud83d\udca4' };\n\n  function applyStatus(data) {\n    const status = data.discord_status || 'offline';\n    const color = STATUS_COLORS[status] || STATUS_COLORS.offline;\n    const card = document.getElementById('discord-card');\n    const statusEl = document.getElementById('dc-status');\n    const activityEl = document.getElementById('dc-activity');\n    const nameEl = document.getElementById('dc-name');\n    const avatarEl = document.getElementById('dc-avatar');\n\n    card.style.setProperty('--dc-color', color);\n    statusEl.textContent = STATUS_LABELS[status] || '\u26ab Offline';\n\n    if (data.discord_user) {\n      const u = data.discord_user;\n      nameEl.textContent = u.global_name || u.username || 'User';\n      avatarEl.src = u.avatar\n        ? `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=64`\n        : `https://cdn.discordapp.com/embed/avatars/0.png`;\n    }\n\n    activityEl.innerHTML = '';\n    if (window.__dcActTimerInterval) { clearInterval(window.__dcActTimerInterval); window.__dcActTimerInterval = null; }\n\n    if (data.spotify) {\n      const sp = data.spotify;\n      let html = '<div class=\"dc-act-card\"><div class=\"dc-act-icon-wrap\">';\n      html += sp.album_art_url ? `<img class=\"dc-act-large\" src=\"${sp.album_art_url}\" onerror=\"this.style.display='none'\"/>` : '<div class=\"dc-act-large\" style=\"background:#0c0c0c;\"></div>';\n      html += '</div><div class=\"dc-act-text\">';\n      html += `<div class=\"dc-act-name\">${sp.song}</div>`;\n      html += `<div class=\"dc-act-details\">${sp.artist}</div>`;\n      if (sp.timestamps && sp.timestamps.start) {\n        html += `<div class=\"dc-act-timer\" id=\"dc-act-timer\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 3\"/></svg><span id=\"dc-act-timer-text\"></span></div>`;\n      }\n      html += '</div></div>';\n      activityEl.innerHTML = html;\n\n      if (sp.timestamps && sp.timestamps.start) {\n        const startTs = sp.timestamps.start;\n        const endTs = sp.timestamps.end || null;\n        const timerText = document.getElementById('dc-act-timer-text');\n        function fmt(ms) {\n          const total = Math.max(0, Math.floor(ms / 1000));\n          const m = Math.floor(total / 60);\n          const s = total % 60;\n          return `${m}:${String(s).padStart(2, '0')}`;\n        }\n        function tick() {\n          if (!timerText) return;\n          const elapsed = Date.now() - startTs;\n          timerText.textContent = endTs ? `${fmt(elapsed)} / ${fmt(endTs - startTs)}` : fmt(elapsed);\n        }\n        tick();\n        window.__dcActTimerInterval = setInterval(tick, 1000);\n      }\n    } else if (data.activities && data.activities.length > 0) {\n      const act = data.activities.find(a => a.type !== 4) || data.activities[0];\n      if (act && act.name) {\n        let largeUrl = '', smallUrl = '';\n        if (act.assets) {\n          if (act.assets.large_image && act.application_id) {\n            const img = act.assets.large_image;\n            largeUrl = img.startsWith('mp:') ?\n              `https://media.discordapp.net/${img.replace('mp:', '')}` :\n              `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;\n          }\n          if (act.assets.small_image && act.application_id) {\n            const img = act.assets.small_image;\n            smallUrl = img.startsWith('mp:') ?\n              `https://media.discordapp.net/${img.replace('mp:', '')}` :\n              `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;\n          }\n        }\n\n        const nameLine = act.type === 4 ? (act.state || act.name) : act.name;\n        const detailsLine = act.type !== 4 ? act.details : '';\n        const stateLine = act.type !== 4 ? act.state : '';\n\n        let html = '<div class=\"dc-act-card\"><div class=\"dc-act-icon-wrap\">';\n        html += largeUrl ? `<img class=\"dc-act-large\" src=\"${largeUrl}\" onerror=\"this.style.display='none'\"/>` : '<div class=\"dc-act-large\" style=\"background:#0c0c0c;\"></div>';\n        if (smallUrl) html += `<img class=\"dc-act-small\" src=\"${smallUrl}\" onerror=\"this.remove()\" title=\"${act.assets.small_text || ''}\"/>`;\n        html += '</div><div class=\"dc-act-text\">';\n        html += `<div class=\"dc-act-name\">${nameLine}</div>`;\n        if (detailsLine) html += `<div class=\"dc-act-details\">${detailsLine}</div>`;\n        if (stateLine) html += `<div class=\"dc-act-state\">${stateLine}</div>`;\n        if (act.timestamps && act.timestamps.start) {\n          html += `<div class=\"dc-act-timer\" id=\"dc-act-timer\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 3\"/></svg><span id=\"dc-act-timer-text\"></span></div>`;\n        }\n        html += '</div></div>';\n        activityEl.innerHTML = html;\n\n        if (act.timestamps && act.timestamps.start) {\n          const startTs = act.timestamps.start;\n          const timerText = document.getElementById('dc-act-timer-text');\n          function fmt(ms) {\n            const total = Math.max(0, Math.floor(ms / 1000));\n            const h = Math.floor(total / 3600);\n            const m = Math.floor((total % 3600) / 60);\n            const s = total % 60;\n            const pad = n => String(n).padStart(2, '0');\n            return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${pad(m)}:${pad(s)}`;\n          }\n          function tick() {\n            if (timerText) timerText.textContent = fmt(Date.now() - startTs);\n          }\n          tick();\n          window.__dcActTimerInterval = setInterval(tick, 1000);\n        }\n      }\n    }\n  }\n\n  function connectWS() {\n    const ws = new WebSocket('wss://api.lanyard.rest/socket');\n    let heartbeat;\n    ws.onopen = () => {\n      ws.send(JSON.stringify({ op: 2, d: { subscribe_to_id: USER_ID } }));\n    };\n    ws.onmessage = (e) => {\n      const msg = JSON.parse(e.data);\n      if (msg.op === 1) {\n        heartbeat = setInterval(() => ws.send(JSON.stringify({ op: 3 })), msg.d.heartbeat_interval);\n      }\n      if (msg.op === 0 && (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE')) {\n        applyStatus(msg.d);\n      }\n    };\n    ws.onclose = () => { clearInterval(heartbeat); setTimeout(connectWS, 5000); };\n    ws.onerror = () => ws.close();\n  }\n\n  fetch(`https://api.lanyard.rest/v1/users/${USER_ID}`)\n    .then(r => r.json())\n    .then(j => { if (j.success) applyStatus(j.data); })\n    .catch(() => {});\n\n  connectWS();\n})();\n<\/script>\n\n<script>\n// ---- Audio player (local MP3 or YouTube) ----\n(function() {\n  const PLAYLIST = CONFIG.music.playlist;\n  const bar       = document.getElementById('song-bar');\n  const iconEl    = document.getElementById('song-icon');\n  const titleEl   = document.getElementById('song-title');\n  const artistEl  = document.getElementById('song-artist');\n  const volSlider = document.getElementById('song-vol');\n\n  let current = 0;\n  let isPlaying = false;\n  let ytPlayer = null;\n  let ytReady = false;\n  let audioEl = null;\n  let unmuted = false;\n\n  function track() { return PLAYLIST[current]; }\n\n  function updateInfo() {\n    const t = track();\n    if (!t) { titleEl.textContent = '\u2014'; artistEl.textContent = 'No track configured'; return; }\n    titleEl.textContent = t.title || 'Unknown title';\n    artistEl.textContent = t.artist || '';\n  }\n\n  function setPlayingUI(playing) {\n    isPlaying = playing;\n    bar.classList.toggle('playing', playing);\n    if (!unmuted && playing) {\n      iconEl.textContent = '\ud83d\udd07';\n    } else {\n      iconEl.textContent = playing ? '\u275a\u275a' : '\u25b6';\n    }\n  }\n\n  function getAudioEl() {\n    if (!audioEl) {\n      audioEl = new Audio();\n      audioEl.volume = volSlider.value / 100;\n      audioEl.muted = !unmuted;\n      audioEl.addEventListener('ended', playNext);\n    }\n    return audioEl;\n  }\n\n  function playMp3(t) {\n    if (ytPlayer && ytReady) { try { ytPlayer.stopVideo(); } catch(e){} }\n    const a = getAudioEl();\n    a.muted = !unmuted;\n    a.src = t.src;\n    a.play().then(() => setPlayingUI(true)).catch(() => setPlayingUI(false));\n  }\n\n  function pauseMp3() {\n    if (audioEl) audioEl.pause();\n    setPlayingUI(false);\n  }\n\n  function loadYouTubeAPI(cb) {\n    if (window.YT && window.YT.Player) { cb(); return; }\n    const tag = document.createElement('script');\n    tag.src = 'https://www.youtube.com/iframe_api';\n    document.head.appendChild(tag);\n    window.onYouTubeIframeAPIReady = cb;\n  }\n\n  function ensureYtPlayer(t, onReadyPlay) {\n    if (ytPlayer && ytReady) {\n      ytPlayer.loadVideoById(t.id);\n      ytPlayer.setVolume(volSlider.value);\n      if (!unmuted) ytPlayer.mute(); else ytPlayer.unMute();\n      if (onReadyPlay) setTimeout(() => ytPlayer.playVideo(), 200);\n      return;\n    }\n    loadYouTubeAPI(() => {\n      ytPlayer = new YT.Player('yt-player', {\n        height: '0', width: '0', videoId: t.id,\n        playerVars: { autoplay: 1, mute: 1, controls: 0, disablekb: 1, fs: 0, modestbranding: 1 },\n        events: {\n          onReady: (e) => {\n            ytReady = true;\n            e.target.setVolume(volSlider.value);\n            if (!unmuted) e.target.mute(); else e.target.unMute();\n            if (onReadyPlay) e.target.playVideo();\n          },\n          onStateChange: (e) => {\n            if (e.data === YT.PlayerState.PLAYING) setPlayingUI(true);\n            if (e.data === YT.PlayerState.PAUSED) setPlayingUI(false);\n            if (e.data === YT.PlayerState.ENDED) playNext();\n          }\n        }\n      });\n    });\n  }\n\n  function playYoutube(t) {\n    if (audioEl) audioEl.pause();\n    ensureYtPlayer(t, true);\n  }\n\n  function pauseYoutube() {\n    if (ytPlayer && ytReady) ytPlayer.pauseVideo();\n    setPlayingUI(false);\n  }\n\n  function playCurrent() {\n    const t = track();\n    if (!t) return;\n    updateInfo();\n    if (t.type === 'youtube') playYoutube(t);\n    else playMp3(t);\n  }\n\n  function pauseCurrent() {\n    const t = track();\n    if (!t) return;\n    if (t.type === 'youtube') pauseYoutube();\n    else pauseMp3();\n  }\n\n  function playNext() {\n    if (PLAYLIST.length === 0) return;\n    current = (current + 1) % PLAYLIST.length;\n    playCurrent();\n  }\n\n  function togglePlay() {\n    if (PLAYLIST.length === 0) return;\n    if (isPlaying) pauseCurrent();\n    else playCurrent();\n  }\n\n  function unmuteAll() {\n    if (unmuted) return;\n    unmuted = true;\n    if (audioEl) audioEl.muted = false;\n    if (ytPlayer && ytReady) ytPlayer.unMute();\n    setPlayingUI(isPlaying);\n  }\n\n  volSlider.addEventListener('input', () => {\n    const v = volSlider.value;\n    if (audioEl) audioEl.volume = v / 100;\n    if (ytPlayer && ytReady) ytPlayer.setVolume(v);\n  });\n\n  bar.addEventListener('click', (e) => {\n    if (e.target === volSlider) return;\n    unmuteAll();\n    togglePlay();\n  });\n\n  updateInfo();\n  playCurrent();\n\n  function firstInteractionUnmute() {\n    unmuteAll();\n    document.removeEventListener('click', firstInteractionUnmute);\n    document.removeEventListener('touchstart', firstInteractionUnmute);\n    document.removeEventListener('keydown', firstInteractionUnmute);\n    document.removeEventListener('scroll', firstInteractionUnmute);\n    document.removeEventListener('mousemove', firstInteractionUnmute);\n  }\n  document.addEventListener('click', firstInteractionUnmute);\n  document.addEventListener('touchstart', firstInteractionUnmute);\n  document.addEventListener('keydown', firstInteractionUnmute);\n  document.addEventListener('scroll', firstInteractionUnmute);\n  document.addEventListener('mousemove', firstInteractionUnmute);\n})();\n<\/script>\n\n<script>\n// ---- Basic right-click / devtools protection (optional) ----\ndocument.addEventListener('contextmenu', e => e.preventDefault());\ndocument.addEventListener('keydown', e => {\n  const k = e.key;\n  const blocked =\n    k === 'F12' ||\n    (e.ctrlKey && e.shiftKey && (k === 'I' || k === 'i' || k === 'J' || k === 'j' || k === 'C' || k === 'c')) ||\n    (e.ctrlKey && (k === 'U' || k === 'u')) ||\n    (e.metaKey && e.altKey && (k === 'I' || k === 'i' || k === 'J' || k === 'j' || k === 'C' || k === 'c'));\n  if (blocked) e.preventDefault();\n});\n<\/script>\n\n</body>\n</html>\n";
 
 /* ---------------- state ---------------- */
 const state = {
@@ -524,11 +578,11 @@ const state = {
     { type: 'mp3', src: '', title: '', artist: '', mode:'upload' }
   ],
   links: [
-    { icon: 'instagram', name: 'Instagram', sub: 'INSTAGRAM.COM/TONPSEUDO', url: 'https://www.instagram.com/' },
-    { icon: 'discord', name: 'Discord | @pseudo', sub: 'DISCORD', url: '' },
+    { icon: 'instagram', name: 'Instagram', sub: 'INSTAGRAM.COM/YOURNAME', url: 'https://www.instagram.com/' },
+    { icon: 'discord', name: 'Discord | @username', sub: 'DISCORD', url: '' },
   ],
   gallery: [
-    { mode:'upload', src: '', caption: 'MA BANNIÈRE', banner: true },
+    { mode:'upload', src: '', caption: 'MY BANNER', banner: true },
   ]
 };
 
@@ -580,11 +634,11 @@ function imageFieldHTML(idAttr){
       </div>
       <div class="image-input-upload upload-zone">
         <div class="thumb" data-thumb></div>
-        <div class="upload-label" data-label>Aucun fichier choisi</div>
-        <button type="button" class="btn-mini" data-pick>Choisir</button>
+        <div class="upload-label" data-label>No file chosen</div>
+        <button type="button" class="btn-mini" data-pick>Choose</button>
         <input type="file" accept="image/*" data-file/>
       </div>
-      <input type="url" class="image-input-url" placeholder="https://exemple.com/image.jpg" data-url/>
+      <input type="url" class="image-input-url" placeholder="https://example.com/image.jpg" data-url/>
     </div>`;
 }
 function wireRowImage(rowEl, item, onChange){
@@ -651,15 +705,15 @@ function renderPlaylist(){
       <div class="list-item-top">
         <span class="idx">${String(i+1).padStart(2,'0')}</span>
         <select data-type style="max-width:130px;">
-          <option value="mp3" ${track.type==='mp3'?'selected':''}>Fichier MP3</option>
-          <option value="youtube" ${track.type==='youtube'?'selected':''}>Vidéo YouTube</option>
+          <option value="mp3" ${track.type==='mp3'?'selected':''}>MP3 file</option>
+          <option value="youtube" ${track.type==='youtube'?'selected':''}>YouTube video</option>
         </select>
         <button type="button" class="remove-btn" data-remove>✕</button>
       </div>
-      <div class="field"><label>Titre</label><input type="text" data-title placeholder="Titre du morceau" value="${esc(track.title)}"/></div>
-      <div class="field"><label>Artiste</label><input type="text" data-artist placeholder="Artiste" value="${esc(track.artist)}"/></div>
-      <div class="field mp3-field" style="${track.type==='youtube'?'display:none;':''}"><label>Fichier audio</label>${imageFieldHTML()}</div>
-      <div class="field yt-field" style="${track.type!=='youtube'?'display:none;':''}"><label>ID vidéo YouTube <span class="hint">ex: dQw4w9WgXcQ</span></label><input type="text" data-ytid placeholder="dQw4w9WgXcQ" value="${track.type==='youtube'?esc(track.src):''}"/></div>
+      <div class="field"><label>Title</label><input type="text" data-title placeholder="Track title" value="${esc(track.title)}"/></div>
+      <div class="field"><label>Artist</label><input type="text" data-artist placeholder="Artist" value="${esc(track.artist)}"/></div>
+      <div class="field mp3-field" style="${track.type==='youtube'?'display:none;':''}"><label>Audio file</label>${imageFieldHTML()}</div>
+      <div class="field yt-field" style="${track.type!=='youtube'?'display:none;':''}"><label>YouTube video ID <span class="hint">e.g. dQw4w9WgXcQ</span></label><input type="text" data-ytid placeholder="dQw4w9WgXcQ" value="${track.type==='youtube'?esc(track.src):''}"/></div>
     `;
     // adapt the generic image-field for audio: hide thumb visuals oddly? keep simple, it's fine for mp3 file picking
     const fileInput = row.querySelector('[data-file]');
@@ -705,8 +759,8 @@ function renderLinks(){
         </select>
         <button type="button" class="remove-btn" data-remove>✕</button>
       </div>
-      <div class="field"><label>Nom affiché</label><input type="text" data-name placeholder="Instagram" value="${esc(link.name)}"/></div>
-      <div class="field"><label>Sous-titre</label><input type="text" data-sub placeholder="INSTAGRAM.COM/TONPSEUDO" value="${esc(link.sub)}"/></div>
+      <div class="field"><label>Display name</label><input type="text" data-name placeholder="Instagram" value="${esc(link.name)}"/></div>
+      <div class="field"><label>Subtitle</label><input type="text" data-sub placeholder="INSTAGRAM.COM/YOURNAME" value="${esc(link.sub)}"/></div>
       <div class="field"><label>URL</label><input type="url" data-url placeholder="https://..." value="${esc(link.url)}"/></div>
     `;
     row.querySelector('[data-icon]').addEventListener('change', e => { link.icon = e.target.value; updatePreview(); });
@@ -736,10 +790,10 @@ function renderGallery(){
         <button type="button" class="remove-btn" data-remove>✕</button>
       </div>
       <div class="field"><label>Image</label>${imageFieldHTML()}</div>
-      <div class="field"><label>Légende</label><input type="text" data-caption placeholder="Légende" value="${esc(g.caption)}"/></div>
+      <div class="field"><label>Caption</label><input type="text" data-caption placeholder="Caption" value="${esc(g.caption)}"/></div>
       <div class="checkbox-row">
         <input type="checkbox" data-banner ${g.banner?'checked':''}/>
-        <label>Image bannière (pleine largeur)</label>
+        <label>Banner image (full width)</label>
       </div>
     `;
     row.querySelector('[data-caption]').addEventListener('input', e => { g.caption = e.target.value; updatePreview(); });
@@ -769,7 +823,7 @@ function buildConfig(){
 
   return {
     site: {
-      title: document.getElementById('f-title').value || 'Mon Profil',
+      title: document.getElementById('f-title').value || 'My Profile',
       description: document.getElementById('f-description').value || '',
       themeColor: document.getElementById('f-themeColor').value || '#e6262b',
       favicon: state.images.favicon.value || './favicon.png',
@@ -857,10 +911,10 @@ document.getElementById('generate-btn').addEventListener('click', () => {
     a.click();
     a.remove();
     URL.revokeObjectURL(url);
-    statusEl.textContent = '✓ Fichier index.html téléchargé — héberge-le où tu veux.';
+    statusEl.textContent = '✓ index.html downloaded — see the hosting guide below to put it online for free.';
     statusEl.className = 'gen-status ok';
   } catch (err) {
-    statusEl.textContent = 'Erreur lors de la génération : ' + err.message;
+    statusEl.textContent = 'Error while generating the file: ' + err.message;
     statusEl.className = 'gen-status err';
   }
 });

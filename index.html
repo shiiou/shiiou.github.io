@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solde — suivi de budget</title>
+<style>
+  :root{
+    --bg:#0b0b0c;
+    --bg-soft:#141415;
+    --line:#262626;
+    --red:#e0263e;
+    --white:#f4f1ee;
+    --grey:#8c8a87;
+    --green:#3ecf8e;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--white);font-family:'Courier New', ui-monospace, monospace;min-height:100vh;}
+  .wrap{max-width:720px;margin:0 auto;padding:32px 20px 80px;}
+
+  .masthead{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--red);padding-bottom:14px;margin-bottom:28px;}
+  .masthead h1{font-family:Georgia,'Times New Roman',serif;font-size:26px;letter-spacing:0.5px;margin:0;font-weight:700;}
+  .masthead .tag{font-size:11px;color:var(--grey);letter-spacing:2px;text-transform:uppercase;}
+
+  .ledger-strip{display:flex;border:1px solid var(--line);background:var(--bg-soft);margin-bottom:28px;}
+  .ledger-cell{flex:1;padding:16px 14px;border-right:1px solid var(--line);}
+  .ledger-cell:last-child{border-right:none;}
+  .ledger-cell .label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-bottom:6px;}
+  .ledger-cell .value{font-size:22px;font-weight:700;font-family:Georgia,serif;}
+  .ledger-cell .value.red{color:var(--red);}
+  .ledger-cell .value.green{color:var(--green);}
+
+  .status-bar{padding:10px 14px;font-size:12px;letter-spacing:0.5px;margin-bottom:28px;border-left:3px solid var(--green);background:rgba(62,207,142,0.07);}
+  .status-bar.danger{border-left-color:var(--red);background:rgba(224,38,62,0.08);color:#ff8a96;}
+
+  section{margin-bottom:32px;}
+  .section-title{font-family:Georgia,serif;font-size:15px;text-transform:uppercase;letter-spacing:1.5px;color:var(--red);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .section-title::after{content:'';flex:1;height:1px;background:var(--line);}
+
+  form.row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  input,select{background:var(--bg-soft);border:1px solid var(--line);color:var(--white);padding:10px 12px;font-family:inherit;font-size:13px;border-radius:2px;}
+  input:focus,select:focus{outline:none;border-color:var(--red);}
+  input[type="text"]{flex:2;min-width:140px;}
+  input[type="number"]{flex:1;min-width:90px;}
+  select{flex:1;min-width:130px;}
+
+  button{background:var(--red);color:var(--white);border:none;padding:10px 18px;font-family:inherit;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;}
+  button:hover{background:#ff2f49;}
+  button.secondary{background:transparent;border:1px solid var(--line);color:var(--grey);}
+  button.secondary:hover{border-color:var(--red);color:var(--white);}
+  button:disabled{opacity:0.4;cursor:not-allowed;}
+
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th{text-align:left;color:var(--grey);text-transform:uppercase;letter-spacing:1px;font-size:10px;padding:8px 6px;border-bottom:1px solid var(--line);}
+  td{padding:9px 6px;border-bottom:1px solid var(--line);}
+  td.amount{text-align:right;color:var(--red);font-weight:700;white-space:nowrap;}
+  tr.empty td{color:var(--grey);text-align:center;padding:20px;}
+  .del{color:var(--grey);cursor:pointer;font-size:14px;}
+  .del:hover{color:var(--red);}
+
+  .cat-pill{font-size:10px;padding:2px 7px;border:1px solid var(--line);border-radius:10px;color:var(--grey);text-transform:uppercase;letter-spacing:0.5px;}
+
+  .recap-box{border:1px solid var(--line);background:var(--bg-soft);padding:16px;margin-bottom:10px;}
+  .recap-box .recap-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+  .recap-box .recap-head .period{font-weight:700;font-family:Georgia,serif;}
+  .breakdown{font-size:12px;color:var(--grey);margin-bottom:10px;}
+  .breakdown div{display:flex;justify-content:space-between;padding:3px 0;}
+
+  .settings{border:1px solid var(--line);padding:16px;font-size:12px;}
+  .settings label{display:block;color:var(--grey);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;margin-top:12px;}
+  .settings input{width:100%;}
+  .hint{color:var(--grey);font-size:11px;margin-top:6px;line-height:1.5;}
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--white);color:#0b0b0c;padding:10px 18px;font-size:12px;border-radius:2px;opacity:0;transition:opacity .3s;pointer-events:none;}
+  .toast.show{opacity:1;}
+  .auto-note{font-size:11px;color:var(--green);margin-top:10px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <h1>SOLDE</h1>
+    <div class="tag">registre de dépenses</div>
+  </div>
+
+  <div id="statusBar" class="status-bar">Chargement…</div>
+
+  <div class="ledger-strip">
+    <div class="ledger-cell">
+      <div class="label">Versé cette semaine</div>
+      <div class="value" id="lblIncome">—</div>
+    </div>
+    <div class="ledger-cell">
+      <div class="label">Dépensé cette semaine</div>
+      <div class="value red" id="lblWeekSpent">—</div>
+    </div>
+    <div class="ledger-cell">
+      <div class="label">Reste cette semaine</div>
+      <div class="value" id="lblWeekLeft">—</div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-title">Ajouter une dépense</div>
+    <form class="row" id="expenseForm">
+      <input type="text" id="fDesc" placeholder="Description" required>
+      <input type="number" id="fAmount" placeholder="Montant €" step="0.01" min="0" required>
+      <select id="fCat">
+        <option value="Nourriture">Nourriture</option>
+        <option value="Loisirs">Loisirs</option>
+        <option value="Transport">Transport</option>
+        <option value="Logement">Logement</option>
+        <option value="Santé">Santé</option>
+        <option value="Abonnements">Abonnements</option>
+        <option value="Autre">Autre</option>
+      </select>
+      <button type="submit">Ajouter</button>
+    </form>
+  </section>
+
+  <section>
+    <div class="section-title">Transactions de la semaine</div>
+    <table>
+      <thead><tr><th>Date</th><th>Description</th><th>Catégorie</th><th style="text-align:right">Montant</th><th></th></tr></thead>
+      <tbody id="txBody"><tr class="empty"><td colspan="5">Aucune dépense pour le moment</td></tr></tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="section-title">Récapitulatifs</div>
+    <div class="recap-box">
+      <div class="recap-head"><span class="period" id="weekPeriodLabel">Cette semaine</span><span id="weekTotal" class="value red">—</span></div>
+      <div class="breakdown" id="weekBreakdown"></div>
+      <button class="secondary" id="sendWeek">Envoyer le récap de la semaine sur Discord</button>
+    </div>
+    <div class="recap-box">
+      <div class="recap-head"><span class="period" id="monthPeriodLabel">Ce mois</span><span id="monthTotal" class="value red">—</span></div>
+      <div class="breakdown" id="monthBreakdown"></div>
+      <button class="secondary" id="sendMonth">Envoyer le récap du mois sur Discord</button>
+    </div>
+    <div class="auto-note">⏰ Envoi automatique aussi configuré côté serveur (récap hebdo + récap mensuel en fin de mois).</div>
+  </section>
+
+  <section>
+    <div class="section-title">Réglages</div>
+    <div class="settings">
+      <label>Montant du versement automatique (€)</label>
+      <input type="number" id="settingIncome" step="0.01" min="0">
+      <div class="hint">Crédité automatiquement tous les mardis à 9h (configurable côté serveur dans .env, variable INCOME_CRON). Change ce montant ici si ton revenu change.</div>
+      <label>Webhook Discord (URL)</label>
+      <input type="text" id="settingWebhook" placeholder="https://discord.com/api/webhooks/...">
+      <div class="hint">Crée un webhook dans : Paramètres du salon Discord → Intégrations → Webhooks → Nouveau webhook, puis copie l'URL ici.</div>
+      <button id="saveSettings" style="margin-top:14px;">Enregistrer</button>
+    </div>
+  </section>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+let data = { weeklyIncome: 0, webhookUrl: '', transactions: [] };
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+function getISOWeekKey(d){
+  const date = new Date(d);
+  date.setHours(0,0,0,0);
+  date.setDate(date.getDate() + 3 - ((date.getDay()+6)%7));
+  const week1 = new Date(date.getFullYear(),0,4);
+  const weekNum = 1 + Math.round(((date - week1) / 86400000 - 3 + ((week1.getDay()+6)%7)) / 7);
+  return date.getFullYear() + '-W' + String(weekNum).padStart(2,'0');
+}
+function getMonthKey(d){
+  const date = new Date(d);
+  return date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0');
+}
+function fmt(n){
+  return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €';
+}
+function startOfWeek(d){
+  const date = new Date(d);
+  const day = (date.getDay()+6)%7;
+  date.setDate(date.getDate()-day);
+  date.setHours(0,0,0,0);
+  return date;
+}
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+async function load(){
+  try{
+    const res = await fetch('/api/data');
+    data = await res.json();
+  }catch(e){
+    toast('Impossible de contacter le serveur');
+  }
+  render();
+}
+
+function render(){
+  document.getElementById('settingIncome').value = data.incomeAmount || '';
+  document.getElementById('settingWebhook').value = data.webhookUrl || '';
+
+  const now = new Date();
+  const weekKey = getISOWeekKey(now);
+  const monthKey = getMonthKey(now);
+
+  const weekTx = data.transactions.filter(t => getISOWeekKey(t.date) === weekKey);
+  const monthTx = data.transactions.filter(t => getMonthKey(t.date) === monthKey);
+
+  const weekSpent = weekTx.reduce((s,t)=>s+t.amount,0);
+  const monthSpent = monthTx.reduce((s,t)=>s+t.amount,0);
+  const weekIncome = data.currentWeekIncome || 0;
+  const weekLeft = weekIncome - weekSpent;
+
+  document.getElementById('lblIncome').textContent = fmt(weekIncome);
+  document.getElementById('lblWeekSpent').textContent = fmt(weekSpent);
+  const leftEl = document.getElementById('lblWeekLeft');
+  leftEl.textContent = fmt(weekLeft);
+  leftEl.className = 'value ' + (weekLeft < 0 ? 'red' : 'green');
+
+  const statusBar = document.getElementById('statusBar');
+  if(weekLeft < 0){
+    statusBar.className = 'status-bar danger';
+    statusBar.textContent = `Dans le rouge : ${fmt(Math.abs(weekLeft))} de dépassement cette semaine.`;
+  } else {
+    statusBar.className = 'status-bar';
+    statusBar.textContent = `Dans le vert : ${fmt(weekLeft)} restants cette semaine.`;
+  }
+
+  const sorted = [...weekTx].sort((a,b)=> new Date(b.date) - new Date(a.date));
+  const tbody = document.getElementById('txBody');
+  if(sorted.length === 0){
+    tbody.innerHTML = '<tr class="empty"><td colspan="5">Aucune dépense pour le moment</td></tr>';
+  } else {
+    tbody.innerHTML = sorted.map(t => `
+      <tr>
+        <td>${new Date(t.date).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'})}</td>
+        <td>${escapeHtml(t.description)}</td>
+        <td><span class="cat-pill">${escapeHtml(t.category)}</span></td>
+        <td class="amount">${fmt(t.amount)}</td>
+        <td><span class="del" data-id="${t.id}">✕</span></td>
+      </tr>
+    `).join('');
+  }
+
+  document.getElementById('weekPeriodLabel').textContent = `Semaine du ${startOfWeek(now).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'})}`;
+  document.getElementById('weekTotal').textContent = fmt(weekSpent);
+  document.getElementById('weekBreakdown').innerHTML = categoryBreakdown(weekTx);
+
+  const monthName = now.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  document.getElementById('monthPeriodLabel').textContent = monthName.charAt(0).toUpperCase()+monthName.slice(1);
+  document.getElementById('monthTotal').textContent = fmt(monthSpent);
+  document.getElementById('monthBreakdown').innerHTML = categoryBreakdown(monthTx);
+}
+
+function categoryBreakdown(txs){
+  if(txs.length === 0) return '<div>Aucune dépense</div>';
+  const byCat = {};
+  txs.forEach(t => byCat[t.category] = (byCat[t.category]||0) + t.amount);
+  return Object.entries(byCat)
+    .sort((a,b)=>b[1]-a[1])
+    .map(([cat,amt]) => `<div><span>${escapeHtml(cat)}</span><span>${fmt(amt)}</span></div>`)
+    .join('');
+}
+
+document.getElementById('expenseForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const description = document.getElementById('fDesc').value.trim();
+  const amount = parseFloat(document.getElementById('fAmount').value);
+  const category = document.getElementById('fCat').value;
+  if(!description || isNaN(amount) || amount <= 0) return;
+
+  try{
+    const res = await fetch('/api/transactions', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ description, amount, category })
+    });
+    data = await res.json();
+    render();
+    document.getElementById('fDesc').value = '';
+    document.getElementById('fAmount').value = '';
+    toast('Dépense ajoutée');
+  }catch(e){
+    toast('Erreur réseau, dépense non sauvegardée');
+  }
+});
+
+document.getElementById('txBody').addEventListener('click', async (e) => {
+  if(e.target.classList.contains('del')){
+    const id = e.target.dataset.id;
+    try{
+      const res = await fetch('/api/transactions/' + id, { method: 'DELETE' });
+      data = await res.json();
+      render();
+      toast('Dépense supprimée');
+    }catch(e){
+      toast('Erreur réseau');
+    }
+  }
+});
+
+document.getElementById('saveSettings').addEventListener('click', async () => {
+  const incomeAmount = parseFloat(document.getElementById('settingIncome').value);
+  const webhookUrl = document.getElementById('settingWebhook').value.trim();
+  try{
+    const res = await fetch('/api/settings', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ incomeAmount: isNaN(incomeAmount)?0:incomeAmount, webhookUrl })
+    });
+    data = await res.json();
+    render();
+    toast('Réglages enregistrés');
+  }catch(e){
+    toast('Erreur réseau');
+  }
+});
+
+document.getElementById('sendWeek').addEventListener('click', async () => {
+  try{
+    const res = await fetch('/api/send-recap/week', { method: 'POST' });
+    const out = await res.json();
+    toast(out.ok ? 'Récap envoyé sur Discord' : 'Échec : ' + out.error);
+  }catch(e){
+    toast('Erreur réseau');
+  }
+});
+
+document.getElementById('sendMonth').addEventListener('click', async () => {
+  try{
+    const res = await fetch('/api/send-recap/month', { method: 'POST' });
+    const out = await res.json();
+    toast(out.ok ? 'Récap envoyé sur Discord' : 'Échec : ' + out.error);
+  }catch(e){
+    toast('Erreur réseau');
+  }
+});
+
+load();
+</script>
+</body>
+</html>
